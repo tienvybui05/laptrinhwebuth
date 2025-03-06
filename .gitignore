@@ -1,0 +1,54 @@
+# 1️⃣ Loại bỏ thư mục của hệ thống và IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# 2️⃣ Loại bỏ thư mục build
+node_modules/
+dist/
+build/
+
+# 3️⃣ Loại bỏ file môi trường và nhạy cảm
+.env
+.env.local
+.env.production
+.env.development
+
+# 4️⃣ Loại bỏ file log
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 5️⃣ Loại bỏ file cache
+.cache/
+*.cache
+*.bak
+
+# 6️⃣ Loại bỏ file PHP session & cache
+sessions/
+cache/
+*.log
+*.sql
+*.sqlite
+
+# 7️⃣ Loại bỏ file biên dịch PHP (nếu có)
+*.pyc
+*.pyo
+*.exe
+*.dll
+
+# 8️⃣ Loại bỏ thư mục tải lên (nếu không cần)
+uploads/
+storage/
+
+# 9️⃣ Loại bỏ Composer (nếu dùng PHP với Composer)
+vendor/
+composer.lock
+
+# 🔟 Loại bỏ các file tạm khi làm việc
+*.~ 
+*.swp 
+*.swo
