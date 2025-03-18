@@ -1,10 +1,13 @@
-body, html{
+body,
+html {
+    width: 100%;
+    height: 100%;
     font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -12,14 +15,16 @@ body, html{
     box-sizing: border-box;
 }
 
-.header{
+.header {
     color: white;
     background-color: #232222;
     padding-left: 30px;
     align-items: center;
     height: 80px;
 }
-.navbar{
+
+/* Navbar */
+.navbar {
     display: flex;
     align-items: center;
     width: 100%;
@@ -28,7 +33,8 @@ body, html{
     box-sizing: border-box;
 }
 
-#logo img{ 
+/* logo */
+#logo img {
     float: left;
     width: 100px;
     height: auto;
@@ -36,36 +42,94 @@ body, html{
     margin: -10px 0px 0px 0px;
 }
 
-#main-menu{
+/* menu */
+#main-menu {
     list-style: none;
     margin: 0;
-    padding:0;
+    padding: 0;
     display: flex;
     justify-self: space-around;
     width: 60%;
-    
+
 }
 
-#main-menu li{
+#main-menu li {
     display: inline;
     margin: 30px 15px;
 }
 
-#main-menu a{
+#main-menu a {
     color: white;
     text-decoration: none;
     font-size: 16px;
     padding: 10px;
+    position: relative;
+    /* Để sử dụng pseudo-element */
 }
 
-#main-menu a:hover{
-    background-color: #555;
-    color: black;
+#main-menu a:hover {
+    color: rgb(13, 181, 242);
+    /* Giữ màu chữ trắng khi hover */
+    text-decoration: none;
+    /* Loại bỏ gạch chân mặc định */
 }
-.right-icons {
+
+#main-menu a::after {
+    content: "";
+    /* Tạo một pseudo-element */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    /* Độ dày của gạch ngang */
+    background-color: white;
+    /* Màu của gạch ngang */
+    transition: width 0.3s ease;
+    /* Hiệu ứng mở rộng */
+}
+
+#main-menu a:hover::after {
+    width: 100%;
+    /* Gạch ngang mở rộng toàn bộ chiều rộng */
+}
+
+/* Thanh tìm kiếm */
+.search-bar {
     display: flex;
     align-items: center;
-    margin: auto;
+    margin: 0 50px;
+    /* Khoảng cách giữa menu và biểu tượng */
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.search-bar button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #333;
+}
+
+/* Icon */
+.right-icons {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding-right: 10%;
 }
 
 .right-icons a {
@@ -77,4 +141,126 @@ body, html{
 
 .right-icons a:hover {
     color: #ddd;
+}
+
+/* main */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Footer */
+.footer {
+    background-color: #232222;
+    /* Màu nền của footer */
+    color: white;
+    /* Màu chữ */
+    padding: 20px 0;
+    /* Khoảng cách trên và dưới */
+    font-size: 14px;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    /* Căn đều các phần */
+    flex-wrap: wrap;
+    /* Đảm bảo các phần xuống dòng trên màn hình nhỏ */
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+    flex: 1;
+    /* Chia đều không gian giữa các phần */
+    margin: 10px;
+    /* Khoảng cách giữa các phần */
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    /* Sắp xếp các phần tử theo chiều dọc */
+    align-items: flex-start;
+    /* Căn trái nội dung */
+}
+
+.footer-left img {
+    width: 100px;
+    /* Kích thước logo */
+    margin-bottom: 10px;
+    /* Khoảng cách dưới logo */
+    align-self: center;
+    /* Đưa logo ra giữa theo chiều ngang */
+    margin-bottom: 10px;
+    /* Khoảng cách dưới logo */
+}
+
+.footer-left h3,
+.footer-center h3,
+.footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    /* Khoảng cách dưới tiêu đề */
+}
+
+.footer-left p {
+    margin: 5px 0;
+    /* Khoảng cách giữa các đoạn văn */
+}
+
+.footer-center ul,
+.footer-right ul {
+    list-style: none;
+    /* Loại bỏ dấu chấm đầu dòng */
+    padding: 0;
+    margin: 0;
+}
+
+.footer-center ul li,
+.footer-right ul li {
+    margin-bottom: 8px;
+    /* Khoảng cách giữa các mục */
+}
+
+.footer-center ul li a,
+.footer-right ul li a {
+    color: white;
+    /* Màu chữ */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+    font-size: 14px;
+}
+
+.footer-center ul li a:hover,
+.footer-right ul li a:hover {
+    color: rgb(13, 181, 242);
+    /* Màu khi hover */
+}
+
+.footer-right ul li a i {
+    margin-right: 8px;
+    /* Khoảng cách giữa icon và chữ */
+}
+
+.footer p {
+    line-height: 1.6;
+    /* Tăng khoảng cách dòng */
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .footer .container {
+        flex-direction: column;
+        /* Chuyển sang dạng cột trên màn hình nhỏ */
+        text-align: center;
+        /* Căn giữa nội dung */
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        margin-bottom: 20px;
+        /* Khoảng cách giữa các phần */
+    }
 }
