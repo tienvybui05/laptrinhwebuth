@@ -476,15 +476,18 @@ html {
 }
 
 .san-pham-moi {
-    padding: 50px 20px;
-    background-color: #f9f9f9;
+    padding: 10px 20px;
+    background-image: url(../images/backgound.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     text-align: center;
 }
 
 .san-pham-moi h2 {
     font-size: 32px;
     font-weight: 700;
-    color: #ff6600;
+    color: #211e1c;
     margin-bottom: 20px;
     position: relative;
 }
