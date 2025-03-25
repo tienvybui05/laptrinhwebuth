@@ -26,44 +26,41 @@
     transform: scale(1.05); 
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); 
     }
-    .about-section{
-    background-color:whitesmoke;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* border: 2px solid #ddd; */
-    padding: 20px;
-    max-width: 3000px;
-    margin: 20px auto;
-   
+    .gioi-thieu-about{
+        display: grid;
+        grid-template-columns: 40% 60%;
+        margin-top: 15px;
+        max-width: 3000px;
+        padding: 20px;
+        background-color:whitesmoke;
+        justify-content: space-between;
+        margin: 20px auto;
     }
-    .gioi-thieu-section{
-        flex: 1;
+    .noi-dung-gioi-thieu-about{
         padding: 20px;
         text-align: left;
+        color: #000;
+    }
+    .noi-dung-gioi-thieu-about h2{
         color:#000;
-        padding-right: 20px;
-    
+        font-family:Arial;
+        font-size: 40px;
     }
-    .gioi-thieu-section h2{
-            color:#000;
-            font-family:Arial;
-            font-size: 40px;
+    .anh-gioi-thieu-about{
+        padding: 40px;
+        width: 100%;
     }
-    .anh-section{
-        padding: 20px;
-        max-width: 40%;
+    .anh-gioi-thieu-about img{
+        
+        width: 90%;
+        height: 350px;
+        border-radius: 15px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease,box-shadow 0.3s ease;
     }
-    .anh-section img{
-        width: 100%; /* Tăng kích thước ảnh một chút */
-        height: auto;
-        border-radius: 15px; /* Bo tròn góc ảnh */
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
-        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt mà */
-    }
-    .anh-section img:hover {
-        transform: scale(1.05); /* Phóng to nhẹ khi di chuột */
-        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3); /* Tăng bóng khi hover */
+    .anh-gioi-thieu-about img:hover {
+       transform: scale(1.05);
+       box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3);
     }
     .about-san-pham{
         display: flex;
@@ -75,36 +72,36 @@
         border: 2px solid #ddd;
     
     }
-    .about-san-pham .anh-san-pham {
+    .about-san-pham .anh-san-pham-about {
     width: 40%;
     padding: 20px;
 
     }
-    .about-san-pham .anh-san-pham img{
+    .about-san-pham .anh-san-pham-about img{
         width: 100%;
         height: auto;
         border-radius: 12px; 
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
     }
-    .about-san-pham .anh-san-pham img:hover {
+    .about-san-pham .anh-san-pham-about img:hover {
         transform: scale(1.05); 
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); 
     }
-    .about-san-pham .noi-dung-san-pham h2 {
+    .about-san-pham .noi-dung-san-pham-about h2 {
         font-size: 30px;
         font-weight: bold;
         color:#000;
         margin-bottom: 15px;
     }
-    .about-san-pham .noi-dung-san-pham a {
+    .about-san-pham .noi-dung-san-pham-about a {
         color: #00AFFF; /* Màu xanh dương nhạt */
         font-weight: bold;
         text-decoration: none;
         transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
     }
     
-    .noi-dung-san-pham a:hover {
+    .noi-dung-san-pham-about a:hover {
         color: #FFD700; /* Đổi màu sang vàng nhạt khi hover */
         text-shadow: 0px 0px 8px rgba(255, 215, 0, 0.8); /* Hiệu ứng phát sáng nhẹ */
         text-decoration: underline;
@@ -142,7 +139,7 @@
     max-width: 3000px;
     margin: 20px auto;
     }
-    .hinh-about{
+    .anh-thanh-vien-about{
         width: 100%;
     }
     .center-about-lien-he{
@@ -155,11 +152,11 @@
             width: 100%;
             display: block;
         }
-        .about-section,.about-san-pham {
+        .gioi-thieu-about, .about-san-pham {
             flex-direction: column; /* Chuyển thành layout dọc */
             align-items: center; /* Căn giữa nội dung */
         }
-        .gioi-thieu-section, .anh-section {
+        .noi-dung-gioi-thieu-about, .anh-gioi-thieu-about {
             width:100%;
             text-align: center;
         }
@@ -218,8 +215,8 @@
                         <button class="next-btn">&#10095;</button>
                     </div>
                 </section>
-                <div class="about-section">
-                    <div class="gioi-thieu-section">
+                <div class="gioi-thieu-about">
+                    <div class="noi-dung-gioi-thieu-about">
                         <h2>Về chúng tôi</h2>
                         <p>Chúng tôi chuyên cung cấp các loại vợt cầu lông chất lượng từ những thương hiệu hàng
                         đầu như Yonex, Lining, Victor, Adidas và nhiều thương hiệu nổi tiếng khác.</p>
@@ -228,15 +225,15 @@
                         <p>Dù bạn là người mới tập chơi hay một vận động viên chuyên nghiệp, chúng tôi luôn sẵn sàng đồng hành cùng bạn trên hành trình chinh 
                         phục đỉnh cao cầu lông. Hãy khám phá ngay bộ sưu tập vợt mới nhất và tận hưởng trải nghiệm mua sắm tuyệt vời tại [Tên Trang Web]!</p>
                     </div>
-                    <div class="anh-section">
+                    <div class="anh-gioi-thieu-about">
                             <img src="../public/images/introduct-in-about.webp" alt="">
                     </div>
                 </div>
                 <div class="about-san-pham">
-                    <div class="anh-san-pham">
+                    <div class="anh-san-pham-about">
                         <img src="../public/images/introduct-in-about.webp" alt="">
                     </div>
-                    <div class="noi-dung-san-pham">
+                    <div class="noi-dung-san-pham-about">
                         <h2>Sản phẩm</h2>
                         <ul>
                             <li><p>Sản phẩm đa dạng - Từ vợt dành cho người mới chơi đến vợt chuyên nghiệp, phù hợp với mọi cấp độ.</p></li>
@@ -252,7 +249,7 @@
                 <div class="row-about">
                     <div class="column-about">
                         <div class="card-about">
-                            <img  class="hinh-about" src="../public/images/introduct-in-about.webp" alt="">
+                            <img  class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="">
                             <div class="container-about">
                                 <h3>Bùi Tiến Vỹ</h3>
                                 <p class="title-about">Tư vấn</p>
@@ -264,7 +261,7 @@
                     </div>
                     <div class="column-about">
                         <div class="card-about">
-                            <img class="hinh-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
                             <div class="container-about">
                                 <h3>Võ Cao Tấn Ngọc</h3>
                                 <p class="title-about">Kỹ thuật</p>
@@ -276,7 +273,7 @@
                     </div>
                     <div class="column-about">
                         <div class="card-about">
-                            <img class="hinh-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
                             <div class="container-about">
                                 <h3>Đinh Quốc Đạt</h3>
                                 <p class="title-about">Thu ngân</p>
@@ -288,7 +285,7 @@
                     </div>
                     <div class="column-about">
                         <div class="card-about">
-                            <img class="hinh-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
                             <div class="container-about">
                                 <h3>Trần Minh Thái</h3>
                                 <p class="title-about">Chăm sóc khách hàng</p>
