@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/products.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <!--Thanh menu  -->
+                <nav class="navbar">
+                    <a href="#" id="logo">
+                        <img src="../public/images/logo.png" alt="logo">
+                    </a>
+                    <ul id="main-menu">
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Sản phẩm</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                    <!--Thanh tìm kiếm  -->
+                    <div class="search-bar">
+                        <input type="text" placeholder="Tìm kiếm..." />
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="right-icons">
+                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="container">
+            
+                <div class="content-wrapper">
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <div class="category-box">
+                            <div class="category-header">
+                                DANH MỤC SẢN PHẨM
+                            </div>
+                            <ul class="category-list">
+                                <li><a href="#">Vợt cầu lông Kuno</a></li>
+                                <li><a href="#">Vợt cầu lông Yonex</a></li>
+                                <li><a href="#">Vợt cầu lông Lining</a></li>
+                                <li><a href="#">Vợt cầu lông Victor</a></li>
+                                <li><a href="#">Vợt cầu lông Kumpoo</a></li>
+                               
+                            </ul>
+                        </div>
+                    </aside>
+                
+                    <!-- Product Grid -->
+                    <div class="product-area">
+                        <div class="product-controls">
+                            <!-- <div class="product-count">
+                                Hiển thị 1-20 của 920 kết quả
+                            </div> -->
+                            <div class="product-sort"> 
+                                <span>Sắp xếp:</span>
+                                <select>
+                                    <option>Mới nhất</option>
+                                    <option>Giá: Thấp đến cao</option>
+                                    <option>Giá: Cao đến thấp</option>
+                                    <option>Tên: A-Z</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-bar">
+                            <button class="filter-btn">Thương Hiệu <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Khoảng Giá <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Trọng Lượng <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Cân Cầm <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Độ Cứng <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Điểm Cân Bằng <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Mức Căng <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Màu Sắc <i class="fas fa-chevron-down"></i></button>
+                            <button class="filter-btn">Lối Chơi <i class="fas fa-chevron-down"></i></button>
+                        </div>
+                
+                        <div class="product-grid">
+                            <!-- Product 1 -->
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <span class="discount-badge">-15%</span>
+                                    <img src="https://placeholder.pics/svg/200x400/DEDEDE/555555/racket" alt="Vợt cầu lông VS Arashi Wind A6">
+                                    <div class="product-actions">
+                                        <button class="add-to-cart-btn">
+                                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                                        </button>
+                                        <button class="wishlist-btn">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Vợt cầu lông VS Arashi Wind A6</h3>
+                                    <div class="product-price">
+                                        <span class="sale-price">550.000₫</span>
+                                        <span class="original-price">650.000₫</span>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <!-- Product 2 -->
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <span class="discount-badge">-11%</span>
+                                    <img src="https://placeholder.pics/svg/200x400/DEDEDE/555555/racket" alt="Vợt cầu lông Lining Halbertec 4000">
+                                    <div class="product-actions">
+                                        <button class="add-to-cart-btn">
+                                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                                        </button>
+                                        <button class="wishlist-btn">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Vợt cầu lông Lining Halbertec 4000</h3>
+                                    <div class="product-price">
+                                        <span class="sale-price">1.920.000₫</span>
+                                        <span class="original-price">2.150.000₫</span>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-left">
+                    <a href="#" id="logo">
+                        <img src="../public/images/logo.png" alt="logo">
+                    </a>
+                    <h3>Thông tin liên hệ</h3>
+                    <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
+                    <p>Email:
+                </div>
+                <div class="footer-center">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Sản phẩm</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-right">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i>Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i>Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i>Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i>Linkedin</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
