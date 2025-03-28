@@ -18,7 +18,7 @@ html {
 
 .header {
     color: white;
-    background-color: #232222;
+    background-color: #000000;
     padding-left: 30px;
     padding-right: 30px;
     align-items: center;
@@ -91,10 +91,13 @@ html {
     /* Hiệu ứng mở rộng */
 }
 
-#main-menu a:hover::after {
+#main-menu a:hover::after,
+#main-menu a.active::after {
     width: 100%;
     /* Gạch ngang mở rộng toàn bộ chiều rộng */
 }
+
+
 
 /* Thanh tìm kiếm */
 .search-bar {
@@ -153,7 +156,7 @@ html {
 
 /* Footer */
 .footer {
-    background-color: #232222;
+    background-color: #000000;
     /* Màu nền của footer */
     color: white;
     /* Màu chữ */
@@ -463,116 +466,484 @@ html {
     /* Bo góc ảnh */
 }
 
-.san-pham-list {
-    display: none;
-    /* Ẩn tất cả danh sách sản phẩm mặc định */
-}
 
-.san-pham-list.active {
-    display: grid;
-    /* Hiển thị danh sách sản phẩm được chọn */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
 
+
+
+
+
+/* PHẦN SẢN PHẨM MỚI */
 .san-pham-moi {
-    padding: 10px 20px;
+    padding: 10px 10px;
     background-image: url(../images/backgound.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     text-align: center;
-}
-
-.san-pham-moi h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #211e1c;
-    margin-bottom: 20px;
     position: relative;
 }
 
-.san-pham-tabs {
-    display: flex;
-    justify-content: center;
+/* Overlay để làm nền rõ hơn */
+.san-pham-moi::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+.san-pham-moi h2 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #211e1c;
     margin-bottom: 30px;
-    gap: 10px;
+    position: relative;
+    z-index: 2;
+    margin-top: 15px;
 }
 
-.san-pham-tabs .tab {
-    padding: 10px 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+.san-pham-moi h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background-color: #211e1c;
+    margin: 15px auto 0;
 }
 
-.san-pham-tabs .tab.active {
-    background-color: #ffcc00;
-    color: #fff;
-    border-color: #ffcc00;
+/* Nội dung sản phẩm */
+.san-pham-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.san-pham-tabs .tab:hover {
-    background-color: #ffcc00;
-    color: #fff;
-}
-
+/* Danh sách sản phẩm */
 .san-pham-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    display: none;
 }
 
+.san-pham-list.active {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Item sản phẩm */
 .san-pham-item {
     background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
 }
 
 .san-pham-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .san-pham-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: transform 0.5s ease;
+}
+
+.san-pham-item:hover img {
+    transform: scale(1.05);
 }
 
 .san-pham-item h3 {
     font-size: 18px;
     color: #333;
     margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
 .san-pham-item .price {
-    font-size: 16px;
-    color: #ff0000;
+    font-size: 18px;
+    color: #ff5722;
     font-weight: bold;
+    margin: 10px 0;
 }
 
-@media (max-width: 768px) {
-    .san-pham-tabs {
-        flex-wrap: wrap;
-        gap: 5px;
-    }
+/* Nút thêm vào giỏ hàng và mua ngay */
+.san-pham-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
 
-    .san-pham-item {
-        padding: 10px;
-    }
+.san-pham-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Khoảng cách giữa icon và text */
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-    .san-pham-item h3 {
-        font-size: 16px;
-    }
+.btn-add-cart {
+    background-color: #007bff;
+    color: white;
+}
 
-    .san-pham-item .price {
-        font-size: 14px;
-    }
+.btn-add-cart:hover {
+    background-color: #0056b3;
+}
+
+.btn-buy-now {
+    background-color: #b66851;
+    color: white;
+}
+
+.btn-buy-now:hover {
+    background-color: #e64a19;
+}
+
+/* Icon trong nút */
+.san-pham-buttons button i {
+    font-size: 16px;
+}
+
+/* Nút lướt .slider-prev,
+.slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 123, 255, 0.8);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.slider-prev {
+    left: 10px;
+}
+
+.slider-next {
+    right: 10px;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background-color: #0056b3;
+    transform: translateY(-50%) scale(1.1);
+} */
+
+/* Nhãn giảm giá */
+.san-pham-item .discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 5px;
+    z-index: 2;
+    /* Đảm bảo nhãn giảm giá luôn nằm trên cùng */
+    pointer-events: none;
+    /* Để nhãn không bị ảnh hưởng bởi hover */
+}
+
+/* Nút xem thêm */
+.view-more {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    /* Tăng kích thước nút */
+    font-size: 16px;
+    /* Tăng kích thước chữ */
+    color: #fff;
+    /* Màu chữ trắng */
+    background-color: #192029;
+    /* Màu nền xanh */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+    font-weight: 600;
+    /* Chữ đậm */
+    border-radius: 5px;
+    /* Bo góc nút */
+    transition: all 0.3s ease;
+    /* Hiệu ứng mượt khi hover */
+}
+
+.view-more:hover {
+    background-color: #0056b3;
+    /* Màu nền khi hover */
+    color: #fff;
+    /* Giữ màu chữ trắng khi hover */
+    text-decoration: none;
+    /* Loại bỏ gạch chân khi hover */
+    transform: translateY(-2px);
+    /* Hiệu ứng di chuyển nhẹ khi hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Thêm bóng khi hover */
+}
+
+/* Phần dịch vụ */
+.services {
+    background-color: #000;
+    /* Màu nền đen */
+    color: #fff;
+    /* Màu chữ trắng */
+    padding-left: 50px;
+    padding-right: 50px;
+    /* Khoảng cách bên trong */
+    text-align: center;
+}
+
+
+
+.services-list {
+    display: flex;
+    justify-content: space-between;
+    /* Căn đều các dịch vụ */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    gap: 20px;
+    /* Khoảng cách giữa các dịch vụ */
+    flex-wrap: wrap;
+    /* Đảm bảo hiển thị tốt trên màn hình nhỏ */
+}
+
+.service-item {
+    flex: 1;
+    /* Chia đều không gian cho các dịch vụ */
+    max-width: 300px;
+    /* Đặt chiều rộng tối đa */
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    /* Để sử dụng pseudo-element */
+}
+
+.service-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    /* Đặt border cách trên một chút */
+    right: 0;
+    width: 1px;
+    /* Độ dày của border */
+    height: 80%;
+    /* Chiều cao của border */
+    background-color: #837e7e;
+    /* Màu của border */
+}
+
+.service-item i {
+    font-size: 30px;
+    /* Kích thước icon */
+    color: #007bff;
+    /* Màu xanh cho icon */
+    margin-bottom: 10px;
+    /* Khoảng cách dưới icon */
+}
+
+.service-item h5 {
+    font-size: 18px;
+    /* Kích thước tiêu đề */
+    font-weight: 700;
+    /* Chữ đậm */
+    margin-bottom: 10px;
+    /* Khoảng cách dưới tiêu đề */
+    text-transform: uppercase;
+    /* Chữ in hoa */
+}
+
+.service-item p {
+    font-size: 14px;
+    /* Kích thước chữ mô tả */
+    color: #ccc;
+    /* Màu chữ xám nhạt */
+}
+
+/* Phần liên hệ */
+.contact {
+    background-color: #000;
+    /* Màu nền đen */
+    color: #fff;
+    /* Màu chữ trắng */
+    text-align: center;
+    padding: 30px 20px;
+    /* Khoảng cách bên trong */
+}
+
+.contact h3 {
+    font-size: 20px;
+    /* Kích thước chữ */
+    font-weight: 700;
+    /* Chữ đậm */
+    margin-bottom: 20px;
+    /* Khoảng cách dưới tiêu đề */
+}
+
+.contact-button {
+    display: inline-block;
+    background-color: #c00;
+    /* Màu nền đỏ */
+    color: #fff;
+    /* Màu chữ trắng */
+    font-size: 18px;
+    /* Kích thước chữ */
+    font-weight: 700;
+    /* Chữ đậm */
+    padding: 10px 20px;
+    /* Khoảng cách bên trong */
+    border-radius: 30px;
+    /* Bo góc tròn */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+    transition: background-color 0.3s ease;
+    /* Hiệu ứng mượt khi hover */
+}
+
+.contact-button i {
+    margin-right: 10px;
+    /* Khoảng cách giữa icon và chữ */
+}
+
+.contact-button:hover {
+    background-color: #a00;
+    /* Màu nền đỏ đậm khi hover */
+}
+
+/* Nút lướt slider-prev và slider-next */
+.slider-prev,
+.slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Nền đen mờ */
+    color: white;
+    /* Màu chữ trắng */
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* Bo góc tròn */
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    /* Đảm bảo nút nằm trên các thành phần khác */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    /* Hiệu ứng mượt khi hover */
+}
+
+.slider-prev {
+    left: 10px;
+    /* Vị trí nút bên trái */
+}
+
+.slider-next {
+    right: 10px;
+    /* Vị trí nút bên phải */
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background-color: #0056b3;
+    /* Màu nền khi hover */
+    transform: translateY(-50%) scale(1.1);
+    /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+.vot-yonex h2 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #211e1c;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+    margin-top: 15px;
+    margin-left: 0px;
+    margin-bottom: -10px;
+}
+
+.vot-yonex h2::after {
+    content: "";
+    display: block;
+    width: 900px;
+    height: 1px;
+    background-color: #211e1c;
+    margin-left: 150px;
+    margin-top: -10px;
+}
+
+/* Đặt h2 và nút "Xem thêm" trên cùng một hàng */
+.vot-yonex .header-row {
+    display: flex;
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    justify-content: space-between;
+    /* Căn đều hai bên */
+    margin-bottom: 20px;
+    padding: 0 160px;
+    /* Căn chỉnh khoảng cách hai bên */
+}
+
+.vot-yonex .view-more-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0056b3;
+    /* Màu xanh */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+    transition: color 0.3s ease;
+    float: right;
+    padding-right: 70px;
+    padding-top: 40px;
+    /* Hiệu ứng mượt khi hover */
+}
+
+.vot-yonex .view-more-link:hover {
+    color: #ff5722;
+    /* Màu cam khi hover */
+    text-decoration: underline;
+    /* Gạch chân khi hover */
 }
