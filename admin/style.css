@@ -6,6 +6,8 @@
 }
 body{
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     height: auto;
 }
 #admin-container{
@@ -16,42 +18,44 @@ body{
 }
 #sidebar{
     width: 250px;
-    
     background-color:rgb(23, 24, 33);
-    border-right-style: solid;
-    border-color:rgb(118, 118, 118);
-    border-width: 1px;
-
+    border-right: 1px solid rgb(118, 118, 118);
+    transition: width 0.3s ease;
 }
 #sidebar #logo{
 width: 100%;
 height: 90px;
 padding: 5px;
+align-items: center;
+justify-content: center;
 }
 #sidebar #logo a img{
   width: 32,4%;
   height: 100%;
   line-height: 50px;
+  
 }
 #sidebar-menu{
-    align-items: center;
-   
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 #sidebar-menu .de-muc{
     list-style-type:none;
-    padding: 0 20px;
 }
 #sidebar-menu .de-muc .muc{
     width: 100%;
     height: 50px;
     padding: 0 10px;
+    display: flex;
+    align-items: center;
   
 }
 #sidebar-menu .de-muc .muc a{
     color:rgb(135, 136, 140);
     text-align: left;
     text-decoration: none;
-    line-height: 50px;
+    flex-grow: 1;
 }
 
 .muc .nav-arrow-down{
@@ -68,23 +72,21 @@ padding: 5px;
 #main-content{
 flex-grow: 1;
 padding: 15px;
+color: rgb(135, 136, 140);
 }
 /* header */
 #main-content #header{
     display: flex;
     justify-content: space-between;
-    width: 100%;
     height: 90px;
     align-items: center;
     padding: 20px 0;
-    color: rgb(135, 136, 140);
 }
 #header .search-admin{
     width: 50%;
     height: 50px;
     background-color:rgb(33, 34, 45);
     color: rgb(135, 136, 140);
-    margin-left: 30px;
     border-radius: 12px;
 }
 #header .search-admin:hover,
@@ -114,30 +116,34 @@ font-size: 12px;
 #content .row-dau{
     display: flex;
     width: 100%;
-    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 #content .row-dau .row-thong-tin{
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     width: 70%;
-    height: 300px;
+    min-height: 300px;
     background-color:rgb(33, 34, 45) ;
     border-radius: 15px;
+    padding: 20px;
 }
 #content .row-dau .row-thong-tin .thong-tin{
-    width: 29%;
+    flex: 1 1 calc(33.33% - 20px);
+    min-width: 200px;
     height: 250px;
     background-color:rgb(23, 24, 33) ;
-    margin-top: 20px;
-    margin-left: 3.25%;
+    padding: 20px;
     border-radius: 15px;
 
 }
 #content .row-dau .row-thong-ke{
     width: 28%;
-    height: 300px;
+    min-height: 300px;
     background-color:rgb(33, 34, 45) ;
     border-radius: 15px;
-    margin-left: 2%;
+    padding: 25px;
 }
 .row-thong-tin .thong-tin{
     padding: 20px;
@@ -230,10 +236,31 @@ font-size: 12px;
 #main-content #footer a:hover{
     color:aquamarine;
 }
-@media screen and (max-width: 650px) 
-{
-    #content .row-dau, #content .row-dau .row-thong-tin{
-        flex-direction: column; 
-        align-items: center;
+
+@media screen and (max-width: 1024px) {
+    .row-dau .row-thong-tin {
+        width: 100%;
+    }
+    .row-dau .row-thong-ke {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 768px) {
+    #sidebar {
+        width: 200px;
+    }
+    #content .row-dau {
+        flex-direction: column;
+    }
+}
+ @media screen and (max-width: 500px) {
+    #sidebar {
+        width: 80px;
+    }
+    #sidebar-menu .de-muc .muc a {
+        font-size: 12px;
+    }
+    #footer {
+        border-radius: 0;
     }
 }
