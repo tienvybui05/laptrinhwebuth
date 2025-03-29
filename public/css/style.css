@@ -388,7 +388,7 @@ html {
 .gioi-thieu {
     padding: 20px 20px;
     /* Khoảng cách trên dưới và hai bên */
-    background-color: #f9f9f9;
+    background-color: #f8f2f2;
     /* Màu nền nhạt */
 }
 
@@ -415,39 +415,22 @@ html {
 }
 
 .gioi-thieu-text h2 {
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 700;
-    margin-top: -80px;
+    margin-top: -10px;
     margin-bottom: 20px;
-    color: #333;
+    color: #333333;
     /* Màu chữ tiêu đề */
 }
 
 .gioi-thieu-text p {
     font-size: 16px;
     line-height: 1.6;
-    color: #555;
+    color: #333333;
     /* Màu chữ nội dung */
     margin-bottom: 20px;
 }
 
-.gioi-thieu-text .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    /* Màu nền nút */
-    color: white;
-    /* Màu chữ nút */
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.gioi-thieu-text .btn:hover {
-    background-color: #0056b3;
-    /* Màu nền nút khi hover */
-}
 
 .gioi-thieu-image {
     flex: 1;
@@ -458,11 +441,11 @@ html {
 
 .gioi-thieu-image img {
     max-width: 100%;
-    width: 500px;
+    width: 450px;
     /* Đảm bảo ảnh không vượt quá chiều rộng container */
     height: auto;
     /* Giữ tỷ lệ ảnh */
-    border-radius: 5px;
+    border-radius: 10px;
     /* Bo góc ảnh */
 }
 
@@ -893,6 +876,26 @@ html {
     /* Hiệu ứng phóng to nhẹ khi hover */
 }
 
+.vot-yonex {
+    background-image: url(../images/backgound.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* Overlay để làm nền rõ hơn */
+.vot-yonex::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(177, 200, 202, 0.7);
+    z-index: 1;
+}
+
 .vot-yonex h2 {
     font-size: 25px;
     font-weight: 700;
@@ -930,7 +933,7 @@ html {
 .vot-yonex .view-more-link {
     font-size: 14px;
     font-weight: 600;
-    color: #0056b3;
+    color: #1f3e3f;
     /* Màu xanh */
     text-decoration: none;
     /* Loại bỏ gạch chân */
@@ -939,6 +942,9 @@ html {
     padding-right: 70px;
     padding-top: 40px;
     /* Hiệu ứng mượt khi hover */
+    z-index: 3;
+    /* Thêm z-index để nó nằm trên lớp overlay */
+
 }
 
 .vot-yonex .view-more-link:hover {
@@ -946,4 +952,178 @@ html {
     /* Màu cam khi hover */
     text-decoration: underline;
     /* Gạch chân khi hover */
+}
+
+/* Phần Tin tức */
+.tin-tuc {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    /* Màu nền nhạt */
+}
+
+.tin-tuc h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.tin-tuc-list {
+    display: flex;
+    gap: 20px;
+    /* Khoảng cách giữa các bài viết */
+    justify-content: space-between;
+    /* Căn đều các bài viết */
+    flex-wrap: wrap;
+    /* Đảm bảo hiển thị tốt trên màn hình nhỏ */
+}
+
+.tin-tuc-item {
+    flex: 1 1 calc(33.333% - 20px);
+    /* Mỗi bài viết chiếm 1/3 chiều rộng, trừ khoảng cách */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tin-tuc-item:hover {
+    transform: translateY(-5px);
+    /* Hiệu ứng nổi lên khi hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.tin-tuc-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị méo */
+}
+
+.tin-tuc-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 15px;
+}
+
+.tin-tuc-item p {
+    font-size: 14px;
+    color: #555;
+    margin: 0 15px 15px;
+    line-height: 1.6;
+}
+
+.tin-tuc-item .btn-read-more {
+    display: inline-block;
+    margin: 0 15px 15px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #0056b3;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.tin-tuc-item .btn-read-more:hover {
+    background-color: #003d80;
+    /* Màu nền khi hover */
+}
+
+/* Nút Xem thêm trong phần Tin tức */
+.tin-tuc-view-more {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tin-tuc-view-more .btn-view-more {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #0056b3;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.tin-tuc-view-more .btn-view-more:hover {
+    background-color: #003d80;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Section Nhà đồng hành */
+.nha-dong-hanh {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    /* Màu nền nhạt */
+    text-align: center;
+}
+
+.nha-dong-hanh h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.logo-carousel {
+    display: flex;
+    gap: 20px;
+    /* Khoảng cách giữa các logo */
+    overflow: hidden;
+    /* Ẩn phần logo tràn ra ngoài */
+    position: relative;
+}
+
+.logo-item {
+    flex: 0 0 auto;
+    /* Đảm bảo mỗi logo không co giãn */
+    width: 150px;
+    /* Chiều rộng cố định cho logo */
+    height: 100px;
+    /* Chiều cao cố định cho logo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.logo-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Đảm bảo logo không bị méo */
+}
+
+.logo-item:hover {
+    transform: scale(1.1);
+    /* Phóng to nhẹ khi hover */
+}
+
+/* Hiệu ứng lướt */
+@keyframes scroll-logos {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.logo-carousel {
+    display: flex;
+    animation: scroll-logos 15s linear infinite;
+    /* Lướt logo liên tục */
 }
