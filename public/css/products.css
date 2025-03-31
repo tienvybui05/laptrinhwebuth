@@ -1,6 +1,3 @@
-
-
-
 .main-content {
     padding: 30px 0;
 }
@@ -78,6 +75,10 @@
     margin-bottom: 20px;
 }
 
+.filter-group {
+    position: relative;
+}
+
 .filter-btn {
     padding: 6px 12px;
     border: 1px solid #ddd;
@@ -88,11 +89,234 @@
     align-items: center;
     gap: 5px;
     transition: border-color 0.3s;
+    cursor: pointer;
 }
 
 .filter-btn:hover {
     border-color: #1e88e5;
     color: #1e88e5;
+}
+
+.filter-btn.active {
+    border-color: #1e88e5;
+    color: #1e88e5;
+}
+
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    max-height: 250px; /* Giới hạn chiều cao để hiển thị khoảng 5 dòng */
+    overflow-y: auto; /* Thêm thanh cuộn */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 5px;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-dropdown.visible {
+    display: block;
+    
+}
+
+/* Brand Filter Styles */
+.brand-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.brand-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.brand-option {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.brand-option:hover {
+    background-color: #1e88e5;
+    color: white;
+}
+
+/* Price Filter Styles */
+.price-dropdown {
+    width: 350px;
+}
+
+.price-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.price-option {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.price-option:hover {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.price-custom {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.price-custom p {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.price-range-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.price-input {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Price Slider Styles */
+.price-slider-container {
+    margin-bottom: 15px;
+    position: relative;
+    height: 30px;
+}
+
+.multi-range-slider {
+    position: relative;
+    height: 5px;
+    margin-top: 15px;
+}
+
+.slider-track {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.price-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #1e88e5;
+    cursor: pointer;
+    pointer-events: auto;
+    margin-top: 0;
+}
+
+.price-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #1e88e5;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.min-slider::-webkit-slider-thumb {
+    background: #1e88e5;
+}
+
+.max-slider::-webkit-slider-thumb {
+    background: #1e88e5;
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.apply-filter-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.apply-filter-btn:hover {
+    background-color: #1565c0;
+}
+
+/* Breadcrumbs Styles */
+.breadcrumbs {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.breadcrumbs a {
+    color: #666;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    color: #1e88e5;
+    text-decoration: underline;
+}
+
+/* Product Count Styles */
+.product-count {
+    font-size: 14px;
+    color: #666;
 }
 
 /* Product Grid Styles */
@@ -111,9 +335,10 @@
 }
 
 .product-card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
-
 .product-image {
     position: relative;
     padding-top: 100%;
@@ -166,8 +391,8 @@
 }
 
 .product-title {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     margin-bottom: 10px;
     height: 40px;
     overflow: hidden;
@@ -213,7 +438,7 @@
 }
 
 
-/* Responsive Styles Đoạn này khi khích thước tối thiểu màn hình bị giới hạn*/
+/* Responsive Styles Đoạn này khi khích thước tối thiểu màn hình bị giới h*/
 @media (max-width: 1024px) {
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -256,4 +481,199 @@
     .search-content {
         flex-direction: column;
     }
+}
+
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.status-badge.new {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.status-badge.out-of-stock {
+    background-color: #f44336;
+    color: white;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeInOut 3s;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    10%, 90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+/* Độ Cứng Filter Styles */
+.stiffness-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stiffness-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.stiffness-option {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.stiffness-option:hover {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.stiffness-option.active {
+    background-color: #1e88e5;
+    color: white;
+}
+
+/* Điểm Cân Bằng Filter Styles */
+.balance-dropdown {
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.balance-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.balance-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.balance-option {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+}
+
+.balance-option:hover {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.balance-option.active {
+    background-color: #1e88e5;
+    color: white;
+}
+
+/* Thanh cuộn tùy chỉnh cho dropdown */
+.balance-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.balance-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.balance-dropdown::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.balance-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Mức Căng Filter Styles */
+.tension-dropdown {
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.tension-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tension-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tension-option {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+}
+
+.tension-option:hover {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.tension-option.active {
+    background-color: #1e88e5;
+    color: white;
+}
+
+/* Thanh cuộn tùy chỉnh cho dropdown */
+.tension-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tension-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.tension-dropdown::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.tension-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }

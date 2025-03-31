@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
+    
 </head>
 
 <body>
@@ -42,7 +43,7 @@
         </header>
         <main class="main-content">
             <div class="container">
-            
+                
                 <div class="content-wrapper">
                     <!-- Sidebar -->
                     <aside class="sidebar">
@@ -64,13 +65,16 @@
                     <!-- Product Grid -->
                     <div class="product-area">
                         <div class="product-controls">
-                            <!-- <div class="product-count">
-                                Hiển thị 1-20 của 920 kết quả
-                            </div> -->
+                            <div class="breadcrumbs">
+                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="products.html">Sản phẩm</a>
+                            </div>
+                            <div class="product-count">
+                                <!-- Hiển thị 1–20 của 20 kết quả -->
+                            </div>
                             <div class="product-sort"> 
                                 <span>Sắp xếp:</span>
                                 <select>
-                                    <option>Mới nhất</option>
+                                    <!-- <option>Mới nhất</option> -->
                                     <option>Giá: Thấp đến cao</option>
                                     <option>Giá: Cao đến thấp</option>
                                     <option>Tên: A-Z</option>
@@ -79,15 +83,216 @@
                         </div>
                         
                         <div class="filter-bar">
-                            <button class="filter-btn">Thương Hiệu <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Khoảng Giá <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Trọng Lượng <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Cân Cầm <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Độ Cứng <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Điểm Cân Bằng <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Mức Căng <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Màu Sắc <i class="fas fa-chevron-down"></i></button>
-                            <button class="filter-btn">Lối Chơi <i class="fas fa-chevron-down"></i></button>
+                            <!-- <div class="filter-group">
+                                <button class="filter-btn">Thương Hiệu <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown">
+                                    <div class="brand-options">
+                                        <div class="brand-row">
+                                            <a href="#" class="brand-option">Yonex</a>
+                                            <a href="#" class="brand-option">Lining</a>
+                                            <a href="#" class="brand-option">Victor</a>
+                                            <a href="#" class="brand-option">Mizuno</a>
+                                            <a href="#" class="brand-option">Apacs</a>
+                                        </div>
+                                        <div class="brand-row">
+                                            <a href="#" class="brand-option">Kumpoo</a>
+                                            <a href="#" class="brand-option">Kawasaki</a>
+                                            <a href="#" class="brand-option">VS</a>
+                                            <a href="#" class="brand-option">Flypower</a>
+                                            <a href="#" class="brand-option">Fleet</a>
+                                        </div>
+                                        <div class="brand-row">
+                                            <a href="#" class="brand-option">The 3rd Game</a>
+                                            <a href="#" class="brand-option">Kamito</a>
+                                            <a href="#" class="brand-option">Proace</a>
+                                            <a href="#" class="brand-option">Felet</a>
+                                            <a href="#" class="brand-option">IXE</a>
+                                        </div>
+                                        <div class="brand-row">
+                                            <a href="#" class="brand-option">Bubadu</a>
+                                            <a href="#" class="brand-option">Vicleo</a>
+                                            <a href="#" class="brand-option">Pro</a>
+                                            <a href="#" class="brand-option">Pride</a>
+                                            <a href="#" class="brand-option">Tenway</a>
+                                        </div>
+                                        <div class="brand-row">
+                                            <a href="#" class="brand-option">Maxta</a>
+                                            <a href="#" class="brand-option">Adidas</a>
+                                            <a href="#" class="brand-option">Keyace</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                            <div class="filter-group">
+                                <button class="filter-btn">Khoảng Giá <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown price-dropdown">
+                                    <div class="price-options">
+                                        <a href="#" class="price-option">300k - 500k</a>
+                                        <a href="#" class="price-option">Dưới 1tr</a>
+                                        <a href="#" class="price-option">1tr - 1tr5</a>
+                                        <a href="#" class="price-option">1tr5 - 2tr</a>
+                                        <a href="#" class="price-option">2tr - 3tr</a>
+                                        <a href="#" class="price-option">3tr - 5tr</a>
+                                    </div>
+                                    
+                                    <div class="price-custom">
+                                        <p>Hoặc chọn mức giá phù hợp với bạn</p>
+                                        <div class="price-range-inputs">
+                                            <input type="text" class="price-input" id="min-price-input" placeholder="0"> đ
+                                            <input type="text" class="price-input" id="max-price-input" placeholder="19500000"> đ
+                                        </div>
+                                        
+                                        <div class="price-slider-container">
+                                            <div class="price-slider-container">
+                                                <div class="multi-range-slider" id="price-range-slider">
+                                                    <input type="range" id="min-price-slider" min="0" max="19500000" value="0" class="price-slider min-slider">
+                                                    <input type="range" id="max-price-slider" min="0" max="19500000" value="19500000" class="price-slider max-slider">
+                                                    <div class="slider-track"></div>
+                                                </div>
+                                                <div class="price-labels">
+                                                    <span>0đ</span>
+                                                    <span>19.500.000đ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <button class="apply-filter-btn">LỌC</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="filter-group">
+                                <button class="filter-btn">Trọng Lượng <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown"></div>
+                            </div> -->
+                            
+                            <!-- <div class="filter-group">
+                                <button class="filter-btn">Cân Cầm <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown"></div>
+                            </div>
+                             -->
+                             <div class="filter-group">
+                                <button class="filter-btn">Độ Cứng <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown">
+                                    <div class="stiffness-options">
+                                        <div class="stiffness-row">
+                                            <a href="#" class="stiffness-option">Cứng</a>
+                                            <a href="#" class="stiffness-option">Dẻo</a>
+                                            <a href="#" class="stiffness-option">Hơi Cứng</a>
+                                            <a href="#" class="stiffness-option">Hơi Dẻo</a>
+                                        </div>
+                                        <div class="stiffness-row">
+                                            <a href="#" class="stiffness-option">Rất Cứng</a>
+                                            <a href="#" class="stiffness-option">Siêu Cứng</a>
+                                            <a href="#" class="stiffness-option">Trung Bình</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <button class="filter-btn">Điểm Cân Bằng <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown balance-dropdown">
+                                    <div class="balance-options">
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">295mm (Hơi Nặng Đầu)</a>
+                                            <a href="#" class="balance-option">296+-4mm (Hơi Nặng Đầu)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">296mm (Hơi Nặng Đầu)</a>
+                                            <a href="#" class="balance-option">297mm</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">298 Mm (4u)</a>
+                                            <a href="#" class="balance-option">298mm</a>
+                                            <a href="#" class="balance-option">298mm (+-2mm)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">298mm (Hơi Nặng Đầu)</a>
+                                            <a href="#" class="balance-option">298mm (Nặng Đầu)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">3/5 (Hơi Nặng Đầu)</a>
+                                            <a href="#" class="balance-option">300 ± 3mm (Nặng Đầu)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">300 Mm (5u)</a>
+                                            <a href="#" class="balance-option">300 Mm (Nặng Đầu)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">300-305mm</a>
+                                            <a href="#" class="balance-option">300-305mm (Nặng Đầu)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">300mm (Nặng Đầu)</a>
+                                            <a href="#" class="balance-option">301mm (Nặng Đầu)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">285mm (Cân bằng)</a>
+                                            <a href="#" class="balance-option">290mm (Cân bằng)</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">Cân bằng</a>
+                                            <a href="#" class="balance-option">Hơi nặng đầu</a>
+                                            <a href="#" class="balance-option">Nặng đầu</a>
+                                        </div>
+                                        <div class="balance-row">
+                                            <a href="#" class="balance-option">Nhẹ đầu</a>
+                                            <a href="#" class="balance-option">Rất nặng đầu</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <button class="filter-btn">Mức Căng <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown tension-dropdown">
+                                    <div class="tension-options">
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U ≤ 27lbs (12 Kg)</a>
+                                            <a href="#" class="tension-option">4U ≤ 28lbs (12,5 Kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U ≤ 31lbs (14 Kg)</a>
+                                            <a href="#" class="tension-option">4U ≤24 Lbs (11,5Kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U ≤28 Lbs (12,5 Kg)</a>
+                                            <a href="#" class="tension-option">4U ≤28 Lbs (12.5 Kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U ≤28 Lbs (12.5Kg)</a>
+                                            <a href="#" class="tension-option">4U ≤29 Lbs (13 Kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U 20-28 LBS</a>
+                                            <a href="#" class="tension-option">4U: 19 - 27 Lbs (Tối Đa 12kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U: 20 - 28 Lbs (12.6kg)</a>
+                                            <a href="#" class="tension-option">4U: 26LBS (11.7kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U:≤24 Lbs(10.5Kg)</a>
+                                            <a href="#" class="tension-option">4U:≤31 Lbs(14Kg)</a>
+                                        </div>
+                                        <div class="tension-row">
+                                            <a href="#" class="tension-option">4U≤29 Lbs (13 Kg)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="filter-group">
+                                <button class="filter-btn">Màu Sắc <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown"></div>
+                            </div> -->
+                            
+                            <div class="filter-group">
+                                <button class="filter-btn">Lối Chơi <i class="fas fa-chevron-down"></i></button>
+                                <div class="filter-dropdown"></div>
+                            </div>
                         </div>
                 
                         <div class="product-grid">
@@ -95,6 +300,7 @@
                             <div class="product-card">
                                 <div class="product-image">
                                     <span class="discount-badge">-15%</span>
+                                    <span class="status-badge new">Mới</span>
                                     <img src="https://placeholder.pics/svg/200x400/DEDEDE/555555/racket" alt="Vợt cầu lông VS Arashi Wind A6">
                                     <div class="product-actions">
                                         <button class="add-to-cart-btn">
@@ -173,6 +379,7 @@
             </div>
         </footer>
     </div>
+    <script src="../public/js/products.js"></script>
 </body>
 
 </html>
