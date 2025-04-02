@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            background-color: rgb(23, 24, 33);
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 16px;
+            margin: 0;
+            height: 100vh;
+        }
+        .login-container{
+            background-color: rgb(33, 34, 45);
+            height: auto;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            width: 25%;
+            min-width: 100px;
+        }
+        .login-container h2{
+            font-family: Inter, sans-serif;
+            font-size: 32px;
+            color: rgb(232, 232, 232);
+        }
+        .form-login input{
+            margin: 20px 0;
+            height: 50px;
+            width: 90%;
+            background-color: rgb(29, 30, 38);
+           color: rgb(135,136,140);
+           border: none;
+           border-radius: 5px;
+           padding: 5px 10px;
+        }
+        .form-login input:hover{
+            background-color:rgb(23, 24, 33);
+        }
+        .form-login hr{
+            width: 90%;
+            border-color: rgb(169, 223, 216);
+        }
+        .form-login button{
+            background-color: rgb(169, 223, 216);
+            color: rgba(0,0,0,0.87);
+            width: 90%;
+            height: 50px;
+            margin-top: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .form-login button:hover{
+            background-color:rgb(116, 212, 200);
+        }
+      
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Đăng nhập</h2>
+        <form class="form-login" action="" method="post">
+            <input type="text" class="username" placeholder="Tên người dùng"><br/>
+            <input type="password" class="password" placeholder="Mật khẩu"><br/>
+            <hr>
+            <button type="submit">Đăng nhập</button>
+        </form>
+
+    </div>
+   
+</body>
+</html>

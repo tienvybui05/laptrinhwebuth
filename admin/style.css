@@ -107,11 +107,13 @@ color: rgb(135, 136, 140);
 margin: 0 6px;
 font-size: 12px;
 }
+/*Login*/
 .login-admin .login{
     width: 60px;
    
     line-height: 90px;
 }
+/*Content*/
 /* row dau tien */
 #content .row-dau{
     display: flex;
@@ -264,3 +266,4 @@ font-size: 12px;
         border-radius: 0;
     }
 }
+/*Login*/
