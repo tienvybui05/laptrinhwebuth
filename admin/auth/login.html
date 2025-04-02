@@ -58,20 +58,25 @@
         .form-login button:hover{
             background-color:rgb(116, 212, 200);
         }
-      
+        .message{
+            color: white;
+        }
     </style>
+   
 </head>
 <body>
     <div class="login-container">
         <h2>Đăng nhập</h2>
-        <form class="form-login" action="" method="post">
-            <input type="text" class="username" placeholder="Tên người dùng"><br/>
-            <input type="password" class="password" placeholder="Mật khẩu"><br/>
+        <form class="form-login" action="" method="post" >
+            <input type="text" class="username" placeholder="Tên người dùng" name="username"><br/>
+            <input type="password" class="password" placeholder="Mật khẩu" name="password"><br/>
+            <p class="message"></p>
             <hr>
             <button type="submit">Đăng nhập</button>
         </form>
 
     </div>
-   
+  <script src="../main.js"></script>
+ 
 </body>
 </html>
