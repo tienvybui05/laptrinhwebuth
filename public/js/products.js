@@ -1,79 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Hàm cập nhật số lượng sản phẩm hiển thị
-    function updateProductCount() {
-        const productCountElement = document.querySelector('.product-count');
-        if (!productCountElement) return;
-        
-        const productGrid = document.querySelector('.product-grid');
-        const visibleProducts = productGrid.querySelectorAll('.product-card');
-        const totalProducts = visibleProducts.length; // Trong thực tế, đây có thể là tổng số sản phẩm từ server
-        
-        // Giả sử mỗi trang hiển thị 20 sản phẩm
-        const itemsPerPage = 20;
-        const currentPage = 1; // Trong thực tế, đây sẽ là trang hiện tại từ phân trang
-        
-        const startItem = (currentPage - 1) * itemsPerPage + 1;
-        const endItem = Math.min(currentPage * itemsPerPage, totalProducts);
-        
-        productCountElement.textContent = `Hiển thị ${startItem}-${endItem} của ${totalProducts} kết quả`;
-    }
-    
-    // Cập nhật số lượng sản phẩm khi trang được tải
-    updateProductCount();
-    
-    // Xử lý hiệu ứng hiển thị nút thêm vào giỏ hàng khi hover
-    const productCards = document.querySelectorAll('.product-card');
-    
-    productCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            const actions = this.querySelector('.product-actions');
-            if (actions) {
-                actions.style.opacity = '1';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            const actions = this.querySelector('.product-actions');
-            if (actions) {
-                actions.style.opacity = '0';
-            }
-        });
-    });
-    
-    // Xử lý nút thêm vào giỏ hàng
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const productCard = this.closest('.product-card');
-            const productTitle = productCard.querySelector('.product-title').textContent;
-            const productPrice = productCard.querySelector('.sale-price').textContent;
-            
-            // Hiển thị thông báo thêm vào giỏ hàng thành công
-            showNotification(`Đã thêm "${productTitle}" vào giỏ hàng!`);
-        });
-    });
-    
-    // Xử lý nút yêu thích
-    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-    
-    wishlistButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Toggle class để thay đổi màu icon trái tim
-            const heartIcon = this.querySelector('i');
-            heartIcon.classList.toggle('active');
-            
-            if (heartIcon.classList.contains('active')) {
-                heartIcon.style.color = 'red';
-            } else {
-                heartIcon.style.color = '';
-            }
-        });
-    });
-    
     // Xử lý dropdown filter
     const filterButtons = document.querySelectorAll('.filter-btn');
     
@@ -100,16 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (dropdown) {
                 dropdown.classList.toggle('visible');
                 this.classList.toggle('active');
-                
-                // Cập nhật vị trí của dropdown nếu nó đang hiển thị
-                if (dropdown.classList.contains('visible')) {
-                    updateDropdownPosition(this, dropdown);
-                }
             }
         });
     });
     
-     // Đóng dropdown khi click ra ngoài
+    // Đóng dropdown khi click ra ngoài
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.filter-group')) {
             document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
@@ -120,18 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.classList.remove('active');
             });
         }
-    });
-    
-    // Cập nhật vị trí của dropdown khi cuộn trang
-    window.addEventListener('scroll', function() {
-        const visibleDropdowns = document.querySelectorAll('.filter-dropdown.visible');
-        
-        visibleDropdowns.forEach(dropdown => {
-            const button = dropdown.previousElementSibling;
-            if (button && button.classList.contains('filter-btn')) {
-                updateDropdownPosition(button, dropdown);
-            }
-        });
     });
     
     // Xử lý thanh trượt giá hai đầu
@@ -208,15 +116,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setupPriceRangeSlider();
     
     // Xử lý các tùy chọn lọc
-    const brandOptions = document.querySelectorAll('.brand-option');
-    const priceOptions = document.querySelectorAll('.price-option');
+    const filterOptions = document.querySelectorAll('.price-option, .stiffness-option, .balance-option, .tension-option, .play-style-option');
     
-    brandOptions.forEach(option => {
+    filterOptions.forEach(option => {
         option.addEventListener('click', function(e) {
             e.preventDefault();
             
+            // Lấy tất cả các option cùng loại
+            const optionType = this.classList[0];
+            const sameTypeOptions = document.querySelectorAll('.' + optionType);
+            
             // Thêm class active cho option được chọn
-            brandOptions.forEach(opt => opt.classList.remove('active'));
+            sameTypeOptions.forEach(opt => opt.classList.remove('active'));
             this.classList.add('active');
             
             // Đóng dropdown sau khi chọn
@@ -224,28 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.closest('.filter-dropdown').classList.remove('visible');
                 this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
             }, 300);
-            
-            // Cập nhật lại số lượng sản phẩm sau khi lọc
-            updateProductCount();
-        });
-    });
-    
-    priceOptions.forEach(option => {
-        option.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Thêm class active cho option được chọn
-            priceOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Đóng dropdown sau khi chọn
-            setTimeout(() => {
-                this.closest('.filter-dropdown').classList.remove('visible');
-                this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-            }, 300);
-            
-            // Cập nhật lại số lượng sản phẩm sau khi lọc
-            updateProductCount();
         });
     });
     
@@ -262,60 +151,69 @@ document.addEventListener('DOMContentLoaded', function() {
             // Đóng dropdown sau khi áp dụng
             this.closest('.filter-dropdown').classList.remove('visible');
             this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-            
-            // Cập nhật lại số lượng sản phẩm sau khi lọc
-            updateProductCount();
         });
     }
     
     // Xử lý dropdown sắp xếp
-    const sortSelect = document.querySelector('.product-sort select');
+    const sortSelect = document.getElementById('sort-select');
     
     if (sortSelect) {
         sortSelect.addEventListener('change', function() {
             const sortValue = this.value;
+            const productItems = Array.from(document.querySelectorAll('.san-pham-item'));
             
-            // Ở đây bạn có thể thêm code để sắp xếp sản phẩm dựa trên giá trị đã chọn
-            console.log(`Sắp xếp sản phẩm theo: ${sortValue}`);
-            
-            // Ví dụ về cách sắp xếp sản phẩm
-            sortProducts(sortValue);
-            
-            // Cập nhật lại số lượng sản phẩm sau khi sắp xếp
-            updateProductCount();
-        });
-    }
-    
-    // Hàm sắp xếp sản phẩm
-    function sortProducts(sortType) {
-        const productGrid = document.querySelector('.product-grid');
-        const products = Array.from(productGrid.querySelectorAll('.product-card'));
-        
-        products.sort((a, b) => {
-            const priceA = parseFloat(a.querySelector('.sale-price').textContent.replace(/[^\d]/g, ''));
-            const priceB = parseFloat(b.querySelector('.sale-price').textContent.replace(/[^\d]/g, ''));
-            const titleA = a.querySelector('.product-title').textContent;
-            const titleB = b.querySelector('.product-title').textContent;
-            
-            switch(sortType) {
-                case 'Giá: Thấp đến cao':
-                    return priceA - priceB;
-                case 'Giá: Cao đến thấp':
-                    return priceB - priceA;
-                case 'Tên: A-Z':
-                    return titleA.localeCompare(titleB);
-                default: // Mới nhất
-                    return 0; // Giữ nguyên thứ tự
+            // Sắp xếp sản phẩm dựa trên giá trị được chọn
+            switch(sortValue) {
+                case 'price-asc':
+                    sortProductsByPrice(productItems, 'asc');
+                    break;
+                case 'price-desc':
+                    sortProductsByPrice(productItems, 'desc');
+                    break;
+                case 'name-asc':
+                    sortProductsByName(productItems);
+                    break;
+                case 'newest':
+                default:
+                    // Mặc định là mới nhất, không cần sắp xếp lại
+                    break;
             }
+            
+            console.log(`Sắp xếp sản phẩm theo: ${sortValue}`);
         });
         
-        // Xóa tất cả sản phẩm hiện tại
-        productGrid.innerHTML = '';
+        // Hàm sắp xếp sản phẩm theo giá
+        function sortProductsByPrice(products, order) {
+            products.sort((a, b) => {
+                const priceA = extractPrice(a.querySelector('.price').textContent);
+                const priceB = extractPrice(b.querySelector('.price').textContent);
+                
+                return order === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+            
+            // Sắp xếp lại DOM
+            const productList = document.querySelector('.san-pham-list');
+            products.forEach(product => productList.appendChild(product));
+        }
         
-        // Thêm lại sản phẩm đã sắp xếp
-        products.forEach(product => {
-            productGrid.appendChild(product);
-        });
+        // Hàm sắp xếp sản phẩm theo tên
+        function sortProductsByName(products) {
+            products.sort((a, b) => {
+                const nameA = a.querySelector('h3').textContent.trim();
+                const nameB = b.querySelector('h3').textContent.trim();
+                
+                return nameA.localeCompare(nameB);
+            });
+            
+            // Sắp xếp lại DOM
+            const productList = document.querySelector('.san-pham-list');
+            products.forEach(product => productList.appendChild(product));
+        }
+        
+        // Hàm trích xuất giá từ chuỗi (ví dụ: "2.550.000 đ" -> 2550000)
+        function extractPrice(priceString) {
+            return parseInt(priceString.replace(/\./g, '').replace(/\s+đ/g, ''));
+        }
     }
     
     // Xử lý danh mục sản phẩm ở sidebar
@@ -332,12 +230,32 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             const category = this.textContent;
-            
-            // Ở đây bạn có thể thêm code để lọc sản phẩm theo danh mục
             console.log(`Đã chọn danh mục: ${category}`);
+        });
+    });
+    
+    // Xử lý nút thêm vào giỏ hàng
+    const addToCartButtons = document.querySelectorAll('.btn-add-cart');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productItem = this.closest('.san-pham-item');
+            const productName = productItem.querySelector('h3').textContent;
             
-            // Cập nhật lại số lượng sản phẩm sau khi chọn danh mục
-            updateProductCount();
+            // Hiển thị thông báo
+            showNotification(`Đã thêm "${productName}" vào giỏ hàng!`);
+        });
+    });
+    
+    // Xử lý nút mua ngay
+    const buyNowButtons = document.querySelectorAll('.btn-buy-now');
+    
+    buyNowButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productItem = this.closest('.san-pham-item');
+            const productName = productItem.querySelector('h3').textContent;
+            
+            alert(`Chuyển đến trang thanh toán cho sản phẩm: ${productName}`);
         });
     });
     
@@ -352,70 +270,18 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.remove();
         }, 3000);
     }
-});
-
-// Xử lý các tùy chọn lọc độ cứng
-const stiffnessOptions = document.querySelectorAll('.stiffness-option');
-
-stiffnessOptions.forEach(option => {
-    option.addEventListener('click', function(e) {
-        e.preventDefault();
+    
+    // Cập nhật số lượng sản phẩm hiển thị
+    function updateProductCount() {
+        const productCount = document.querySelector('.product-count');
+        const totalProducts = document.querySelectorAll('.san-pham-item').length;
+        const visibleProducts = document.querySelectorAll('.san-pham-item:not(.hidden)').length;
         
-        // Thêm class active cho option được chọn
-        stiffnessOptions.forEach(opt => opt.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Đóng dropdown sau khi chọn
-        setTimeout(() => {
-            this.closest('.filter-dropdown').classList.remove('visible');
-            this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-        }, 300);
-        
-        // Cập nhật lại số lượng sản phẩm sau khi lọc
-        updateProductCount();
-    });
-});
-
-// Xử lý các tùy chọn lọc điểm cân bằng
-const balanceOptions = document.querySelectorAll('.balance-option');
-
-balanceOptions.forEach(option => {
-    option.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Thêm class active cho option được chọn
-        balanceOptions.forEach(opt => opt.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Đóng dropdown sau khi chọn
-        setTimeout(() => {
-            this.closest('.filter-dropdown').classList.remove('visible');
-            this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-        }, 300);
-        
-        // Cập nhật lại số lượng sản phẩm sau khi lọc
-        updateProductCount();
-    });
-});
-
-// Xử lý các tùy chọn lọc mức căng
-const tensionOptions = document.querySelectorAll('.tension-option');
-
-tensionOptions.forEach(option => {
-    option.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Thêm class active cho option được chọn
-        tensionOptions.forEach(opt => opt.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Đóng dropdown sau khi chọn
-        setTimeout(() => {
-            this.closest('.filter-dropdown').classList.remove('visible');
-            this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-        }, 300);
-        
-        // Cập nhật lại số lượng sản phẩm sau khi lọc
-        updateProductCount();
-    });
+        if (productCount) {
+            productCount.textContent = `Hiển thị 1–${visibleProducts} của ${totalProducts} kết quả`;
+        }
+    }
+    
+    // Gọi hàm cập nhật số lượng sản phẩm khi trang được tải
+    updateProductCount();
 });

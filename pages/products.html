@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -23,11 +23,11 @@
                         <img src="../public/images/logo.png" alt="logo">
                     </a>
                     <ul id="main-menu">
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="../public/index.html">Trang chủ</a></li>
+                        <li><a href="./about.html">Giới thiệu</a></li>
+                        <li><a href="./products.html" class="active">Sản phẩm</a></li>
+                        <li><a href="./news.html">Tin tức</a></li>
+                        <li><a href="./contact.html">Liên hệ</a></li>
                     </ul>
                     <!--Thanh tìm kiếm  -->
                     <div class="search-bar">
@@ -41,7 +41,7 @@
                 </nav>
             </div>
         </header>
-        <main class="main-content">
+        <main class="main">
             <div class="container">
                 
                 <div class="content-wrapper">
@@ -52,12 +52,10 @@
                                 DANH MỤC SẢN PHẨM
                             </div>
                             <ul class="category-list">
-                                <li><a href="#">Vợt cầu lông Kuno</a></li>
-                                <li><a href="#">Vợt cầu lông Yonex</a></li>
+                                <li><a href="#" class="active">Vợt cầu lông Yonex</a></li>
                                 <li><a href="#">Vợt cầu lông Lining</a></li>
                                 <li><a href="#">Vợt cầu lông Victor</a></li>
-                                <li><a href="#">Vợt cầu lông Kumpoo</a></li>
-                               
+                                <li><a href="#">Phụ kiện khác</a></li>
                             </ul>
                         </div>
                     </aside>
@@ -66,64 +64,23 @@
                     <div class="product-area">
                         <div class="product-controls">
                             <div class="breadcrumbs">
-                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="products.html">Sản phẩm</a>
+                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="./products.html">Sản phẩm</a>
                             </div>
                             <div class="product-count">
-                                <!-- Hiển thị 1–20 của 20 kết quả -->
+                                Hiển thị 1–12 của 24 kết quả
                             </div>
                             <div class="product-sort"> 
                                 <span>Sắp xếp:</span>
-                                <select>
-                                    <!-- <option>Mới nhất</option> -->
-                                    <option>Giá: Thấp đến cao</option>
-                                    <option>Giá: Cao đến thấp</option>
-                                    <option>Tên: A-Z</option>
+                                <select id="sort-select">
+                                    <option value="newest">Mới nhất</option>
+                                    <option value="price-asc">Giá: Thấp đến cao</option>
+                                    <option value="price-desc">Giá: Cao đến thấp</option>
+                                    <option value="name-asc">Tên: A-Z</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div class="filter-bar">
-                            <!-- <div class="filter-group">
-                                <button class="filter-btn">Thương Hiệu <i class="fas fa-chevron-down"></i></button>
-                                <div class="filter-dropdown">
-                                    <div class="brand-options">
-                                        <div class="brand-row">
-                                            <a href="#" class="brand-option">Yonex</a>
-                                            <a href="#" class="brand-option">Lining</a>
-                                            <a href="#" class="brand-option">Victor</a>
-                                            <a href="#" class="brand-option">Mizuno</a>
-                                            <a href="#" class="brand-option">Apacs</a>
-                                        </div>
-                                        <div class="brand-row">
-                                            <a href="#" class="brand-option">Kumpoo</a>
-                                            <a href="#" class="brand-option">Kawasaki</a>
-                                            <a href="#" class="brand-option">VS</a>
-                                            <a href="#" class="brand-option">Flypower</a>
-                                            <a href="#" class="brand-option">Fleet</a>
-                                        </div>
-                                        <div class="brand-row">
-                                            <a href="#" class="brand-option">The 3rd Game</a>
-                                            <a href="#" class="brand-option">Kamito</a>
-                                            <a href="#" class="brand-option">Proace</a>
-                                            <a href="#" class="brand-option">Felet</a>
-                                            <a href="#" class="brand-option">IXE</a>
-                                        </div>
-                                        <div class="brand-row">
-                                            <a href="#" class="brand-option">Bubadu</a>
-                                            <a href="#" class="brand-option">Vicleo</a>
-                                            <a href="#" class="brand-option">Pro</a>
-                                            <a href="#" class="brand-option">Pride</a>
-                                            <a href="#" class="brand-option">Tenway</a>
-                                        </div>
-                                        <div class="brand-row">
-                                            <a href="#" class="brand-option">Maxta</a>
-                                            <a href="#" class="brand-option">Adidas</a>
-                                            <a href="#" class="brand-option">Keyace</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            
                             <div class="filter-group">
                                 <button class="filter-btn">Khoảng Giá <i class="fas fa-chevron-down"></i></button>
                                 <div class="filter-dropdown price-dropdown">
@@ -161,18 +118,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- <div class="filter-group">
-                                <button class="filter-btn">Trọng Lượng <i class="fas fa-chevron-down"></i></button>
-                                <div class="filter-dropdown"></div>
-                            </div> -->
-                            
-                            <!-- <div class="filter-group">
-                                <button class="filter-btn">Cân Cầm <i class="fas fa-chevron-down"></i></button>
-                                <div class="filter-dropdown"></div>
-                            </div>
-                             -->
-                             <div class="filter-group">
+                             
+                            <div class="filter-group">
                                 <button class="filter-btn">Độ Cứng <i class="fas fa-chevron-down"></i></button>
                                 <div class="filter-dropdown">
                                     <div class="stiffness-options">
@@ -197,49 +144,16 @@
                                     <div class="balance-options">
                                         <div class="balance-row">
                                             <a href="#" class="balance-option">295mm (Hơi Nặng Đầu)</a>
-                                            <a href="#" class="balance-option">296+-4mm (Hơi Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
                                             <a href="#" class="balance-option">296mm (Hơi Nặng Đầu)</a>
-                                            <a href="#" class="balance-option">297mm</a>
                                         </div>
                                         <div class="balance-row">
-                                            <a href="#" class="balance-option">298 Mm (4u)</a>
-                                            <a href="#" class="balance-option">298mm</a>
-                                            <a href="#" class="balance-option">298mm (+-2mm)</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">298mm (Hơi Nặng Đầu)</a>
                                             <a href="#" class="balance-option">298mm (Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">3/5 (Hơi Nặng Đầu)</a>
-                                            <a href="#" class="balance-option">300 ± 3mm (Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">300 Mm (5u)</a>
-                                            <a href="#" class="balance-option">300 Mm (Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">300-305mm</a>
-                                            <a href="#" class="balance-option">300-305mm (Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
                                             <a href="#" class="balance-option">300mm (Nặng Đầu)</a>
-                                            <a href="#" class="balance-option">301mm (Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">285mm (Cân bằng)</a>
-                                            <a href="#" class="balance-option">290mm (Cân bằng)</a>
                                         </div>
                                         <div class="balance-row">
                                             <a href="#" class="balance-option">Cân bằng</a>
                                             <a href="#" class="balance-option">Hơi nặng đầu</a>
                                             <a href="#" class="balance-option">Nặng đầu</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">Nhẹ đầu</a>
-                                            <a href="#" class="balance-option">Rất nặng đầu</a>
                                         </div>
                                     </div>
                                 </div>
@@ -255,93 +169,230 @@
                                         </div>
                                         <div class="tension-row">
                                             <a href="#" class="tension-option">4U ≤ 31lbs (14 Kg)</a>
-                                            <a href="#" class="tension-option">4U ≤24 Lbs (11,5Kg)</a>
-                                        </div>
-                                        <div class="tension-row">
-                                            <a href="#" class="tension-option">4U ≤28 Lbs (12,5 Kg)</a>
-                                            <a href="#" class="tension-option">4U ≤28 Lbs (12.5 Kg)</a>
-                                        </div>
-                                        <div class="tension-row">
-                                            <a href="#" class="tension-option">4U ≤28 Lbs (12.5Kg)</a>
-                                            <a href="#" class="tension-option">4U ≤29 Lbs (13 Kg)</a>
-                                        </div>
-                                        <div class="tension-row">
                                             <a href="#" class="tension-option">4U 20-28 LBS</a>
-                                            <a href="#" class="tension-option">4U: 19 - 27 Lbs (Tối Đa 12kg)</a>
                                         </div>
                                         <div class="tension-row">
-                                            <a href="#" class="tension-option">4U: 20 - 28 Lbs (12.6kg)</a>
-                                            <a href="#" class="tension-option">4U: 26LBS (11.7kg)</a>
-                                        </div>
-                                        <div class="tension-row">
-                                            <a href="#" class="tension-option">4U:≤24 Lbs(10.5Kg)</a>
-                                            <a href="#" class="tension-option">4U:≤31 Lbs(14Kg)</a>
-                                        </div>
-                                        <div class="tension-row">
-                                            <a href="#" class="tension-option">4U≤29 Lbs (13 Kg)</a>
+                                            <a href="#" class="tension-option">4U: 19 - 27 Lbs</a>
+                                            <a href="#" class="tension-option">4U: 20 - 28 Lbs</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- <div class="filter-group">
-                                <button class="filter-btn">Màu Sắc <i class="fas fa-chevron-down"></i></button>
-                                <div class="filter-dropdown"></div>
-                            </div> -->
                             
                             <div class="filter-group">
                                 <button class="filter-btn">Lối Chơi <i class="fas fa-chevron-down"></i></button>
-                                <div class="filter-dropdown"></div>
+                                <div class="filter-dropdown">
+                                    <div class="play-style-options">
+                                        <div class="play-style-row">
+                                            <a href="#" class="play-style-option">Tấn công</a>
+                                            <a href="#" class="play-style-option">Phòng thủ</a>
+                                        </div>
+                                        <div class="play-style-row">
+                                            <a href="#" class="play-style-option">Toàn diện</a>
+                                            <a href="#" class="play-style-option">Kiểm soát</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                 
-                        <div class="product-grid">
-                            <!-- Product 1 -->
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <span class="discount-badge">-15%</span>
-                                    <span class="status-badge new">Mới</span>
-                                    <img src="https://placeholder.pics/svg/200x400/DEDEDE/555555/racket" alt="Vợt cầu lông VS Arashi Wind A6">
-                                    <div class="product-actions">
-                                        <button class="add-to-cart-btn">
-                                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
-                                        </button>
-                                        <button class="wishlist-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-title">Vợt cầu lông VS Arashi Wind A6</h3>
-                                    <div class="product-price">
-                                        <span class="sale-price">550.000₫</span>
-                                        <span class="original-price">650.000₫</span>
-                                    </div>
+                        <div class="san-pham-list">
+                            <!-- Sản phẩm 1 - Yonex -->
+                            <div class="san-pham-item">
+                                <div class="discount">-15%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Astrox 88D Pro">
+                                <h3>Vợt cầu lông Yonex Astrox 88D Pro</h3>
+                                <p class="price">2.550.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
                                 </div>
                             </div>
                 
-                            <!-- Product 2 -->
-                            <div class="product-card">
-                                <div class="product-image">
-                                    <span class="discount-badge">-11%</span>
-                                    <img src="https://placeholder.pics/svg/200x400/DEDEDE/555555/racket" alt="Vợt cầu lông Lining Halbertec 4000">
-                                    <div class="product-actions">
-                                        <button class="add-to-cart-btn">
-                                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
-                                        </button>
-                                        <button class="wishlist-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </button>
-                                    </div>
+                            <!-- Sản phẩm 2 - Yonex -->
+                            <div class="san-pham-item">
+                                <div class="discount">-10%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Nanoflare 800">
+                                <h3>Vợt cầu lông Yonex Nanoflare 800</h3>
+                                <p class="price">2.880.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
                                 </div>
-                                <div class="product-info">
-                                    <h3 class="product-title">Vợt cầu lông Lining Halbertec 4000</h3>
-                                    <div class="product-price">
-                                        <span class="sale-price">1.920.000₫</span>
-                                        <span class="original-price">2.150.000₫</span>
-                                    </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 3 - Yonex -->
+                            <div class="san-pham-item">
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Duora 10">
+                                <h3>Vợt cầu lông Yonex Duora 10</h3>
+                                <p class="price">2.100.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
                                 </div>
-                            </div>                            
+                            </div>
+                            
+                            <!-- Sản phẩm 4 - Yonex -->
+                            <div class="san-pham-item">
+                                <div class="discount">-8%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Arcsaber 11">
+                                <h3>Vợt cầu lông Yonex Arcsaber 11</h3>
+                                <p class="price">1.950.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 5 - Lining -->
+                            <div class="san-pham-item">
+                                <div class="discount">-12%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Aeronaut 9000i">
+                                <h3>Vợt cầu lông Lining Aeronaut 9000i</h3>
+                                <p class="price">1.850.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 6 - Lining -->
+                            <div class="san-pham-item">
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Windstorm 72">
+                                <h3>Vợt cầu lông Lining Windstorm 72</h3>
+                                <p class="price">1.680.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 7 - Lining -->
+                            <div class="san-pham-item">
+                                <div class="discount">-5%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Turbo Charging 75">
+                                <h3>Vợt cầu lông Lining Turbo Charging 75</h3>
+                                <p class="price">1.520.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 8 - Lining -->
+                            <div class="san-pham-item">
+                                <div class="discount">-7%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining 3D Calibar 900">
+                                <h3>Vợt cầu lông Lining 3D Calibar 900</h3>
+                                <p class="price">1.950.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 9 - Victor -->
+                            <div class="san-pham-item">
+                                <div class="discount">-10%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Thruster K 9000">
+                                <h3>Vợt cầu lông Victor Thruster K 9000</h3>
+                                <p class="price">2.250.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 10 - Victor -->
+                            <div class="san-pham-item">
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Jetspeed S 10">
+                                <h3>Vợt cầu lông Victor Jetspeed S 10</h3>
+                                <p class="price">1.980.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 11 - Victor -->
+                            <div class="san-pham-item">
+                                <div class="discount">-8%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Auraspeed 90S">
+                                <h3>Vợt cầu lông Victor Auraspeed 90S</h3>
+                                <p class="price">2.120.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sản phẩm 12 - Victor -->
+                            <div class="san-pham-item">
+                                <div class="discount">-6%</div>
+                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Bravesword 12">
+                                <h3>Vợt cầu lông Victor Bravesword 12</h3>
+                                <p class="price">1.880.000 đ</p>
+                                <div class="san-pham-buttons">
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                    </button>
+                                    <button class="btn-buy-now">
+                                        <i class="fas fa-shopping-bag"></i> Mua ngay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Phân trang -->
+                        <div class="pagination">
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#" class="next">Trang sau <i class="fas fa-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -355,16 +406,17 @@
                     </a>
                     <h3>Thông tin liên hệ</h3>
                     <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-                    <p>Email:
+                    <p>Email: info@example.com</p>
+                    <p>Hotline: 0123.456.789</p>
                 </div>
                 <div class="footer-center">
                     <h3>Liên kết nhanh</h3>
                     <ul>
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="../public/index.html">Trang chủ</a></li>
+                        <li><a href="./about.html">Giới thiệu</a></li>
+                        <li><a href="./products.html">Sản phẩm</a></li>
+                        <li><a href="./news.html">Tin tức</a></li>
+                        <li><a href="./contact.html">Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="footer-right">
