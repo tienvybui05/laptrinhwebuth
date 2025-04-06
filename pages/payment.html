@@ -4,87 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký</title>
+    <title>Giỏ hàng</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/style.css">
     <style>
-        .main-signup {
-            background-color: whitesmoke;
-            min-height: 100vh;
+        .main-payment {
+            width: auto;
+            height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
         }
-
-        .formdangky {
-            width: 25%;
-            color: black;
-            margin-bottom: 50px;
-            text-align: center;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid #ddd;
+        .main-leftpayment{
+            width: 60%;
+            background-color: #F4F4F4;
         }
-
-        .formdangky h2 {
-            font-size: 28px;
-            margin-bottom: 40px;
+        .slidebarpayment{
+            width: 40%;
+            background-color: #DFDFDF;
         }
-
-        .formdangky label {
-            display: block;
-            text-align: left;
-            font-size: 14px;
-            margin-bottom: 5px;
+        .leftpayment{
+            margin-left: 30px;
         }
-
-        .formdangky input {
-            width: 100%;
-            padding: 10px 40px;
-            border: 1px solid gray;
-            background-color: white;
-            color: black;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        .formdangky .subm input {
-            width: 100%;
-            background-color: black;
-            border: none;
+        .row{
+            border: 1px solid black;
             padding: 10px;
-            color: whitesmoke;
-            font-size: 16px;
-            font-weight: bold;
+            margin: 10px;
+        }
+        /* Định dạng input và textarea */
+        .row input,
+        .row textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            margin: 10px;
         }
 
-        .formdangky .subm input:hover {
-            background-color: rgb(198, 193, 193);
-            color: black;
+        #hang1{
+            display: flex;
         }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 60%;
-            transform: translateY(-50%);
-            color: black;
+        #formhoten{
+            width: 65%;
+            margin-right: 5%;
         }
     </style>
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapper" style="background-color: rgb(121, 121, 122);">
         <header class="header">
             <div class="container">
                 <!--Thanh menu  -->
@@ -111,39 +81,40 @@
                 </nav>
             </div>
         </header>
-        <main class="main-signup">
-            <div class="formdangky">
-                <form id="signup" name="signup" method="post" action="#">
-                    <h2>Đăng ký</h2>
-                    
-                    <div class="input-group">
-                        <label for="fullname">Nhập tên tên của bạn</label>
-                        <i class="fas fa-user"></i>
-                        <input name="fullname" id="fullname" type="text" required />
+        <main class="main-payment">
+            <div class="main-leftpayment">
+                <div class="leftpayment">
+                    <h1>Thông tin giao hàng</h1>
+                    <p>Bạn đã có tài khoản?</p>
+                    <div class="signup-link">
+                        Chưa có tài khoản? <a href="./register.html">Đăng ký</a>
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="email">Nhập email của bạn</label>
-                        <i class="fas fa-user"></i>
-                        <input name="email" id="email" type="email" required />
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="password">Mật khẩu</label>
-                        <i class="fas fa-lock"></i>
-                        <input name="password" id="password" type="password" required />
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="confirm-password">Nhập lại mật khẩu</label>
-                        <i class="fas fa-lock"></i>
-                        <input name="confirm-password" id="confirm-password" type="password" required />
-                    </div>
-                    
-                    <div class="subm">
-                        <input type="submit" name="submit" id="submit" value="Đăng ký" />
-                    </div>
-                </form>
+                    <form>
+                        <div class="row">
+                            <div id="hang1">
+                                <div id="formhoten">
+                                    <input placeholder="Họ và tên" type="text" class="form-control" name="ten" required>
+                                </div>
+                                <div id="formmail">
+                                    <input placeholder="Email" type="email" class="form-control" name="email" required>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div> <!-- Thêm dòng này -->
+                            <div class="form2">
+                                <input placeholder="Điện thoại" type="tel" class="form-control" name="dienthoai" required>
+                            </div>
+                            <div class="form2">
+                                <input placeholder="Địa chỉ" type="tel" class="form-control" name="dienthoai" required>
+                            </div>
+                            <div class="form2">
+                                <textarea placeholder="Nội dung" class="form-control" name="noidung" rows="5" required></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="slidebarpayment">
+                    .
             </div>
         </main>
         <footer class="footer">
@@ -178,6 +149,8 @@
             </div>
         </footer>
     </div>
+    
+
 </body>
 
 </html>
