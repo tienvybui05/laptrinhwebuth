@@ -1127,3 +1127,164 @@ html {
     animation: scroll-logos 15s linear infinite;
     /* Lướt logo liên tục */
 }
+/*about*/
+.column-about{
+    float: left;
+    width: 20%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+    }
+    .card-about{
+    margin: 8px;
+    border-radius: 12px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+    padding-bottom: 2px;
+    }
+    .card-about:hover {
+    transform: scale(1.05); 
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); 
+    }
+    .gioi-thieu-about{
+        display: grid;
+        grid-template-columns: 40% 60%;
+        margin-top: 15px;
+        max-width: 3000px;
+        padding: 20px;
+        background-color:whitesmoke;
+        justify-content: space-between;
+        margin: 20px auto;
+    }
+    .noi-dung-gioi-thieu-about{
+        padding: 20px;
+        text-align: left;
+        color: #000;
+    }
+    .noi-dung-gioi-thieu-about h1{
+        color:#000;
+        font-family:Arial;
+        font-size: 40px;
+    }
+    .anh-gioi-thieu-about{
+        padding: 40px 40px 40px 70px;
+        width: 80%;
+       
+    }
+    .anh-gioi-thieu-about img{
+        
+        width: 100%;
+        height: 350px;
+        border-radius: 15px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease,box-shadow 0.3s ease;
+    }
+    .anh-gioi-thieu-about img:hover {
+       transform: scale(1.05);
+       box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .about-san-pham{
+        display: flex;
+        padding: 20px;
+        background-color:white;
+        color:#000;
+        max-width: 3000px;
+        margin: 20px auto;
+        border: 2px solid #ddd;
+    
+    }
+    .about-san-pham .anh-san-pham-about {
+    width: 40%;
+    padding: 20px;
+
+    }
+    .about-san-pham .anh-san-pham-about img{
+        width: 95%;
+        height: 350px;
+        border-radius: 12px; 
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+        margin-right: 20px;
+    }
+    .about-san-pham .anh-san-pham-about img:hover {
+        transform: scale(1.05); 
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); 
+    }
+    .about-san-pham .noi-dung-san-pham-about{
+        padding: 10px;
+    }
+    .about-san-pham .noi-dung-san-pham-about h2 {
+        font-size: 30px;
+        font-weight: bold;
+        color:#000;
+        margin-bottom: 15px;
+    }
+    .about-san-pham .noi-dung-san-pham-about a {
+        color: #00AFFF; /* Màu xanh dương nhạt */
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    }
+    
+    .noi-dung-san-pham-about a:hover {
+        color: #FFD700; /* Đổi màu sang vàng nhạt khi hover */
+        text-shadow: 0px 0px 8px rgba(255, 215, 0, 0.8); /* Hiệu ứng phát sáng nhẹ */
+        text-decoration: underline;
+    }
+    .container-about{
+        padding: 0 16px;
+    }
+    .column-about::after, .row-about::after{
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .title-about{
+        color: grey;
+    }
+    .button-about{
+        border: none;
+        outline: 0;
+        display: block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 70%;
+        border-radius: 5px;
+        
+        margin: 0 auto 15px;
+    }
+    .button-about:hover{
+        background-color: #555;
+        
+    }
+    .row-about {
+    display: flex;
+    justify-content: center; /* Căn giữa các cột */
+    flex-wrap: wrap; /* Đảm bảo các cột xuống dòng khi thu nhỏ màn hình */
+    max-width: 3000px;
+    margin: 20px auto;
+    }
+    .anh-thanh-vien-about{
+        width: 100%;
+    }
+    .center-about-lien-he{
+        text-align: center;
+    }
+
+    @media screen and (max-width: 650px) 
+    {
+        .column-about{
+            width: 100%;
+            display: block;
+        }
+        .gioi-thieu-about, .about-san-pham {
+            flex-direction: column; /* Chuyển thành layout dọc */
+            align-items: center; /* Căn giữa nội dung */
+        }
+        .noi-dung-gioi-thieu-about, .anh-gioi-thieu-about {
+            width:100%;
+            text-align: center;
+        }
+    }
