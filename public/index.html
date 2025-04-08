@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
+
 
 
 </head>
 
 <body>
+
     <div class="wrapper">
         <header class="header">
             <div class="container">
@@ -31,11 +32,33 @@
                     <!--Thanh tìm kiếm  -->
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="fas fa-search"></i></button>
+                        <button type="submit"><i class="ti-search"></i></button>
                     </div>
                     <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
+                        <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
+                        <div class="user-menu">
+                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Thông tin người dùng</a></li>
+                                <li><a href="#">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                        <script>// Lấy phần tử user-menu
+                            const userMenu = document.querySelector('.user-menu');
+
+                            // Thêm sự kiện click vào user-icon
+                            userMenu.addEventListener('click', (e) => {
+                                e.preventDefault(); // Ngăn chặn hành động mặc định
+                                userMenu.classList.toggle('active'); // Thêm hoặc xóa class active
+                            });
+
+                            // Đóng menu khi click ra ngoài
+                            document.addEventListener('click', (e) => {
+                                if (!userMenu.contains(e.target)) {
+                                    userMenu.classList.remove('active');
+                                }
+                            });</script>
+
                     </div>
                 </nav>
             </div>
@@ -44,18 +67,20 @@
             <div class="container">
                 <section class="banner">
                     <div class="carousel">
-                        <div class="carousel-item">
-                            <img src="./images/banner1.jpg" alt="Banner 1">
-                            <div class="banner-text">
-                                <h1>Chào mừng đến với Website</h1>
-                                <p>Khám phá sản phẩm của chúng tôi</p>
+                        <div class="carousel-track">
+                            <div class="carousel-item">
+                                <img src="./images/banner1.jpg" alt="Banner 1">
+                                <div class="banner-text">
+                                    <h1>Chào mừng đến với Website</h1>
+                                    <p>Khám phá sản phẩm của chúng tôi</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./images/banner2.jpg" alt="Banner 2">
-                            <div class="banner-text">
-                                <h1>Ưu đãi đặc biệt</h1>
-                                <p>Giảm giá lên đến 50% cho các sản phẩm mới</p>
+                            <div class="carousel-item">
+                                <img src="./images/banner2.jpg" alt="Banner 2">
+                                <div class="banner-text">
+                                    <h1>Ưu đãi đặc biệt</h1>
+                                    <p>Giảm giá lên đến 50% cho các sản phẩm mới</p>
+                                </div>
                             </div>
                         </div>
                         <!-- Nút chuyển slide -->
@@ -63,6 +88,7 @@
                         <button class="next-btn">&#10095;</button>
                     </div>
                 </section>
+
                 <section class="services">
                     <div class="services-list">
                         <div class="service-item">
@@ -121,10 +147,10 @@
                                 <p class="price">2.500.000 đ</p>
                                 <div class="san-pham-buttons">
                                     <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                                        <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
                                     </button>
                                     <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
+                                        <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
                                     </button>
                                 </div>
                             </div>
@@ -593,6 +619,7 @@
             </div>
         </footer>
     </div>
+    <script src="../public/js/main.js"></script>
 </body>
 
 </html>
