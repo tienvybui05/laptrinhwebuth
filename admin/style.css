@@ -267,3 +267,212 @@ font-size: 12px;
     }
 }
 /*Login*/
+/*Quan ly*/
+#content h2{
+    color: rgb(169, 223, 216);
+    margin-bottom: 10px;
+}
+.search-and-create{
+
+}
+.search-and-create form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.search-and-create .tim-kiem{
+width: 40%;
+}
+.search-and-create .tim-kiem button{
+    color: black;
+    margin-right: 10px;
+    width: 100px;
+    background-color: rgb(169, 223, 216);
+    padding: 10px 10px 10px 0;
+    margin: 10px ;
+    border-radius: 5px;
+}
+.search-and-create .tim-kiem input{
+    background-color: rgb(33, 34, 45);
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 10px;
+    color: azure;
+}
+.search-and-create .tim-kiem input:hover{
+    background-color: rgb(43, 43, 54);
+}
+.search-and-create .tao-moi{
+    padding: 10px 10px 10px 0;
+    margin: 10px ;
+    
+
+}
+.search-and-create .tao-moi a{
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 10px;
+    background-color: rgb(169, 223, 216);
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+.search-and-create .tao-moi a:hover{
+    background-color: aqua;
+}
+.danh-sach{
+    min-height: 600px;
+    margin: auto;
+    background-color: rgb(33, 34, 45);
+    padding: 0px 20px 20px 0;
+    margin-bottom: 10px;
+    border-radius: 15px;
+   /**/
+    max-height: 400px; /* Giới hạn chiều cao bảng */
+    overflow-y: auto;  /* Tạo thanh cuộn dọc */
+}
+.danh-sach .table-danh-sach{
+    border-collapse: collapse;
+    outline: rgb(135, 136, 140);
+    width: 100%;
+    
+    
+    /**/
+}
+.table-danh-sach td{
+    /* border: 1px solid white; */
+    border-bottom: 1px solid rgb(135, 136, 140);
+    padding: 5px;
+    font-size:16px;
+    color:white ;
+    text-align:left;
+    white-space: normal;     
+    word-wrap: break-word;  
+    word-break: break-word;  
+    max-width: 300px;  
+    
+   
+   
+}
+
+.danh-sach .table-danh-sach tr th{
+    padding: 10px;
+    color:rgb(135, 136, 140);
+    border-bottom: 1px solid rgb(135, 136, 140);
+    text-align:left;
+    /* white-space: normal;     
+    word-wrap: break-word;  
+    word-break: break-word;  
+    max-width: 300px;   */
+    /**/
+    background-color:rgb(33, 34, 45);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.table-danh-sach .hinh-anh{
+    width: 100px;
+    height: 100px;
+}
+.danh-sach .table-danh-sach tr td img{
+    width: 100%;
+    height:100%;
+    border-radius: 10px;
+}
+
+.danh-sach .table-danh-sach tr td .xoa,
+.danh-sach .table-danh-sach tr td .sua{
+    padding: 5px;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: 5px;
+    text-decoration: none;
+    
+    
+}
+
+.danh-sach .table-danh-sach tr td .sua{
+    background-color:whitesmoke;
+}
+.danh-sach .table-danh-sach tr td .xoa{
+    background-color:aquamarine;
+}
+.danh-sach .table-danh-sach tr td .sua:hover{
+    background-color:aqua;
+}
+.danh-sach .table-danh-sach tr td .xoa:hover{
+    background-color:red;
+}
+.danh-sach .table-danh-sach tr td .xoa a,
+.danh-sach .table-danh-sach tr td .sua a{
+    text-decoration: none;
+    color: black;
+}
+/*Thêm sản phẩm*/
+.form-tao{
+    background-color: rgb(33, 34, 45);
+    border-radius: 10px;
+    color:rgb(169, 223, 216);
+    padding: 20px;
+    width: 500px;
+    height: auto;
+    margin: 0 auto 10px auto;
+}
+.form-tao .form-group{
+    
+    display: flex;
+    
+    margin-bottom: 10px;
+   
+}
+.form-tao .form-group label{
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    width: 150px;
+}
+.form-tao .form-group input,
+.form-tao .form-group textarea{
+    background-color: rgb(43, 43, 54);
+    color: white;
+}
+.form-tao .form-group input{
+    width: 300px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+.form-tao .form-group .anh{
+    background-color: rgb(33, 34, 45);
+    padding-left: 0;
+}
+.form-tao .button-group{
+    
+    text-align:right;
+}
+.form-tao .button-group .quay-ve,
+.form-tao .button-group .cap-nhat-sql{
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
+    width: 100px;
+}
+.form-tao .button-group .quay-ve{
+    background-color: rgb(150, 234, 234);
+    margin-right: 10px;
+    
+    
+}
+.form-tao .button-group .cap-nhat-sql{
+    background-color:rgb(103, 234, 144);
+}
