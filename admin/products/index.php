@@ -90,7 +90,7 @@ $result = $product->getProduct($keyword);
                             <th>Mô tả</th>
                             <th>Trong lượng</th>
                             <th>Tồn kho</th>
-                            <th>doCung</th>
+                            <th>Độ cứng</th>
                             <th>Diểm cân bằng</th>
                             <th>Trình độ</th>
                             <th>Hành động</th>
