@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const anh1File = form.querySelector('input[name="anh1"]').files[0];
         const anh2File = form.querySelector('input[name="anh2"]').files[0];
         const anh3File = form.querySelector('input[name="anh3"]').files[0];
-        const imageExtensions = /\.(jpg|jpeg|png|gif)$/i;
+        const imageExtensions = /\.(jpg|webp|jpeg|png|gif)$/i;
 
         if (
             !tenSanPham || !thuongHieu || !khuyenMai || !gia || !moTa || !tonKho ||
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             !imageExtensions.test(anh3File.name)
         ) {
             isValid = false;
-            message.innerText = "Ảnh phải là file jpg, jpeg, png hoặc gif.";
+            message.innerText = "Ảnh phải là file jpg,webp, jpeg, png hoặc gif.";
         }
         if (!isValid) {
             e.preventDefault(); // Chỉ chặn submit nếu có lỗi
