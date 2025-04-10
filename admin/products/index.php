@@ -113,8 +113,18 @@ $result = $product->getProduct($keyword);
                                         <td><?php echo($row['diemCanBang']); ?></td>
                                         <td><?php echo($row['trinhDo']); ?></td>
                                         <td class ="hanh-dong">
-                                        <a class="sua" href="edit.php?id=<?php echo($row['idProduct']); ?>">Sửa</a>
-                                        <a class="xoa"href="delete.php?id=<?php echo($row['idProduct']); ?>">Xóa</a>
+                                            <a class="sua sua-product" href="edit.php?id=<?php echo($row['idProduct']); ?>">Sửa</a>
+                                            <a class="xoa xoa-product" href="#" data-url="delete.php?id=<?php echo($row['idProduct']); ?>">Xóa</a>
+
+                                            <div class="xoa-confirmModal modal">
+                                                <div class="xoa-modal-content">
+                                                    <p>Bạn có chắc chắn muốn xóa không?</p>
+                                                    <div class="xoa-buttons">
+                                                        <button class="xoa-cancelBtn">Hủy</button>
+                                                        <button class="xoa-confirmBtn">Xóa</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         </tr>
                                     <?php
@@ -130,5 +140,6 @@ $result = $product->getProduct($keyword);
             </div>
         </div>
     </div>
+<script src="../main.js"></script>
 </body>
 </html>

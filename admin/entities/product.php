@@ -44,5 +44,10 @@ class product{
         return $this->data->update($sql);
 
     }
+    public function deleteProduct($id)
+    {
+        $sql= "DELETE FROM product WHERE idProduct = '$id'";
+        return $this->data->delete($sql);
+    }
 }
 ?>

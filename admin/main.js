@@ -43,6 +43,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+// Xóa product
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteLinks = document.querySelectorAll('.xoa-product');
+
+    deleteLinks.forEach(function(link) {
+        const parentTd = link.closest('.hanh-dong');
+        const modal = parentTd.querySelector('.xoa-confirmModal');
+        const cancelBtn = modal.querySelector('.xoa-cancelBtn');
+        const confirmBtn = modal.querySelector('.xoa-confirmBtn');
+        const deleteUrl = link.dataset.url;// lấy đường link từ thẻ a
+
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+        });
+
+        cancelBtn.addEventListener('click', function () { // bấm nút hủy thì xóa class active
+            modal.classList.remove('active');
+        });
+
+        confirmBtn.addEventListener('click', function () {// bấm nút xóa thì dẫn sang trang mới
+            window.location.href = deleteUrl;
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    });
+});
 
 
 /* đăng nhập*/

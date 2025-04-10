@@ -414,6 +414,61 @@ width: 40%;
     text-decoration: none;
     color: black;
 }
+
+/*Form xóa*/
+.modal {
+    display: none; /* Ẩn mặc định */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* nền mờ */
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.modal.active {
+    display: flex; /* Hiện modal và căn giữa */
+}
+
+.xoa-modal-content {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    text-align: center;
+}
+.xoa-modal-content p{
+    color: black;
+}
+.xoa-buttons {
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.xoa-buttons button {
+    margin: 0 10px;
+    padding: 5x;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+}
+
+.xoa-cancelBtn {
+    background-color: #ccc;
+}
+
+.xoa-confirmBtn {
+    background-color: #e74c3c;
+    color: white;
+}
+  
 /*Thêm sản phẩm*/
 .form-tao{
     background-color: rgb(33, 34, 45);
