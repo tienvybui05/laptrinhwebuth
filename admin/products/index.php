@@ -112,9 +112,9 @@ $result = $product->getProduct($keyword);
                                         <td><?php echo($row['doCung']); ?></td>
                                         <td><?php echo($row['diemCanBang']); ?></td>
                                         <td><?php echo($row['trinhDo']); ?></td>
-                                        <td>
-                                        <a class="sua" href="edit.php">Sửa</a>
-                                        <a class="xoa"href="#">Xóa</a>
+                                        <td class ="hanh-dong">
+                                        <a class="sua" href="edit.php?id=<?php echo($row['idProduct']); ?>">Sửa</a>
+                                        <a class="xoa"href="delete.php?id=<?php echo($row['idProduct']); ?>">Xóa</a>
                                         </td>
                                         </tr>
                                     <?php

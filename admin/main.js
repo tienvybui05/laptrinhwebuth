@@ -1,32 +1,32 @@
 // trang quản lý product 
 //- tạo product 
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector('.form-create-product').addEventListener('submit', function (e) {
-        e.preventDefault()
+    const form = document.querySelector('.form-create-product');
+    form.addEventListener('submit', function (e) {
         let isValid = true;
         let message = document.querySelector(".message-product");
         message.innerText = "";
 
-        const tenSanPham = document.querySelector('input[name="tensanpham"]').value.trim();
-        const thuongHieu = document.querySelector('input[name="thuonghieu"]').value.trim();
-        const khuyenMai = document.querySelector('input[name="khuyenmai"]').value.trim();
-        const gia = document.querySelector('input[name="gia"]').value.trim();
-        const moTa = document.querySelector('textarea[name="mota"]').value.trim(); 
-        const tonKho = document.querySelector('input[name="tonkho"]').value.trim();
-        const doCung = document.querySelector('input[name="docung"]').value.trim();
-        const diemCanBang = document.querySelector('input[name="diemcanbang"]').value.trim();
-        const trinhDo = document.querySelector('input[name="trinhdo"]').value.trim();
-        const trongLuong = document.querySelector('input[name="trongluong"]').value.trim();
+        const tenSanPham = form.querySelector('input[name="tensanpham"]').value.trim();
+        const thuongHieu = form.querySelector('input[name="thuonghieu"]').value.trim();
+        const khuyenMai = form.querySelector('input[name="khuyenmai"]').value.trim();
+        const gia = form.querySelector('input[name="gia"]').value.trim();
+        const moTa = form.querySelector('textarea[name="mota"]').value.trim();
+        const tonKho = form.querySelector('input[name="tonkho"]').value.trim();
+        const doCung = form.querySelector('input[name="docung"]').value.trim();
+        const diemCanBang = form.querySelector('input[name="diemcanbang"]').value.trim();
+        const trinhDo = form.querySelector('input[name="trinhdo"]').value.trim();
+        const trongLuong = form.querySelector('input[name="trongluong"]').value.trim();
 
-        const anh1File = document.querySelector('input[name="anh1"]').files[0];
-        const anh2File = document.querySelector('input[name="anh2"]').files[0];
-        const anh3File = document.querySelector('input[name="anh3"]').files[0];
+        const anh1File = form.querySelector('input[name="anh1"]').files[0];
+        const anh2File = form.querySelector('input[name="anh2"]').files[0];
+        const anh3File = form.querySelector('input[name="anh3"]').files[0];
         const imageExtensions = /\.(jpg|jpeg|png|gif)$/i;
 
         if (
-            tenSanPham === '' || thuongHieu === '' || khuyenMai === '' || gia === '' ||
-            moTa === '' || tonKho === '' || doCung === '' || diemCanBang === '' ||
-            trinhDo === '' || trongLuong === '' || !anh1File || !anh2File || !anh3File
+            !tenSanPham || !thuongHieu || !khuyenMai || !gia || !moTa || !tonKho ||
+            !doCung || !diemCanBang || !trinhDo || !trongLuong ||
+            !anh1File || !anh2File || !anh3File
         ) {
             isValid = false;
             message.innerText = "Vui lòng nhập đầy đủ thông tin!";
@@ -39,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
             message.innerText = "Ảnh phải là file jpg, jpeg, png hoặc gif.";
         }
         if (!isValid) {
-            e.preventDefault(); // Chặn submit nếu có lỗi
+            e.preventDefault(); // Chỉ chặn submit nếu có lỗi
         }
     });
 });
+
 
 /* đăng nhập*/
 document.addEventListener("DOMContentLoaded", function () {

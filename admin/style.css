@@ -355,9 +355,6 @@ width: 40%;
     word-wrap: break-word;  
     word-break: break-word;  
     max-width: 300px;  
-    
-   
-   
 }
 
 .danh-sach .table-danh-sach tr th{
@@ -387,13 +384,15 @@ width: 40%;
 
 .danh-sach .table-danh-sach tr td .xoa,
 .danh-sach .table-danh-sach tr td .sua{
-    padding: 5px;
+    
     border-radius: 2px;
     border: none;
     outline: none;
     box-shadow: none;
-    margin: 5px;
+   
     text-decoration: none;
+    font-size: 13px;
+    padding: 3px;
     
     
 }
@@ -437,9 +436,14 @@ width: 40%;
     padding: 12px 20px;
     width: 150px;
 }
+.form-tao .form-group input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px rgb(43, 43, 54) inset !important;
+    box-shadow: 0 0 0px 1000px rgb(43, 43, 54) inset !important;
+    -webkit-text-fill-color: white !important;
+}
 .form-tao .form-group input,
 .form-tao .form-group textarea{
-    background-color: rgb(43, 43, 54);
+    background-color: rgb(43, 43, 54) !important;
     color: white;
 }
 .form-tao .form-group input{
@@ -451,7 +455,7 @@ width: 40%;
     
 }
 .form-tao .form-group .anh{
-    background-color: rgb(33, 34, 45);
+    background-color: rgb(33, 34, 45) !important;
     padding-left: 0;
 }
 .form-tao .button-group{

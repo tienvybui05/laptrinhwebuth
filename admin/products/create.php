@@ -34,6 +34,7 @@ if(isset($_POST['taomoi']))
              upLoadImage($_FILES["anh3"]["name"],$_FILES["anh3"]["tmp_name"],$folder_name) === true)
             {
                 header("location: index.php");
+                exit;
             }
         else
             {
@@ -153,7 +154,7 @@ function upLoadImage($x,$y,$folder_name)
                         </div>
                         <div class="form-group">
                             <label for="">Giá:</label>
-                            <input type="text" name="gia">
+                            <input type="number" name="gia" min="0" step="1">
                         </div>
                         <div class="form-group">
                             <Label>Mô tả:</Label>
@@ -161,11 +162,11 @@ function upLoadImage($x,$y,$folder_name)
                         </div>
                         <div class="form-group">
                             <Label>Trọng lượng:</Label>
-                            <input type="text" name= "trongluong">
+                            <input type="number" name= "trongluong"  min="0" step="1">
                         </div>
                         <div class="form-group">
                             <Label>Tồn kho:</Label>
-                            <input type="text" name= "tonkho">
+                            <input type="number" name= "tonkho" min="0" step="1">
                         </div>
                         <div class="form-group">
                             <Label>Độ cứng:</Label>
@@ -186,13 +187,12 @@ function upLoadImage($x,$y,$folder_name)
                         </div>
                     </form>
                 </div>
-                
             </div>
             <div id="footer">
                 <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>
             </div>
         </div>
     </div>
-    <!-- <script src="../main.js"></script> -->
+    <script src="../main.js"></script>
 </body>
 </html>
