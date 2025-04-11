@@ -205,7 +205,7 @@ return false;
                     <h2>Chỉnh sửa thông tin sản phẩm</h2>
                 </div>
                 <div class="form-tao">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-product">
+                    <form action="" method="post" enctype="multipart/form-data" class="form-edit-product">
                         <div class="form-group">
                             <label for="">Tên sản phẩm:</label>
                             <input type="text" name="tensanpham" value="<?php echo($row['tenSanPham']) ?>">
@@ -277,5 +277,6 @@ return false;
             </div>
         </div>
     </div>
+    <script src="../main.js"></script>
 </body>
 </html>

@@ -43,6 +43,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+//chinh sửa product
+document.addEventListener('DOMContentLoaded', function() {
+const form = document.querySelector('.form-edit-product');
+form.addEventListener('submit', function(e) {
+let isValid = true;
+let errors = [];
+let message = document.querySelector(".message-product");
+message.innerText = "";
+
+const anh1File = form.querySelector('input[name="anh1"]').files[0];
+const anh2File = form.querySelector('input[name="anh2"]').files[0];
+const anh3File = form.querySelector('input[name="anh3"]').files[0];
+const imageExtensions = /\.(jpg|webp|jpeg|png|gif)$/i;
+
+if (anh1File && !imageExtensions.test(anh1File.name)) {
+    isValid = false;
+    errors.push("Ảnh 1 phải là file jpg, webp, jpeg, png hoặc gif.");
+}
+
+if (anh2File && !imageExtensions.test(anh2File.name)) {
+    isValid = false;
+    errors.push("Ảnh 2 phải là file jpg, webp, jpeg, png hoặc gif.");
+}
+
+if (anh3File && !imageExtensions.test(anh3File.name)) {
+    isValid = false;
+    errors.push("Ảnh 3 phải là file jpg, webp, jpeg, png hoặc gif.");
+}
+
+if (!isValid) {
+    e.preventDefault(); // chặn submit
+    message.innerText = errors.join("\n"); // nối lỗi lại, mỗi lỗi 1 dòng
+}
+});
+});
+
 // Xóa product
 document.addEventListener('DOMContentLoaded', function () {
     const deleteLinks = document.querySelectorAll('.xoa-product');
