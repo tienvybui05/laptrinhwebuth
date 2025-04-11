@@ -128,12 +128,12 @@ function uploadImage($anhMoi,$anhCu,$fileTam,$duongDanFile)
 $target_dir="../../public/images/product/".$duongDanFile."/";
 $target_file=$target_dir.basename($anhMoi);
 $target_file_old=$target_dir.basename($anhCu);
-if(file_exists($target_file_old))
-{
-    unlink($target_file_old);
-}
 if(move_uploaded_file($fileTam,$target_file))
 {
+    if(file_exists($target_file_old))
+ {
+    unlink($target_file_old);
+ }
         return true;
 }
 return false;
