@@ -1,3 +1,5 @@
+// slide banner
+
 let currentIndex = 0;
 let isTransitioning = false; // Biến kiểm soát trạng thái chuyển động
 const items = document.querySelectorAll('.carousel-item');
@@ -60,3 +62,20 @@ setInterval(nextSlide, 3000);
 // Xử lý nút chuyển slide
 document.querySelector('.next-btn').addEventListener('click', nextSlide);
 document.querySelector('.prev-btn').addEventListener('click', prevSlide);
+
+
+//Thông tin người dùng
+const userMenu = document.querySelector('.user-menu');
+
+// Thêm sự kiện click vào user-icon
+userMenu.addEventListener('click', (e) => {
+    e.preventDefault(); // Ngăn chặn hành động mặc định
+    userMenu.classList.toggle('active'); // Thêm hoặc xóa class active
+});
+
+// Đóng menu khi click ra ngoài
+document.addEventListener('click', (e) => {
+    if (!userMenu.contains(e.target)) {
+        userMenu.classList.remove('active');
+    }
+});

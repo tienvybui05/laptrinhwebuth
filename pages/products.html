@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
-    
+
 </head>
 
 <body>
@@ -20,30 +20,56 @@
                 <!--Thanh menu  -->
                 <nav class="navbar">
                     <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
+                        <img src="/public/images/logo.png" alt="logo">
                     </a>
                     <ul id="main-menu">
-                        <li><a href="../public/index.html">Trang chủ</a></li>
-                        <li><a href="./about.html">Giới thiệu</a></li>
-                        <li><a href="./products.html" class="active">Sản phẩm</a></li>
-                        <li><a href="./news.html">Tin tức</a></li>
-                        <li><a href="./contact.html">Liên hệ</a></li>
+                        <li><a href="../public/index.html" class="">Trang chủ</a></li>
+                        <li><a href="../pages/about.html" class="">Giới thiệu</a></li>
+                        <li><a href="../pages/products.html">Sản phẩm</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="../pages/contact.html">Liên hệ</a></li>
                     </ul>
+                    <script>
+                        // Lấy tên trang hiện tại (VD: index.html, about.html)
+                        const currentPage = window.location.pathname.split("/").pop();
+
+                        // Lấy tất cả link trong menu
+                        const navLinks = document.querySelectorAll('#main-menu a');
+
+                        // Duyệt qua từng link để so sánh
+                        navLinks.forEach(link => {
+                            const linkHref = link.getAttribute("href").split("/").pop();
+
+                            if (linkHref === currentPage) {
+                                link.classList.add("active");
+                            }
+                        });
+                    </script>
+
                     <!--Thanh tìm kiếm  -->
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="fas fa-search"></i></button>
+                        <button type="submit"><i class="ti-search"></i></button>
                     </div>
                     <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
+                        <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
+                        <div class="user-menu">
+                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="ti-user"></i> Thông tin người dùng</a></li>
+                                <li><a href="#"><i class="ti-power-off"></i> Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                        <script>// Lấy phần tử user-menu
+                        </script>
+
                     </div>
                 </nav>
             </div>
         </header>
         <main class="main">
             <div class="container">
-                
+
                 <div class="content-wrapper">
                     <!-- Sidebar -->
                     <aside class="sidebar">
@@ -59,7 +85,7 @@
                             </ul>
                         </div>
                     </aside>
-                
+
                     <!-- Product Grid -->
                     <div class="product-area">
                         <div class="product-controls">
@@ -69,7 +95,7 @@
                             <div class="product-count">
                                 Hiển thị 1–12 của 24 kết quả
                             </div>
-                            <div class="product-sort"> 
+                            <div class="product-sort">
                                 <span>Sắp xếp:</span>
                                 <select id="sort-select">
                                     <option value="newest">Mới nhất</option>
@@ -79,7 +105,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="filter-bar">
                             <div class="filter-group">
                                 <button class="filter-btn">Khoảng Giá <i class="fas fa-chevron-down"></i></button>
@@ -92,19 +118,23 @@
                                         <a href="#" class="price-option">2tr - 3tr</a>
                                         <a href="#" class="price-option">3tr - 5tr</a>
                                     </div>
-                                    
+
                                     <div class="price-custom">
                                         <p>Hoặc chọn mức giá phù hợp với bạn</p>
                                         <div class="price-range-inputs">
-                                            <input type="text" class="price-input" id="min-price-input" placeholder="0"> đ
-                                            <input type="text" class="price-input" id="max-price-input" placeholder="19500000"> đ
+                                            <input type="text" class="price-input" id="min-price-input" placeholder="0">
+                                            đ
+                                            <input type="text" class="price-input" id="max-price-input"
+                                                placeholder="19500000"> đ
                                         </div>
-                                        
+
                                         <div class="price-slider-container">
                                             <div class="price-slider-container">
                                                 <div class="multi-range-slider" id="price-range-slider">
-                                                    <input type="range" id="min-price-slider" min="0" max="19500000" value="0" class="price-slider min-slider">
-                                                    <input type="range" id="max-price-slider" min="0" max="19500000" value="19500000" class="price-slider max-slider">
+                                                    <input type="range" id="min-price-slider" min="0" max="19500000"
+                                                        value="0" class="price-slider min-slider">
+                                                    <input type="range" id="max-price-slider" min="0" max="19500000"
+                                                        value="19500000" class="price-slider max-slider">
                                                     <div class="slider-track"></div>
                                                 </div>
                                                 <div class="price-labels">
@@ -113,12 +143,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <button class="apply-filter-btn">LỌC</button>
                                     </div>
                                 </div>
                             </div>
-                             
+
                             <div class="filter-group">
                                 <button class="filter-btn">Độ Cứng <i class="fas fa-chevron-down"></i></button>
                                 <div class="filter-dropdown">
@@ -137,7 +167,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="filter-group">
                                 <button class="filter-btn">Điểm Cân Bằng <i class="fas fa-chevron-down"></i></button>
                                 <div class="filter-dropdown balance-dropdown">
@@ -158,7 +188,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="filter-group">
                                 <button class="filter-btn">Mức Căng <i class="fas fa-chevron-down"></i></button>
                                 <div class="filter-dropdown tension-dropdown">
@@ -178,7 +208,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="filter-group">
                                 <button class="filter-btn">Lối Chơi <i class="fas fa-chevron-down"></i></button>
                                 <div class="filter-dropdown">
@@ -195,7 +225,7 @@
                                 </div>
                             </div>
                         </div>
-                
+
                         <div class="san-pham-list">
                             <!-- Sản phẩm 1 - Yonex -->
                             <div class="san-pham-item">
@@ -212,7 +242,7 @@
                                     </button>
                                 </div>
                             </div>
-                
+
                             <!-- Sản phẩm 2 - Yonex -->
                             <div class="san-pham-item">
                                 <div class="discount">-10%</div>
@@ -228,7 +258,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 3 - Yonex -->
                             <div class="san-pham-item">
                                 <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Duora 10">
@@ -243,7 +273,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 4 - Yonex -->
                             <div class="san-pham-item">
                                 <div class="discount">-8%</div>
@@ -259,7 +289,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 5 - Lining -->
                             <div class="san-pham-item">
                                 <div class="discount">-12%</div>
@@ -275,7 +305,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 6 - Lining -->
                             <div class="san-pham-item">
                                 <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Windstorm 72">
@@ -290,7 +320,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 7 - Lining -->
                             <div class="san-pham-item">
                                 <div class="discount">-5%</div>
@@ -306,7 +336,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 8 - Lining -->
                             <div class="san-pham-item">
                                 <div class="discount">-7%</div>
@@ -322,7 +352,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 9 - Victor -->
                             <div class="san-pham-item">
                                 <div class="discount">-10%</div>
@@ -338,7 +368,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 10 - Victor -->
                             <div class="san-pham-item">
                                 <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Jetspeed S 10">
@@ -353,7 +383,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 11 - Victor -->
                             <div class="san-pham-item">
                                 <div class="discount">-8%</div>
@@ -369,7 +399,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sản phẩm 12 - Victor -->
                             <div class="san-pham-item">
                                 <div class="discount">-6%</div>
@@ -386,7 +416,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Phân trang -->
                         <div class="pagination">
                             <a href="#" class="active">1</a>

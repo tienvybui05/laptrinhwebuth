@@ -5,6 +5,9 @@ html {
     font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    /* Ẩn phần tràn ngang */
+
 }
 
 .wrapper {
@@ -97,6 +100,23 @@ html {
     /* Gạch ngang mở rộng toàn bộ chiều rộng */
 }
 
+#main-menu a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 6px;
+}
+
+#main-menu a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+}
+
 
 
 /* Thanh tìm kiếm */
@@ -140,7 +160,7 @@ html {
 .right-icons a {
     color: white;
     font-size: 20px;
-    margin-left: 20px;
+    margin-left: 35px;
     text-decoration: none;
 }
 
@@ -149,50 +169,97 @@ html {
 }
 
 /* Định dạng menu sổ xuống */
+/* Định dạng menu sổ xuống */
+.user-menu {
+    position: relative;
+}
+
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    /* Hiển thị ngay bên dưới user-icon */
-    left: 0;
-    /* Căn chỉnh menu bên trái */
+    /* chỉnh top để hiển thị dưới icon */
+    right: -100px;
+
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    list-style: none;
-    padding: 10px;
-    /* Giảm padding để menu gọn hơn */
-    margin: 0;
+    border-radius: 6px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+
     display: none;
-    /* Ẩn menu theo mặc định */
     z-index: 1000;
-    display: flex;
-    /* Hiển thị các mục trên một dòng */
-    gap: 10px;
-    /* Khoảng cách giữa các mục */
+
+    width: fit-content;
+    min-width: 140px;
+    max-width: 180px;
+    padding: 6px 0;
+
+    white-space: nowrap;
+    overflow-wrap: break-word;
+    transition: all 0.3s ease;
 }
 
 .dropdown-menu li {
-    padding: 0;
-    /* Loại bỏ padding mặc định */
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
 }
 
 .dropdown-menu li a {
-    text-decoration: none;
-    color: #333;
+    padding: 0;
+    margin: 0;
     display: block;
-    font-size: 15px;
-    padding: 5px 10px;
-    /* Tăng khoảng cách bên trong */
-    border-radius: 5px;
-    /* Bo góc các mục */
-    white-space: nowrap;
-    /* Đảm bảo nội dung không bị xuống dòng */
+}
+
+.dropdown-menu li:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    flex: 1;
+    /* chiếm toàn bộ để hover dễ bấm */
 }
 
 .dropdown-menu li a:hover {
-    background-color: #f5f5f5;
-    /* Màu nền khi hover */
+    color: #007bff;
 }
+
+/* Hiển thị menu khi có class active */
+.user-menu.active .dropdown-menu {
+    display: block;
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    /* nằm phía trên menu */
+    right: 100px;
+    /* chỉnh vị trí mũi tên để đúng icon */
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #F0F0F0 transparent;
+    /* mũi tên màu trắng */
+}
+
 
 /* main */
 .main {
@@ -947,8 +1014,25 @@ html {
     padding-bottom: 15px;
 }
 
+.vot-lining {
+    background-color: #ebe1e1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.vot-victor {
+    background-image: url(../images/backgound.jpg);
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding-bottom: 15px;
+}
+
 /* Overlay để làm nền rõ hơn */
-.vot-yonex::before {
+.vot::before {
     content: "";
     position: absolute;
     top: 0;
@@ -959,7 +1043,7 @@ html {
     z-index: 1;
 }
 
-.vot-yonex h2 {
+.vot h2 {
     font-size: 25px;
     font-weight: 700;
     color: #211e1c;
@@ -971,7 +1055,7 @@ html {
     margin-bottom: -10px;
 }
 
-.vot-yonex h2::after {
+.vot h2::after {
     content: "";
     display: block;
     width: 900px;
@@ -982,7 +1066,7 @@ html {
 }
 
 /* Đặt h2 và nút "Xem thêm" trên cùng một hàng */
-.vot-yonex .header-row {
+.vot .header-row {
     display: flex;
     align-items: center;
     /* Căn giữa theo chiều dọc */
@@ -993,7 +1077,7 @@ html {
     /* Căn chỉnh khoảng cách hai bên */
 }
 
-.vot-yonex .view-more-link {
+.vot .view-more-link {
     font-size: 14px;
     font-weight: 600;
     color: #1f3e3f;
@@ -1010,7 +1094,7 @@ html {
 
 }
 
-.vot-yonex .view-more-link:hover {
+.vot .view-more-link:hover {
     color: #ff5722;
     /* Màu cam khi hover */
     text-decoration: underline;
@@ -1019,10 +1103,14 @@ html {
 
 /* Phần Tin tức */
 .tin-tuc {
-    padding: 50px 20px;
-    background-color: #f9f9f9;
+    padding: 10px 20px;
+    background-color: #ddd;
+
+
     /* Màu nền nhạt */
 }
+
+
 
 .tin-tuc h2 {
     font-size: 28px;
@@ -1040,13 +1128,18 @@ html {
     /* Căn đều các bài viết */
     flex-wrap: wrap;
     /* Đảm bảo hiển thị tốt trên màn hình nhỏ */
+    max-width: 1200px;
+    /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto;/
 }
+
 
 .tin-tuc-item {
     flex: 1 1 calc(33.333% - 20px);
     /* Mỗi bài viết chiếm 1/3 chiều rộng, trừ khoảng cách */
     background-color: #fff;
     border: 1px solid #ddd;
+
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1060,10 +1153,16 @@ html {
 }
 
 .tin-tuc-item img {
-    width: 100%;
+    width: auto;
+    /* Chiều rộng tự động */
     height: 200px;
+    /* Chiều cao cố định */
     object-fit: cover;
     /* Đảm bảo ảnh không bị méo */
+    display: block;
+    /* Chuyển ảnh thành block để căn giữa */
+    margin: 0 auto;
+    /* Căn giữa ảnh theo chiều ngang */
 }
 
 .tin-tuc-item h3 {
@@ -1087,14 +1186,14 @@ html {
     font-size: 14px;
     font-weight: 600;
     color: #fff;
-    background-color: #0056b3;
+    background-color: #131414;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .tin-tuc-item .btn-read-more:hover {
-    background-color: #003d80;
+    background-color: #3c4046;
     /* Màu nền khi hover */
 }
 
@@ -1110,21 +1209,22 @@ html {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
-    background-color: #0056b3;
+    background-color: #000000;
     text-decoration: none;
     border-radius: 5px;
     transition: all 0.3s ease;
 }
 
 .tin-tuc-view-more .btn-view-more:hover {
-    background-color: #003d80;
+    background-color: #393b3d;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Section Nhà đồng hành */
+/* Section Nhà đồng hành */
 .nha-dong-hanh {
-    padding: 50px 20px;
+    padding: 20px 0;
     background-color: #f9f9f9;
     /* Màu nền nhạt */
     text-align: center;
@@ -1137,59 +1237,48 @@ html {
     margin-bottom: 30px;
 }
 
-.logo-carousel {
-    display: flex;
-    gap: 20px;
-    /* Khoảng cách giữa các logo */
+/* Carousel logo */
+.logo-carousel-wrapper {
     overflow: hidden;
-    /* Ẩn phần logo tràn ra ngoài */
+    width: 100%;
     position: relative;
 }
 
+.logo-carousel {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-carousel 25s linear infinite;
+}
+
 .logo-item {
-    flex: 0 0 auto;
-    /* Đảm bảo mỗi logo không co giãn */
+    display: inline-block;
     width: 150px;
-    /* Chiều rộng cố định cho logo */
     height: 100px;
-    /* Chiều cao cố định cho logo */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-right: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    text-align: center;
+    line-height: 100px;
 }
 
 .logo-item img {
+    vertical-align: middle;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    /* Đảm bảo logo không bị méo */
 }
 
-.logo-item:hover {
-    transform: scale(1.1);
-    /* Phóng to nhẹ khi hover */
-}
-
-/* Hiệu ứng lướt */
-@keyframes scroll-logos {
+@keyframes scroll-carousel {
     0% {
         transform: translateX(0);
     }
 
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
 
-.logo-carousel {
-    display: flex;
-    animation: scroll-logos 15s linear infinite;
-    /* Lướt logo liên tục */
-}
 
 /*about*/
 .column-about {
@@ -1216,17 +1305,18 @@ html {
     display: grid;
     grid-template-columns: 40% 60%;
     margin-top: 15px;
-    max-width: 3000px;
     padding: 20px;
-    background-color: whitesmoke;
+    background-color: white;
     justify-content: space-between;
-    margin: 20px auto;
+    margin: 0px auto;
 }
 
 .noi-dung-gioi-thieu-about {
     padding: 20px;
     text-align: left;
     color: #000;
+    max-width: 1200px;
+    margin-left: 60px;
 }
 
 .noi-dung-gioi-thieu-about h1 {
@@ -1258,17 +1348,17 @@ html {
 .about-san-pham {
     display: flex;
     padding: 20px;
-    background-color: white;
+    background-color: #f8f2f2;
     color: #000;
     max-width: 3000px;
-    margin: 20px auto;
-    border: 2px solid #ddd;
+    margin: 0px auto;
 
 }
 
 .about-san-pham .anh-san-pham-about {
     width: 40%;
     padding: 20px;
+    margin-left: 60px;
 
 }
 
@@ -1366,29 +1456,6 @@ html {
     text-align: center;
 }
 
-@media screen and (max-width: 650px) {
-    .column-about {
-        width: 100%;
-        display: block;
-    }
-
-    .gioi-thieu-about,
-    .about-san-pham {
-        flex-direction: column;
-        /* Chuyển thành layout dọc */
-        align-items: center;
-        /* Căn giữa nội dung */
-    }
-
-    .noi-dung-gioi-thieu-about,
-    .anh-gioi-thieu-about {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/*Trang thông tin cá nhân  */
-/* Đặt container chính */
 
 
 

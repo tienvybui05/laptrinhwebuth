@@ -5,54 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/style.css">
     <style>
-        .main-cart{
+        .main-cart {
             width: 90%;
             min-height: 100vh;
-            margin: auto;  
+            margin: auto;
         }
-        .main_cart-container{
+
+        .main_cart-container {
             margin-top: 35px;
         }
-        #name_giohang{
-            padding: 1px 10px 1px 10px ;
+
+        #name_giohang {
+            padding: 1px 10px 1px 10px;
             border-radius: 8px;
             background-color: white;
 
         }
-        .search-cart{
+
+        .search-cart {
             margin: 20px 0px 20px 0px;
-            
-            
+
+
         }
-        .search-cart input{
+
+        .search-cart input {
             padding: 10px 15px;
             width: 100%;
             box-sizing: border-box;
             border: none;
             background-color: rgb(255, 255, 255);
             border-radius: 8px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         }
-        .class-cart_content{
+
+        .class-cart_content {
             display: flex;
             justify-content: space-between;
             background-color: #f5f5f5;
-            
+
             /* padding: 10px 0px 10px 0px; */
-            
+
         }
-        .product-table{
+
+        .product-table {
             width: 65%;
             background: white;
             border-collapse: collapse;
             margin-bottom: 15px;
             margin-right: 30px;
             border-radius: 8px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         }
 
         .product-table th {
@@ -64,20 +68,22 @@
             text-align: left;
             border-radius: 8px;
         }
+
         .product-table td {
             padding: 15px;
             border-bottom: 1px solid #eee;
             /* vertical-align: middle; */
         }
+
         .product-item {
             display: flex;
             align-items: center;
         }
-        
+
         .product-checkbox {
             margin-right: 15px;
         }
-        
+
         .product-image {
             width: 80px;
             height: 80px;
@@ -85,31 +91,31 @@
             border: 1px solid #eee;
             margin-right: 15px;
         }
-        
+
         .product-info {
             flex-grow: 1;
         }
-        
+
         .product-name {
             font-weight: 500;
             margin-bottom: 5px;
         }
-        
+
         .product-variant {
             color: #888;
             font-size: 14px;
         }
-        
+
         .price {
             font-weight: 500;
             color: #ee4d2d;
         }
-        
+
         .quantity-control {
             display: flex;
             align-items: center;
         }
-        
+
         .quantity-btn {
             width: 30px;
             height: 30px;
@@ -117,7 +123,7 @@
             background: white;
             cursor: pointer;
         }
-        
+
         .quantity-input {
             width: 50px;
             height: 27px;
@@ -126,7 +132,7 @@
             border-left: none;
             border-right: none;
         }
-        
+
         .action-btn {
             color: #888;
             cursor: pointer;
@@ -138,23 +144,23 @@
             flex: 1;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             padding: 15px;
             height: fit-content;
         }
-        
+
         .summary-title {
             font-weight: 500;
             margin-bottom: 15px;
             padding-bottom: 10px;
         }
-        
+
         .summary-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
-        
+
         .summary-total {
             font-weight: 500;
             font-size: 18px;
@@ -163,7 +169,7 @@
             padding-top: 10px;
             border-top: 1px solid #eee;
         }
-        
+
         .checkout-btn {
             background: #ee4d2d;
             color: white;
@@ -176,7 +182,7 @@
             margin-top: 20px;
             font-size: 16px;
         }
-        
+
         /* cart-side */
         .cart-side {
             font-family: 'Arial', sans-serif;
@@ -283,7 +289,8 @@
             margin-top: auto;
         }
 
-        .view-cart-btn, .checkout-cart-btn {
+        .view-cart-btn,
+        .checkout-cart-btn {
             padding: 12px;
             text-align: center;
             border-radius: 4px;
@@ -303,14 +310,15 @@
         .checkout-cart-btn {
             background-color: #000;
             color: white;
-        } 
+        }
+
         .view-cart-btn:hover {
             background-color: #e0e0e0;
         }
 
         .checkout-cart-btn:hover {
             background-color: #333;
-        }       
+        }
     </style>
 </head>
 
@@ -406,7 +414,9 @@
             <div class="cart-side">
                 <div class="container-cart">
                     <div class="header_cart-side">
-                        <div class="header_cart"><h1>Giỏ hàng</h1></div>
+                        <div class="header_cart">
+                            <h1>Giỏ hàng</h1>
+                        </div>
                         <div class="close_cart-side">
                             <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
                         </div>

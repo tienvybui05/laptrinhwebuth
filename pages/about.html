@@ -5,11 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="../public/css/style.css">
-  
+
 </head>
 
 <body>
@@ -19,23 +17,50 @@
                 <!--Thanh menu  -->
                 <nav class="navbar">
                     <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
+                        <img src="/public/images/logo.png" alt="logo">
+
                     </a>
                     <ul id="main-menu">
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
+                        <li><a href="../public/index.html" class="">Trang chủ</a></li>
+                        <li><a href="../pages/about.html" class="">Giới thiệu</a></li>
+                        <li><a href="../pages/products.html">Sản phẩm</a></li>
                         <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="../pages/contact.html">Liên hệ</a></li>
                     </ul>
+                    <script>
+                        // Lấy tên trang hiện tại (VD: index.html, about.html)
+                        const currentPage = window.location.pathname.split("/").pop();
+
+                        // Lấy tất cả link trong menu
+                        const navLinks = document.querySelectorAll('#main-menu a');
+
+                        // Duyệt qua từng link để so sánh
+                        navLinks.forEach(link => {
+                            const linkHref = link.getAttribute("href").split("/").pop();
+
+                            if (linkHref === currentPage) {
+                                link.classList.add("active");
+                            }
+                        });
+                    </script>
+
                     <!--Thanh tìm kiếm  -->
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="fas fa-search"></i></button>
+                        <button type="submit"><i class="ti-search"></i></button>
                     </div>
                     <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
+                        <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
+                        <div class="user-menu">
+                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="ti-user"></i> Thông tin người dùng</a></li>
+                                <li><a href="#"><i class="ti-power-off"></i> Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                        <script>// Lấy phần tử user-menu
+                        </script>
+
                     </div>
                 </nav>
             </div>
@@ -46,14 +71,17 @@
                     <div class="noi-dung-gioi-thieu-about">
                         <h1>Về chúng tôi</h1>
                         <p>Chúng tôi chuyên cung cấp các loại vợt cầu lông chất lượng từ những thương hiệu hàng
-                        đầu như Yonex, Lining, Victor, Adidas và nhiều thương hiệu nổi tiếng khác.</p>
-                        <p>Với sứ mệnh mang đến sản phẩm chính hãng, giá cả cạnh tranh cùng dịch vụ tư vấn tận tâm, 
-                        [Tên Trang Web] cam kết giúp bạn tìm được cây vợt phù hợp nhất với phong cách chơi và trình độ của mình.</p>
-                        <p>Dù bạn là người mới tập chơi hay một vận động viên chuyên nghiệp, chúng tôi luôn sẵn sàng đồng hành cùng bạn trên hành trình chinh 
-                        phục đỉnh cao cầu lông. Hãy khám phá ngay bộ sưu tập vợt mới nhất và tận hưởng trải nghiệm mua sắm tuyệt vời tại [Tên Trang Web]!</p>
+                            đầu như Yonex, Lining, Victor, Adidas và nhiều thương hiệu nổi tiếng khác.</p>
+                        <p>Với sứ mệnh mang đến sản phẩm chính hãng, giá cả cạnh tranh cùng dịch vụ tư vấn tận tâm,
+                            [Tên Trang Web] cam kết giúp bạn tìm được cây vợt phù hợp nhất với phong cách chơi và trình
+                            độ của mình.</p>
+                        <p>Dù bạn là người mới tập chơi hay một vận động viên chuyên nghiệp, chúng tôi luôn sẵn sàng
+                            đồng hành cùng bạn trên hành trình chinh
+                            phục đỉnh cao cầu lông. Hãy khám phá ngay bộ sưu tập vợt mới nhất và tận hưởng trải nghiệm
+                            mua sắm tuyệt vời tại [Tên Trang Web]!</p>
                     </div>
                     <div class="anh-gioi-thieu-about">
-                            <img src="../public/images/introduct-in-about.webp" alt="">
+                        <img src="../public/images/introduct-in-about.webp" alt="">
                     </div>
                 </div>
                 <div class="about-san-pham">
@@ -63,20 +91,32 @@
                     <div class="noi-dung-san-pham-about">
                         <h2>Sản phẩm</h2>
                         <ul>
-                            <li><p>Sản phẩm đa dạng - Từ vợt dành cho người mới chơi đến vợt chuyên nghiệp, phù hợp với mọi cấp độ.</p></li>
-                            <li><p>Cam kết chính hãng - Chúng tôi chỉ cung cấp sản phẩm chính hãng với chất lượng đảm bảo.</p></li>
-                            <li><p>Giá cả cạnh tranh - Mức giá tốt nhất thị trường, đi kèm nhiều ưu đãi hấp dẫn.</p></li>
-                            <li><p>Tư vấn chuyên sâu - Đội ngũ hỗ trợ tận tâm giúp bạn chọn được vợt phù hợp nhất.</p></li>
-                            <li><p>Giao hàng nhanh chóng - Ship toàn quốc với thời gian nhanh nhất.</p></li>
+                            <li>
+                                <p>Sản phẩm đa dạng - Từ vợt dành cho người mới chơi đến vợt chuyên nghiệp, phù hợp với
+                                    mọi cấp độ.</p>
+                            </li>
+                            <li>
+                                <p>Cam kết chính hãng - Chúng tôi chỉ cung cấp sản phẩm chính hãng với chất lượng đảm
+                                    bảo.</p>
+                            </li>
+                            <li>
+                                <p>Giá cả cạnh tranh - Mức giá tốt nhất thị trường, đi kèm nhiều ưu đãi hấp dẫn.</p>
+                            </li>
+                            <li>
+                                <p>Tư vấn chuyên sâu - Đội ngũ hỗ trợ tận tâm giúp bạn chọn được vợt phù hợp nhất.</p>
+                            </li>
+                            <li>
+                                <p>Giao hàng nhanh chóng - Ship toàn quốc với thời gian nhanh nhất.</p>
+                            </li>
                         </ul>
                         <p>Hãy khám phá ngay bộ sưu tập vợt cầu lông ngay <a href="#">Tại đây 🔥</a></p>
                     </div>
                 </div>
-                <h2 class = "center-about-lien-he">Thành viên trung tâm</h2>
+                <h2 class="center-about-lien-he">Thành viên trung tâm</h2>
                 <div class="row-about">
                     <div class="column-about">
                         <div class="card-about">
-                            <img  class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="">
                             <div class="container-about">
                                 <h3>Bùi Tiến Vỹ</h3>
                                 <p class="title-about">Tư vấn</p>
@@ -88,7 +128,8 @@
                     </div>
                     <div class="column-about">
                         <div class="card-about">
-                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp"
+                                alt="anh ca nhan">
                             <div class="container-about">
                                 <h3>Võ Cao Tấn Ngọc</h3>
                                 <p class="title-about">Kỹ thuật</p>
@@ -100,25 +141,27 @@
                     </div>
                     <div class="column-about">
                         <div class="card-about">
-                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp"
+                                alt="anh ca nhan">
                             <div class="container-about">
                                 <h3>Đinh Quốc Đạt</h3>
                                 <p class="title-about">Thu ngân</p>
                                 <p>Xuất hóa đơn, kiểm tra các giao dịch.</p>
                                 <p>QuocDat@gmail.com</p>
-                                <p><button class="button-about">Liên hệ</button></p> 
+                                <p><button class="button-about">Liên hệ</button></p>
                             </div>
                         </div>
                     </div>
                     <div class="column-about">
                         <div class="card-about">
-                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp" alt="anh ca nhan">
+                            <img class="anh-thanh-vien-about" src="../public/images/introduct-in-about.webp"
+                                alt="anh ca nhan">
                             <div class="container-about">
                                 <h3>Trần Minh Thái</h3>
                                 <p class="title-about">Chăm sóc khách hàng</p>
                                 <p>Giải quyết khiếu nại và phản hồi của khách hàng.</p>
                                 <p>MinhThai@gmail.com</p>
-                                <p><button class="button-about">Liên hệ</button></p> 
+                                <p><button class="button-about">Liên hệ</button></p>
                             </div>
                         </div>
                     </div>
