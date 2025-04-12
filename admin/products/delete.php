@@ -15,7 +15,7 @@ if($result)
     }
     if (is_dir($folder)) {
         rmdir($folder);
-        header("Location: index.php");
+        header("Location: index.php?msg=delete_product");
         exit;
     }
 }

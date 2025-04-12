@@ -1,4 +1,44 @@
+/* đăng nhập*/
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".form-login").addEventListener("submit",function(event)
+    {
+        event.preventDefault()// ngăn chặn tải lại trăng
+        let username = document.querySelector(".username").value.trim();
+        let password = document.querySelector(".password").value.trim();
+        let message = document.querySelector(".message");
+        message.innerText="";
+        if (username === "" || password === "") {
+            message.innerText = "Đăng nhập không hợp lệ, vui lòng thử lại!";
+            return;
+        }
+        // chừng có php thì code phần xử lý tiếp
+    });
+    });
+    
 // trang quản lý product 
+// đồng hồ
+document.addEventListener('DOMContentLoaded', function () {
+    function updateDateTime() {
+        const now = new Date();
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        const formattedDate = now.toLocaleString('vi-VN', options);
+        document.getElementById('datetime').textContent = formattedDate;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+})
+
+// Quản lý sản phẩm
 //- tạo product 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector('.form-create-product');
@@ -110,21 +150,90 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+// Quản lý User
+//Tạo user
+document.addEventListener('DOMContentLoaded',function(){
+const create = document.querySelector('.form-create-user');
+create.addEventListener('submit',function(e){
+    let isValid = true;
+    let message = document.querySelector(".message-product");
+    message.innerText = "";
+    const hoten = create.querySelector('input[name="hoten"]').value.trim();
+    const sodienthoai = create.querySelector('input[name="sodienthoai"]').value.trim();
+    const username = create.querySelector('input[name="username"]').value.trim();
+    const password = create.querySelector('input[name="password"]').value.trim();
+    const diachi = create.querySelector('input[name="diachi"]').value.trim();
+    const vaitro = create.querySelector('select[name="vaitro"]').value;
 
-
-/* đăng nhập*/
-document.addEventListener("DOMContentLoaded", function () {
-document.querySelector(".form-login").addEventListener("submit",function(event)
-{
-    event.preventDefault()// ngăn chặn tải lại trăng
-    let username = document.querySelector(".username").value.trim();
-    let password = document.querySelector(".password").value.trim();
-    let message = document.querySelector(".message");
-    message.innerText="";
-    if (username === "" || password === "") {
-        message.innerText = "Đăng nhập không hợp lệ, vui lòng thử lại!";
-        return;
+    
+    if (!hoten || !sodienthoai || !username || !password || !diachi || !vaitro) {
+        isValid = false;
+        message.innerText = "Vui lòng điền đầy đủ!.\n";
     }
-    // chừng có php thì code phần xử lý tiếp
+    const phoneRegex = /^[0-9]{9,11}$/;
+    if (!phoneRegex.test(sodienthoai)) {
+        isValid = false;
+        message.innerText += "Số điện thoại không hợp lệ. Phải là 9-11 chữ số.\n";
+    }
+    const validCharRegex = /^[a-zA-Z0-9]+$/;
+    if (!validCharRegex.test(username)) {
+        isValid = false;
+        message.innerText += "Username không được chứa ký tự đặc biệt.\n";
+    }
+
+    if (!validCharRegex.test(password)) {
+        isValid = false;
+        message.innerText += "Password không được chứa ký tự đặc biệt.\n";
+    }
+
+    if (!isValid) {
+    
+        e.preventDefault(); 
+    }
 });
+});
+// chỉnh sủa User
+document.addEventListener('DOMContentLoaded',function(){
+    const create = document.querySelector('.form-edit-user');
+    create.addEventListener('submit',function(e){
+        let isValid = true;
+        let message = document.querySelector(".message-product");
+        message.innerText = "";
+        const sodienthoai = create.querySelector('input[name="sodienthoai"]').value.trim();
+        const username = create.querySelector('input[name="username"]').value.trim();
+        const password = create.querySelector('input[name="password"]').value.trim();
+        const validCharRegex = /^[a-zA-Z0-9]+$/;
+        const phoneRegex = /^[0-9]{9,11}$/;
+        if(username&&!validCharRegex.test(username))
+        {
+            isValid = false;
+            message.innerText += "Username không được chứa ký tự đặc biệt.\n";
+        }
+        if(password&&!validCharRegex.test(password))
+        {
+            isValid = false;
+            message.innerText += "Password không được chứa ký tự đặc biệt.\n";
+        }
+        
+        if (sodienthoai&&!phoneRegex.test(sodienthoai)) {
+            isValid = false;
+            message.innerText += "Số điện thoại không hợp lệ. Phải là 9-11 chữ số.\n";
+        }
+        if (!isValid) {
+        
+            e.preventDefault(); 
+        }
+    });
+    });
+//xóa user
+document.addEventListener('DOMContentLoaded', function () {
+    const msgBox = document.querySelector('.toast-alert');
+    if (msgBox) {
+        setTimeout(function () {
+            msgBox.classList.add('fade-out');
+            setTimeout(function () {
+                msgBox.style.display = 'none';
+            }, 500);
+        }, 1000);
+    }
 });

@@ -33,7 +33,7 @@ if(isset($_POST['taomoi']))
              upLoadImage($_FILES["anh2"]["name"],$_FILES["anh2"]["tmp_name"],$folder_name) === true &&
              upLoadImage($_FILES["anh3"]["name"],$_FILES["anh3"]["tmp_name"],$folder_name) === true)
             {
-                header("location: index.php");
+                header("location: index.php?msg=create_product");
                 exit;
             }
         else

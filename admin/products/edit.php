@@ -106,7 +106,7 @@ if(isset($_POST['chinhsua']))
 
     if ($checkUpload === true) 
     {
-        header("Location: index.php");
+        header("Location: index.php?msg=edit_product");
         exit;
     } else 
     {

@@ -7,7 +7,15 @@ $product = new product();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 $result = $product->getProduct($keyword);
 ?>
-
+<?php if(isset($_GET['msg'])&& $_GET['msg']=='create_product'): ?>
+<div class="toast-alert">✅ Thêm sản phẩm thành công!</div>
+<?php endif; ?>
+<?php if (isset($_GET['msg']) && $_GET['msg'] == 'edit_product'): ?>
+<div class="toast-alert">✅ Chỉnh sửa sản phẩm thành công!</div>
+<?php endif; ?>
+<?php if (isset($_GET['msg']) && $_GET['msg'] == 'delete_product'): ?>
+<div class="toast-alert">✅ Xóa sản phẩm thành công!</div>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">

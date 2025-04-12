@@ -1,10 +1,20 @@
 <?php
 include '../entities/user.php';
 $user = new user();
-$result = $user->getUser();
+$keyword = isset($_GET['keyword']) ? $_GET['keyword']:'';
+$result = $user->getUser($keyword);
+
+
 ?>
-
-
+<?php if (isset($_GET['msg']) && $_GET['msg'] == 'delete_user'): ?>
+    <div class="toast-alert">✅ Xóa tài khoản thành công!</div>
+<?php endif; ?>
+<?php if (isset($_GET['msg']) && $_GET['msg'] == 'create_user'): ?>
+    <div class="toast-alert">✅ Thêm tài khoản thành công!</div>
+<?php endif; ?>
+<?php if (isset($_GET['msg']) && $_GET['msg'] == 'edit_user'): ?>
+    <div class="toast-alert">✅ Chỉnh sửa tài khoản thành công!</div>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +71,7 @@ $result = $user->getUser();
                </div>
             </div>
             <div id="content">
-                <h2>Danh sách sản phẩm</h2>
+                <h2>Danh sách tài khoản</h2>
                 <div class="search-and-create">
                    
                     <div class="tim-kiem">
@@ -72,7 +82,6 @@ $result = $user->getUser();
                         </form>
                     </div>
                     <div class="tao-moi">
-                    
                         <a href="create.php">Tạo mới</a>
                     </div>
                 </div>
@@ -98,8 +107,17 @@ $result = $user->getUser();
                                 <td><?php echo($row['diaChi']); ?></td>
                                 <td><?php echo($row['vaiTro']); ?></td>
                                 <td class ="hanh-dong">              
-                                <a class="sua sua-product" href="edit.php?idUser=<?php echo($row['idUser']); ?>">Sửa</a>
-                                <a class="xoa xoa-product" href="#" data-url="delete.php?id=">Xóa</a>             
+                                <a class="sua sua-product" href="edit.php?id=<?php echo($row['idUser']);?>">Sửa</a>
+                                <a class="xoa xoa-product" href="#" data-url="delete.php?id=<?php echo($row['idUser']); ?>">Xóa</a>      
+                                <div class="xoa-confirmModal modal">
+                                    <div class="xoa-modal-content">
+                                        <p>Bạn có chắc chắn muốn xóa không?</p>
+                                        <div class="xoa-buttons">
+                                        <button class="xoa-cancelBtn">Hủy</button>
+                                        <button class="xoa-confirmBtn">Xóa</button>
+                                        </div>
+                                    </div>
+                                </div>       
                                 </td>
                             </tr>
                         <?php }
