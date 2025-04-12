@@ -17,7 +17,7 @@ body{
     
 }
 #sidebar{
-    width: 250px;
+    width: 400px;
     background-color:rgb(23, 24, 33);
     border-right: 1px solid rgb(118, 118, 118);
     transition: width 0.3s ease;
@@ -89,8 +89,10 @@ color: rgb(135, 136, 140);
     color: rgb(135, 136, 140);
     border-radius: 12px;
 }
-#header .search-admin:hover,
-#header .search-admin input:hover{
+#header .search-admin:hover {
+    background-color:  rgb(43, 43, 54);
+}
+#header .search-admin:hover > input{
     background-color:  rgb(43, 43, 54);
 }
 #header .search-admin input{
@@ -125,24 +127,25 @@ font-size: 12px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    width: 70%;
-    min-height: 300px;
+    width: 78%;
+    min-height: 200px;
     background-color:rgb(33, 34, 45) ;
     border-radius: 15px;
     padding: 20px;
 }
 #content .row-dau .row-thong-tin .thong-tin{
-    flex: 1 1 calc(33.33% - 20px);
+    flex: 1 1 calc(25% - 20px);
     min-width: 200px;
-    height: 250px;
+    height: 200px;
     background-color:rgb(23, 24, 33) ;
     padding: 20px;
     border-radius: 15px;
+    text-align: center;
 
 }
 #content .row-dau .row-thong-ke{
-    width: 28%;
-    min-height: 300px;
+    width: 20%;
+    min-height: 200px;
     background-color:rgb(33, 34, 45) ;
     border-radius: 15px;
     padding: 25px;
@@ -151,7 +154,7 @@ font-size: 12px;
     padding: 20px;
 }
 .row-thong-tin .thong-tin p i{
-    font-size: 30px;
+    font-size: 18px;
 }
 .row-thong-tin .thong-tin p{
     color: white;
@@ -162,7 +165,7 @@ font-size: 12px;
     margin-bottom: 0;
 }
 .row-thong-tin .thong-tin button{
-   width: 70%;
+   width: 100px;
    height: 30px;
    border-radius: 5px;
    margin-top: 10px;
@@ -187,10 +190,26 @@ font-size: 12px;
     background-color: orange;
 }
 .row-thong-tin .don-hang .ti-shopping-cart-full{
-    color:darkorchid;
+    color:pink;
 }
 .row-thong-tin .don-hang button{
-    background-color: darkorchid;
+    background-color:pink;
+}
+.row-thong-tin .marquee-box {
+        background: linear-gradient(90deg, rgb(157, 225, 233), rgb(100, 212, 246));
+        color: white;
+        padding: 5px 10px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+    
+      
+        overflow: hidden;
+}
+
+.row-thong-tin .marquee-box marquee {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        letter-spacing: 0.5px;
 }
 .row-dau .row-thong-ke {
     padding: 25px;
