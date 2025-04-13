@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ hàng</title>
+    <title>Thanh toán</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/style.css">
@@ -331,16 +331,6 @@
                                 <input placeholder="Địa chỉ" type="text" class="form-control" name="diachi" required>
                             </div>
                             <div class="form2">
-                                <input placeholder="Tỉnh/Thành phố" type="text" name="tinh" required>
-                            </div>
-                            <div class="form2">
-                                <input placeholder="Quận/Huyện" type="text" name="quan" required>
-                            </div>
-                            <div class="form2">
-                                <input placeholder="Phường/Xã" type="text" name="phuong" required>
-                            </div>
-                            
-                            <div class="form2">
                                 <textarea placeholder="Ghi chú" class="form-control" name="noidung" rows="5" required></textarea>
                             </div>
                         </div>
@@ -389,22 +379,24 @@
                     <div class="header-price">Tạm tính</div>
                 </div>
                 <hr>
-                <!-- Sản phẩm 1 -->
-                <div class="product-summary">
-                    <div class="product-info">
-                        <p class="product-name">Vợt yonex 100zz navy</p>
+                <div class="product-all">
+                    <!-- Sản phẩm 1 -->
+                    <div class="product-summary">
+                        <div class="product-info">
+                            <p class="product-name">Vợt yonex 100zz navy</p>
+                        </div>
+                        <div class="product-qty">x 2</div>
+                        <div class="product-price">1,300,000₫</div>
                     </div>
-                    <div class="product-qty">x 2</div>
-                    <div class="product-price">1,300,000₫</div>
-                </div>
-                
-                <!-- Sản phẩm 2 -->
-                <div class="product-summary">
-                    <div class="product-info">
-                        <p class="product-name">Vợt 2</p>
+                    
+                    <!-- Sản phẩm 2 -->
+                    <div class="product-summary">
+                        <div class="product-info">
+                            <p class="product-name">Vợt 2</p>
+                        </div>
+                        <div class="product-qty">x 1</div>
+                        <div class="product-price">4,800,000₫</div>
                     </div>
-                    <div class="product-qty">x 1</div>
-                    <div class="product-price">4,800,000₫</div>
                 </div>
                 <hr>
                 <div class="coupon-section">
@@ -466,7 +458,7 @@
             </div>
         </footer>
     </div>
-    
+    <script src="../public/js/payment.js"></script>
 
 </body>
 
