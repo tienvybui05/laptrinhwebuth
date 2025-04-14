@@ -25,7 +25,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    min-height: 850px;
     overflow-y: auto;
     z-index: 1000;
 }
@@ -89,6 +89,8 @@ justify-content: center;
     height: 90px;
     align-items: center;
     padding: 20px 0;
+    
+
 }
 .datetime-glass-header{
     background: rgb(33, 34, 45);
@@ -412,6 +414,7 @@ width: 40%;
    /**/
     max-height: 400px; /* Giới hạn chiều cao bảng */
     overflow-y: auto;  /* Tạo thanh cuộn dọc */
+    scrollbar-color: rgb(244, 228, 231) rgb(33, 34, 45);
 }
 .danh-sach .table-danh-sach{
     border-collapse: collapse;
@@ -462,6 +465,7 @@ width: 40%;
 }
 
 .danh-sach .table-danh-sach tr td .xoa,
+.danh-sach .table-danh-sach tr td .chitiet,
 .danh-sach .table-danh-sach tr td .sua{
     
     border-radius: 2px;
@@ -475,7 +479,6 @@ width: 40%;
     
     
 }
-
 .danh-sach .table-danh-sach tr td .sua{
     background-color:rgb(66, 221, 221);
     color: black;
@@ -484,18 +487,85 @@ width: 40%;
     background-color:rgb(233, 61, 61);
     color: black;
 }
+.danh-sach .table-danh-sach tr td .chitiet{
+    background-color:rgb(234, 243, 111);
+    color: black;
+}
+
 .danh-sach .table-danh-sach tr td .sua:hover{
     background-color:aqua;
+}
+.danh-sach .table-danh-sach tr td .chitiet:hover{
+    background-color:rgb(241, 201, 123);
 }
 .danh-sach .table-danh-sach tr td .xoa:hover{
     background-color:rgb(254, 250, 250);
 }
+.danh-sach .table-danh-sach tr td .chitiet,
 .danh-sach .table-danh-sach tr td .xoa a,
 .danh-sach .table-danh-sach tr td .sua a{
     text-decoration: none;
     color: black;
 }
-
+/* Chitiet */
+.detail-product{
+    width: 100%;
+    height: auto;
+    background-color:rgb(33, 34, 45) ;
+    padding: 10px;
+    border-radius: 15px;
+   margin-bottom: 10px;
+}
+.detail-product p {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    
+    color:rgb(191, 229, 217);
+    padding: 2px;
+    margin: 10px;
+    font-size: 16px;
+    }
+    .detail-product p span{
+        color:white;
+    }
+    .detail-product .hinh-detail-product{
+        display: flex;
+    }
+    .detail-product .hinh-detail-product div{
+        padding: 10px;
+        margin: 10px;
+    }
+    .detail-product .hinh-detail-product div img{
+        border-radius: 10px;
+        width: 200px;
+        height: 300px;
+    }
+    .detail-product .thong-so-ki-thuat ul{
+     padding: 0 0 0 20px;
+       
+    }
+    .detail-product .thong-so-ki-thuat ul li{
+        padding: 10px;
+        margin: 10px;
+        color: rgb(191, 229, 217);
+    }
+    .detail-product .thong-so-ki-thuat ul li span{
+    
+        color: white;
+    }
+    .detail-product .detail-product-quay-ve{
+        text-align: center;
+        margin: 10px;
+    }
+    .detail-product button{
+        padding: 6px;
+        border-radius: 5px;
+        background-color: rgb(53, 230, 168);
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
 /*Form xóa*/
 .modal {
     display: none; /* Ẩn mặc định */

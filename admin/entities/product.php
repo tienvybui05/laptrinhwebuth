@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+include_once 'database.php';
 class product{
     private $data;
     public function __construct()

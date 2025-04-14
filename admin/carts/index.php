@@ -1,21 +1,11 @@
-<?php
 
-?>
 <?php
-include '../entities/product.php';
-$product = new product();
-$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-$result = $product->getProduct($keyword);
+include_once '../entities/cart.php';
+$cart = new cart();
+$keyword = isset($_GET['keyword']) ? $_GET['keyword']:''; 
+$result = $cart->getCart($keyword);
 ?>
-<?php if(isset($_GET['msg'])&& $_GET['msg']=='create_product'): ?>
-<div class="toast-alert">✅ Thêm sản phẩm thành công!</div>
-<?php endif; ?>
-<?php if (isset($_GET['msg']) && $_GET['msg'] == 'edit_product'): ?>
-<div class="toast-alert">✅ Chỉnh sửa sản phẩm thành công!</div>
-<?php endif; ?>
-<?php if (isset($_GET['msg']) && $_GET['msg'] == 'delete_product'): ?>
-<div class="toast-alert">✅ Xóa sản phẩm thành công!</div>
-<?php endif; ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +62,7 @@ $result = $product->getProduct($keyword);
                </div>
             </div>
             <div id="content">
-                <h2>Danh sách sản phẩm</h2>
+                <h2>Quản lý giỏ hàng</h2>
                 <div class="search-and-create">
                    
                     <div class="tim-kiem">
@@ -82,51 +72,23 @@ $result = $product->getProduct($keyword);
                             <button type="submit"><p>Tìm kiếm</p></button>
                         </form>
                     </div>
-                    <div class="tao-moi">
-                    
-                        <a href="create.php">Tạo mới</a>
-                    </div>
                 </div>
                 <div class="danh-sach">
                     <table class="table-danh-sach">
                         <tr>
-                            <th>Tên sản phẩm</th>
-                            <th>Thương hiệu</th>
-                            <th>Hình ảnh</th>
-                            <th>Khuyến mãi</th>
-                            <th>Giá</th>
-                            <th>Tồn kho</th>
-                            <th>Trình độ</th>
-                            <th>Hành động</th>
+                            <th>Khách hàng</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
                         </tr>
                         <?php
-                                while($row=$product->getProductFetch())
+                                while($row = $cart->getCartFetch())
                                 {
-                                    $listImage =explode(',',$row['hinhAnh']);
-
                                     ?><tr>
+                                        <td><?php echo($row['hoTen']); ?></td>
                                         <td><?php echo($row['tenSanPham']); ?></td>
-                                        <td><?php echo($row['thuongHieu']); ?></td>
-                                        <td class="hinh-anh"><img src="../../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt=""></td>
-                                        <td><?php echo($row['khuyenMai']); ?></td>
-                                        <td><?php echo($row['gia']); ?></td>
-                                        <td><?php echo($row['tonKho']); ?></td>
-                                        <td><?php echo($row['trinhDo']); ?></td>
-                                        <td class ="hanh-dong">
-                                            <a class="sua sua-product" href="edit.php?id=<?php echo($row['idProduct']); ?>">Sửa</a>
-                                            <a class="chitiet chitiet-product" href="detail.php?id=<?php echo($row['idProduct']); ?>">Chi tiết</a>
-                                            <a class="xoa xoa-product" href="#" data-url="delete.php?id=<?php echo($row['idProduct']); ?>">Xóa</a>
-
-                                            <div class="xoa-confirmModal modal">
-                                                <div class="xoa-modal-content">
-                                                    <p>Bạn có chắc chắn muốn xóa không?</p>
-                                                    <div class="xoa-buttons">
-                                                        <button class="xoa-cancelBtn">Hủy</button>
-                                                        <button class="xoa-confirmBtn">Xóa</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td><?php echo($row['soLuong']); ?></td>
+                                        <td><?php echo($row['thanhTien']); ?></td>
                                         </tr>
                                     <?php
                                 }

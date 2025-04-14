@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+include_once 'database.php';
 class user{
    private $data;
    public function __construct()
