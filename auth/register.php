@@ -1,15 +1,46 @@
+<?php
+include '../admin/entities/user.php';
+$user = new user();
+$hoTen=$soDienThoai=$username=$password=$diaChi="";
+$ErrUsername="";
+if(isset($_POST['submit']))
+{
+$hoTen=test_input($_POST['fullname']);
+$soDienThoai=test_input($_POST['soDienThoai']);
+$diaChi=test_input($_POST['diaChi']);
+$username = test_input($_POST['username']);
+$password = test_input($_POST['password']);
+if($user->isUsernameNotExist($username))
+{
+    $result = $user->addUser($hoTen,$soDienThoai,$username,$password,$diaChi,"customer");
+    header("location: ../public/index.html");
+    exit;
+}
+else
+{
+    $ErrUsername="Username của bạn đã tồn tại";
+}
+}
+function test_input($data)
+{
+    $data= trim($data);
+    $data=stripcslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <title>Đăng ký</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/style.css">
     <style>
-        .main-signin{
+        .main-signup {
             background-color: whitesmoke;
             min-height: 100vh;
             display: flex;
@@ -17,7 +48,7 @@
             align-items: center;
         }
 
-        .formdangnhap{
+        .formdangky {
             width: 25%;
             color: black;
             margin-bottom: 50px;
@@ -28,20 +59,20 @@
             border: 2px solid #ddd;
         }
 
-        .formdangnhap h1 {
+        .formdangky h2 {
             font-size: 28px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
-        .formdangnhap label {
+
+        .formdangky label {
             display: block;
             text-align: left;
             font-size: 14px;
             margin-bottom: 5px;
         }
 
-        .formdangnhap input {
+        .formdangky input {
             width: 100%;
-            padding: 10px;
             padding: 10px 40px;
             border: 1px solid gray;
             background-color: white;
@@ -51,7 +82,7 @@
             box-sizing: border-box;
         }
 
-        .formdangnhap .subm input {
+        .formdangky .subm input {
             width: 100%;
             background-color: black;
             border: none;
@@ -63,50 +94,23 @@
             cursor: pointer;
         }
 
-        .formdangnhap .subm input:hover {
+        .formdangky .subm input:hover {
             background-color: rgb(198, 193, 193);
             color: black;
         }
 
-        .formdangnhap .input-group {
+        .input-group {
             position: relative;
             margin-bottom: 15px;
         }
 
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: black;
-        }
-
-
-
-        /* Định dạng icon */
         .input-group i {
             position: absolute;
-            left: 15px; /* Đẩy icon sang trái */
+            left: 15px;
             top: 60%;
             transform: translateY(-50%);
             color: black;
         }
-
-
-        .formdangnhap .signup-link {
-            margin-top: 20px;
-            font-size: 14px;
-            text-align: center;
-        }
-        .formdangnhap .signup-link a {
-            color: black;
-            font-weight: bold;
-        }
-
-        .formdangnhap .signup-link a:hover {
-            color: gray;
-        }
-
-        
     </style>
 </head>
 
@@ -138,27 +142,51 @@
                 </nav>
             </div>
         </header>
-        <main class="main-signin">
-            <div class="formdangnhap">
-                <form id="signin" name="signin" method="post" action="#">
-                    <h2>Đăng nhập</h2>
+        <main class="main-signup">
+            <div class="formdangky">
+                <form id="signup" name="signup" method="post" action="#">
+                    <h2>Đăng ký</h2>
+                    
                     <div class="input-group">
-                        <label for="account">Tài khoản</label>
+                        <label for="fullname">Nhập tên tên của bạn</label>
                         <i class="fas fa-user"></i>
-                        <input name="account" id="account" type="text" required/>
+                        <input name="fullname" id="fullname" type="text" value="<?php echo($hoTen); ?>" required />
                     </div>
                     
                     <div class="input-group">
+                        <label for="email">Nhập số điện thoại của bạn</label>
+                        <i class="fas fa-user"></i>
+                        <input name="soDienThoai" id="soDienThoai" type="text" value="<?php echo($soDienThoai); ?>" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Nhập số địa chỉ của bạn</label>
+                        <i class="fas fa-user"></i>
+                        <input name="diaChi" id="diaChi" type="text" value="<?php echo($diaChi); ?>" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="fullname">Nhập username</label>
+                        <i class="fas fa-user"></i>
+                        <input name="username" id="username" type="text" value="<?php echo($username); ?>" required />
+                    </div>
+                    <div class="input-group">
                         <label for="password">Mật khẩu</label>
                         <i class="fas fa-lock"></i>
-                        <input name="password" id="password" type="password" required/>
-                    </div>                    
-                    <div class="subm"><input type="submit" name="sub" id="sub" value="Đăng nhập"/></div>
+                        <input name="password" id="password" type="password" required />
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="confirm-password">Nhập lại mật khẩu</label>
+                        <i class="fas fa-lock"></i>
+                        <input name="confirm-password" id="confirm-password" type="password" required />
+                    </div>
+                    <div class="hong-bao-loi">
+                                <p><?php echo($ErrUsername)?></p>
+                    </div>
+                    <div class="subm">
+                        <input type="submit" name="submit" id="submit" value="Đăng ký" />
+                    </div>
                 </form>
-                <div class="signup-link">
-                    Chưa có tài khoản? <a href="./register.html">Đăng ký</a>
-                </div>
-            </div>              
+            </div>
         </main>
         <footer class="footer">
             <div class="container">
@@ -168,7 +196,7 @@
                     </a>
                     <h3>Thông tin liên hệ</h3>
                     <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-                    <p>Email:</p>
+                    <p>Email:
                 </div>
                 <div class="footer-center">
                     <h3>Liên kết nhanh</h3>
@@ -193,4 +221,5 @@
         </footer>
     </div>
 </body>
+
 </html>
