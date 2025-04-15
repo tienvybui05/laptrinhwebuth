@@ -7,10 +7,10 @@
     <title>Trang chủ</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="./css/cart.css">
 </head>
 
-<body>
-
+<body class="">
     <div class="wrapper">
         <header class="header">
             <div class="container">
@@ -633,8 +633,38 @@
             </div>
         </footer>
     </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+                <div class="detail_cart-side">
+                    <img src="../public/images/san-pham.jpg" alt="Vợt" class="product-image">
+                    <div class="item-info">
+                        <div class="item-name">VỢT CẦU LÔNG YONEX ARCSABER 0</div>
+                        <div class="item-quantity"><span style="color: red;">1</span> × 560.000đ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div>560.000đ</div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
+    </div>
     <script src="../public/js/main.js"></script>
     <script src="../public/js/cart.js"></script>
+    <script src="../public/js/side-cart.js"></script>
 </body>
 
 </html>
