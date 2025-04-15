@@ -1,3 +1,45 @@
+<?php 
+
+session_start();
+include '../entities/user.php';
+$user = new user();
+
+$username = $password ="";
+$ErrAccount="";
+if(isset($_POST['login_admin']))
+{
+    $username =test_input($_POST['username']);
+    $password =test_input($_POST['password']);
+    $result = $user->isAccount($username,$password);
+     if( $result != false)
+     {
+        if($result[1]=="admin")
+        {
+            $_SESSION['idUser'] =  $result[0];
+                header("location:../index.html");
+                exit;
+        }
+        else{
+            $ErrAccount ="*Bạn không đủ quyền hạn";
+        }
+        
+       
+     }
+     else
+     {
+        $ErrAccount ="*Tài khoản không hợp lệ";
+     }
+}
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripcslashes($data);
+    $data = htmlentities($data);
+    return $data;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +87,7 @@
             width: 90%;
             border-color: rgb(169, 223, 216);
         }
-        .form-login button{
+        .form-login .login{
             background-color: rgb(169, 223, 216);
             color: rgba(0,0,0,0.87);
             width: 90%;
@@ -55,7 +97,7 @@
             border-radius: 5px;
             font-size: 20px;
         }
-        .form-login button:hover{
+        .form-login .login:hover{
             background-color:rgb(116, 212, 200);
         }
         .message{
@@ -70,9 +112,10 @@
         <form class="form-login" action="" method="post" >
             <input type="text" class="username" placeholder="Tên người dùng" name="username"><br/>
             <input type="password" class="password" placeholder="Mật khẩu" name="password"><br/>
-            <p class="message"></p>
+            <p class="message"><?php echo($ErrAccount); ?></p>
             <hr>
-            <button type="submit">Đăng nhập</button>
+            <!-- <button type="submit" name="login">Đăng nhập</button> -->
+            <input class="login" type="submit" name="login_admin" value="Tạo mới"/>
         </form>
 
     </div>

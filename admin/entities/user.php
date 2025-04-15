@@ -50,5 +50,22 @@ class user{
       $sql = "DELETE FROM user WHERE idUser = '$id'";
       return $this->data->delete($sql);
    }
+   public function isAccount($username,$password)
+   {
+      $sql = "SELECT * FROM user WHERE user.username='$username' and user.password= '$password'";
+      $result = $this->data->select($sql);
+      if($this->data->numRows() == 1)
+      {
+         $row = $this->data->fetch();
+         if($row==null)
+         {
+            return false;
+         }
+         
+            return [$row['idUser'],$row['vaiTro']];
+      }
+      return false;
+      
+   }
 }
 ?>

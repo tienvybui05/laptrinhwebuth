@@ -1,17 +1,21 @@
 /* đăng nhập*/
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector(".form-login").addEventListener("submit",function(event)
-    {
-        event.preventDefault()// ngăn chặn tải lại trăng
+    const form = document.querySelector('.form-login');
+    form.addEventListener("submit",function(event)
+    { 
         let username = document.querySelector(".username").value.trim();
         let password = document.querySelector(".password").value.trim();
         let message = document.querySelector(".message");
+        let check = true;
         message.innerText="";
         if (username === "" || password === "") {
-            message.innerText = "Đăng nhập không hợp lệ, vui lòng thử lại!";
-            return;
+            message.innerText = "Vui lòng nhập đầy đủ!";
+            check = false;
         }
-        // chừng có php thì code phần xử lý tiếp
+        if(!check)
+        {
+            event.preventDefault();
+        }
     });
     });
     

@@ -38,6 +38,10 @@ class database{
         }
         return null;
     }
+    public function numRows()
+    {
+        return $this->result->num_rows;
+    }
     public function fetchAll()
     {
         if($this->result && $this->result->num_rows >0)
