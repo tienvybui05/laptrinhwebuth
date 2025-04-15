@@ -199,17 +199,15 @@
             font-family: 'Arial', sans-serif;
             width: 300px;
             background-color: white;
-            right: 0;
-            top: 0;
+            inset: 0 -400px 0 auto;
             height: 100vh;
             box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            /* position: fixed; */
+            position: fixed;
         }
-
         .container-cart {
             display: flex;
             flex-direction: column;
@@ -330,10 +328,36 @@
         .checkout-cart-btn:hover {
             background-color: #333;
         }
+
+        .detail-side{
+            max-height: 426.4px;
+            overflow-y: auto;
+        }
+        .detail-side::-webkit-scrollbar {
+            width: 0px; /* chỉnh chiều rộng thanh scroll */
+        }
+
+        .detail-side::-webkit-scrollbar-thumb {
+            background-color: #ccc; /* màu của thanh kéo */
+            border-radius: 10px; /* bo góc */
+        }
+
+        .detail-side::-webkit-scrollbar-track {
+            background: transparent; /* màu nền track */
+        }
+        body.showCart .cart-side{
+            inset: 0 0 0 auto;
+        }
+        body.showCart .wrapper{
+            filter: blur(1px) brightness(0.7);
+            pointer-events: none; /* Ngăn tương tác với wrapper khi giỏ hàng mở */
+            user-select: none; /* Ngăn chọn text */
+        }
+        
     </style>
 </head>
 
-<body>
+<body class="">
     <div class="wrapper" style="background-color: #f5f5f5;">
         <header class="header">
             <div class="container">
@@ -375,7 +399,7 @@
                     <table class="product-table">
                         <thead>
                             <tr>
-                                <td align="left" bgcolor="fafafa"><input id="chonhet" type="checkbox"></td>
+                                <td align="left" bgcolor="fafafa"><input id="chonhet" type="checkbox" aria-label="Chọn tất cả"></td>
                                 <th>Sản Phẩm</th>
                                 <th>Đơn Giá</th>
                                 <th>Số Lượng</th>
@@ -422,35 +446,7 @@
                 </div>
             </div>
 
-            <div class="cart-side">
-                <div class="container-cart">
-                    <div class="header_cart-side">
-                        <div class="header_cart">
-                            <h1>Giỏ hàng</h1>
-                        </div>
-                        <div class="close_cart-side">
-                            <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
-                        </div>
-                    </div>
-                    <div class="detail-side">
-                        <div class="detail_cart-side">
-                            <img src="../public/images/san-pham.jpg" alt="Vợt" class="product-image">
-                            <div class="item-info">
-                                <div class="item-name">VỢT CẦU LÔNG YONEX ARCSABER 0</div>
-                                <div class="item-quantity"><span style="color: red;">1</span> × 560.000đ</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="total-cart-side">
-                        <div>TỔNG TIỀN:</div>
-                        <div>560.000đ</div>
-                    </div>
-                    <div class="cart-buttons">
-                        <button class="view-cart-btn">XEM GIỎ HÀNG</button>
-                        <button class="checkout-cart-btn">THANH TOÁN</button>
-                    </div>
-                </div>
-            </div>
+            
         </main>
         <footer class="footer">
             <div class="container">
@@ -483,6 +479,35 @@
                 </div>
             </div>
         </footer>
+    </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+                <div class="detail_cart-side">
+                    <img src="../public/images/san-pham.jpg" alt="Vợt" class="product-image">
+                    <div class="item-info">
+                        <div class="item-name">VỢT CẦU LÔNG YONEX ARCSABER 0</div>
+                        <div class="item-quantity"><span style="color: red;">1</span> × 560.000đ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div>560.000đ</div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
     </div>
     <script src="../public/js/cart2.js"></script>
 </body>

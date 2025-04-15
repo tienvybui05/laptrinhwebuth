@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const sidebarCart = document.querySelector(".detail-side"); 
     const totalElement = document.querySelector(".total-cart-side div:last-child");
     const totalbill = document.querySelector(".total-sum");
-    
     // Xóa nội dung cũ
     cartTable.innerHTML = "";
     sidebarCart.innerHTML = "";
@@ -99,6 +98,35 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    // check all 
+    document.querySelector("#chonhet").addEventListener("click",function() {
+            var status = this.checked;
+            document.querySelectorAll('.product-checkbox').forEach(function(checkbox) {
+                checkbox.checked = status; 
+            });
+    });
+    // an gio hang
+    let iconcart = document.querySelector(".cart-icon");
+    let closesidecart = document.querySelector(".close_cart-side");
+    let body = document.querySelector('body');
+    console.log(iconcart);
+    iconcart.addEventListener("click",()=>{
+        body.classList.add("showCart");
+    });
+    closesidecart.addEventListener("click",()=>{
+        body.classList.remove("showCart");
+    });
+
+
+    // Khi click vào overlay (phần tối bên ngoài giỏ hàng)
+    document.addEventListener('click', (e) => {
+        if (body.classList.contains('showCart') && 
+            !e.target.closest('.cart-side') && 
+            !e.target.closest('.cart-icon')) {
+        body.classList.remove('showCart');
+        }
+    });
+    
     // Thêm sự kiện xóa sản phẩm
     document.querySelectorAll(".action-btn").forEach(button => {
         button.addEventListener("click", function() {
@@ -122,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function() {
             location.reload();
         });
     });
-
     // Hàm cập nhật tổng tiền
     function updateTotal() {
         let newTotal = 0;
