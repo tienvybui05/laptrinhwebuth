@@ -1,35 +1,45 @@
-// xử lý thêm giỏ hàng và lư vào storage
-const btn = document.querySelectorAll(".btn-add-cart")
-btn.forEach(function(button,index){
-button.addEventListener("click", function(event){{
-    var btnItem = event.target
-    var product = btnItem.closest(".san-pham-item")
-    var shortSrc = product.querySelector("img").src
-    var pathOnly = new URL(shortSrc).pathname;
-    var productImg = pathOnly.replace("/laptrinhwebuth","..");
-    var productName = product.querySelector("h3").innerText
-    var productPrice = product.querySelector("p").innerText
-    var productQuality = parseInt(1)
-    addToCart(productImg,productName,productPrice,productQuality)
-    
-    
+document.addEventListener("DOMContentLoaded", function() {
 
-}})
-})
+    // an gio hang
+    let iconcart = document.querySelector(".cart-icon");
+    let closesidecart = document.querySelector(".close_cart-side");
+    let body = document.querySelector('body');
+    console.log(iconcart);
+    iconcart.addEventListener("click",()=>{
+        body.classList.add("showCart");
+    });
+    closesidecart.addEventListener("click",()=>{
+        body.classList.remove("showCart");
+    });
+    // xử lý thêm giỏ hàng và lưu vào storage
+    const btn = document.querySelectorAll(".btn-add-cart")
+    btn.forEach(function(button,index){
+    button.addEventListener("click", function(event){{
+        var btnItem = event.target
+        var product = btnItem.closest(".san-pham-item")
+        var productImg = product.querySelector("img").src
+        var productName = product.querySelector("h3").innerText
+        var productPrice = product.querySelector("p").innerText
+        var productQuality = parseInt(1)
+        addToCart(productImg,productName,productPrice,productQuality)
+        
+
+    }})
+    })    
+    loadCart();
+});
+
+
+
+
 
 function addToCart(img, name, price, quantity) {
-    
-    // 1. Lấy dữ liệu giỏ hàng hiện có từ localStorage (nếu chưa có sẽ là mảng rỗng)
     var cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // 2. Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
     const existingProduct = cart.find(item => item.name === name);
     
     if (existingProduct) {
-        // Nếu có rồi: Tăng số lượng lên 1
         existingProduct.quantity += 1;
     } else {
-        // Nếu chưa có: Thêm sản phẩm mới vào giỏ hàng
         cart.push({
             image: img,
             name: name,
@@ -38,9 +48,39 @@ function addToCart(img, name, price, quantity) {
         });
     }
 
-    // 3. Lưu lại giỏ hàng vào localStorage
     localStorage.setItem("cart", JSON.stringify(cart));
-    // 4. Thông báo hoặc cập nhật UI
     alert("Đã thêm vào giỏ hàng!");
-    console.log("Giỏ hàng hiện tại:", cart);
+    var productElement = document.createElement("div");
+        productElement.className = "detail_cart-side";
+        productElement.innerHTML = `
+            <img src="${img}" alt="${name}" class="product-image">
+            <div class="item-info">
+                <div class="item-name">${name.toUpperCase()}</div>
+                <div class="item-quantity">
+                    <span style="color: red;">${quantity}</span> × ${price}
+                </div>
+            </div>
+        `;
+        
+        document.querySelector(".detail-side").appendChild(productElement);
+}
+
+function loadCart(){
+    // Cập nhật giao diện
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.forEach(item => {
+        var productElement = document.createElement("div");
+        productElement.className = "detail_cart-side";
+        productElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="product-image">
+            <div class="item-info">
+                <div class="item-name">${item.name.toUpperCase()}</div>
+                <div class="item-quantity">
+                    <span style="color: red;">${item.quantity}</span> × ${item.price}
+                </div>
+            </div>
+        `;
+        
+        document.querySelector(".detail-side").appendChild(productElement);
+    });
 }
