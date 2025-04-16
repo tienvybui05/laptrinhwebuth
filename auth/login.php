@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(isset($_SESSION['idUser']))
+{
+    header("location: ../public/index.php");
+    exit;
+}
 include '../admin/entities/user.php';
 $user = new user();
 $ErrAccount="";
@@ -14,7 +19,7 @@ if(isset($_POST['sub']))
         if($result[1]=="customer")
         {
                 $_SESSION['idUser'] =  $result[0];
-                header("location: ../public/index.html");
+                header("location: ../public/index.php");
                 exit;
         }
         else{

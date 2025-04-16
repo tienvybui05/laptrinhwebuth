@@ -127,7 +127,7 @@ function test_input($data)
                         </div>
                         <div class="form-group">
                             <label for="">Password:</label>
-                            <input type="text" name="password" value ="<?php echo($row['password']); ?>">
+                            <input type="text" name="password" >
                         </div>
                         <div class="form-group">
                             <label for="">Địa chỉ:</label>
