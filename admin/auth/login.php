@@ -1,6 +1,11 @@
 <?php 
 
 session_start();
+if(isset($_SESSION['idUser_admin']))
+{
+    header("location:../index.php");
+    exit;
+}
 include '../entities/user.php';
 $user = new user();
 
@@ -15,8 +20,9 @@ if(isset($_POST['login_admin']))
      {
         if($result[1]=="admin")
         {
-            $_SESSION['idUser'] =  $result[0];
-                header("location:../index.html");
+            $_SESSION['idUser_admin'] =  $result[0];
+            $_SESSION['hoTen_admin'] =$result[2];
+                header("location:../index.php");
                 exit;
         }
         else{
@@ -99,6 +105,7 @@ function test_input($data)
         }
         .form-login .login:hover{
             background-color:rgb(116, 212, 200);
+            
         }
         .message{
             color: white;

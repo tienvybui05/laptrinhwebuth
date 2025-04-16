@@ -1,3 +1,14 @@
+<?php
+session_start();
+if(!isset($_SESSION['idUser_admin']))
+{
+    header("location: auth/login.php");
+    exit;
+}
+$hoTenAdmin = $_SESSION['hoTen_admin'];
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,8 +62,9 @@
                     <div id="datetime" class="datetime-glass"></div>
                 </div>
                 <div class="login-admin">
+                    <p><?php echo($hoTenAdmin); ?></p>
                     <div class="login">
-                        <a href="#">Login</a>
+                        <a href="auth/logout.php">Logout</a>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
-<?php
+<?php 
+include '../auth/checkLogin.php';
 include '../entities/user.php';
 if(isset($_GET['id']))
 {

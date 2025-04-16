@@ -1,5 +1,5 @@
-
-<?php
+<?php 
+include '../auth/checkLogin.php';
 include_once '../entities/orders.php';
 $orders= new orders();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword']:''; 

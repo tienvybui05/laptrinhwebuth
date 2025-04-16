@@ -1,4 +1,5 @@
 <?php 
+include '../auth/checkLogin.php';
 include '../entities/product.php';
 if(isset($_GET['id']))
 {
