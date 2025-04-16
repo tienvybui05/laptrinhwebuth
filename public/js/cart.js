@@ -40,7 +40,6 @@ function addToCart(img, name, price, quantity) {
 
     // 3. Lưu lại giỏ hàng vào localStorage
     localStorage.setItem("cart", JSON.stringify(cart));
-
     // 4. Thông báo hoặc cập nhật UI
     alert("Đã thêm vào giỏ hàng!");
     console.log("Giỏ hàng hiện tại:", cart);

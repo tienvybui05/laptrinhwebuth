@@ -1,3 +1,11 @@
+<?php
+include '../admin/entities/product.php';
+$product = new product();
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+$result = $product->getProduct($keyword);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -140,126 +148,39 @@
                     <div class="san-pham-content">
                         <!-- Danh sách sản phẩm Vợt Cầu Lông -->
                         <div class="san-pham-list active" id="vot">
-                            <div class="san-pham-item">
-                                <div class="discount">-6%</div>
+                         <?php
+                            while($row=$product->getProductFetch()){
+                                $listImage =explode(',',$row['hinhAnh']); 
+                            ?>
+                            
+                                <div class="san-pham-item">
+                                    <div class="discount"><?php echo($row['khuyenMai']); ?></div>
 
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">2.500.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
+                                    <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt cầu lông Yonex">
+                                    <h3><?php echo($row['tenSanPham']); ?></h3>
+                                    <p class="price"><?php echo($row['gia']); ?></p>
+                                    <div class="san-pham-buttons">
+                                        <button class="btn-add-cart">
+                                            <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                                        </button>
+                                        <button class="btn-buy-now">
+                                            <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <div class="discount">-6%</div>
-
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">2.500.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <div class="discount">-6%</div>
-
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">2.500.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <div class="discount">-6%</div>
-
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">2.500.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <div class="discount">-6%</div>
-
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">2.500.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Lining">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">1.800.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Victor">
-                                <h3>Vợt cầu lông Victor HX 900</h3>
-                                <p class="price">2.100.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="san-pham-item">
-                                <img src="./images/san-pham.jpg" alt="Vợt cầu lông Mizuno">
-                                <h3>Vợt cầu lông Mizuno JPX</h3>
-                                <p class="price">1.950.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                    </button>
-                                </div>
-                            </div>
+                            
+                        <?php
+                            }                   
+                         ?>
+                        </div>
+                        
+                            
 
                             <!-- Danh sách sản phẩm Quả Cầu Lông -->
                             <!-- <button class="slider-prev">&#10094;</button>
                             <button class="slider-next">&#10095;</button> -->
-                        </div>
-                        <button class="view-more">Xem thêm</button>
+                    </div>
+                    <button class="view-more">Xem thêm</button>
                 </section>
                 <section class="contact">
                     <div class="contact-container">
