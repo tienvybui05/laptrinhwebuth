@@ -1,3 +1,26 @@
+<?php
+include '../admin/entities/product.php';
+$product = new product();
+
+// Lấy dữ liệu phân trang từ class product
+$productsPerPage = 16;
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($currentPage < 1) {
+    $currentPage = 1;
+}
+
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+
+if (!empty($keyword)) {
+    // Nếu có từ khóa tìm kiếm, chỉ lấy sản phẩm theo từ khóa
+    $result = $product->getProduct($keyword);
+    $totalPages = 1; // Khi tìm kiếm, không cần phân trang
+} else {
+    // Nếu không có từ khóa, lấy sản phẩm theo phân trang
+    list($result, $totalPages) = $product->getPaginatedProducts($currentPage, $productsPerPage);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -227,202 +250,48 @@
                         </div>
 
                         <div class="san-pham-list">
-                            <!-- Sản phẩm 1 - Yonex -->
-                            <div class="san-pham-item">
-                                <div class="discount">-15%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Astrox 88D Pro">
-                                <h3>Vợt cầu lông Yonex Astrox 88D Pro</h3>
-                                <p class="price">2.550.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 2 - Yonex -->
-                            <div class="san-pham-item">
-                                <div class="discount">-10%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Nanoflare 800">
-                                <h3>Vợt cầu lông Yonex Nanoflare 800</h3>
-                                <p class="price">2.880.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 3 - Yonex -->
-                            <div class="san-pham-item">
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Duora 10">
-                                <h3>Vợt cầu lông Yonex Duora 10</h3>
-                                <p class="price">2.100.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 4 - Yonex -->
-                            <div class="san-pham-item">
-                                <div class="discount">-8%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Yonex Arcsaber 11">
-                                <h3>Vợt cầu lông Yonex Arcsaber 11</h3>
-                                <p class="price">1.950.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 5 - Lining -->
-                            <div class="san-pham-item">
-                                <div class="discount">-12%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Aeronaut 9000i">
-                                <h3>Vợt cầu lông Lining Aeronaut 9000i</h3>
-                                <p class="price">1.850.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 6 - Lining -->
-                            <div class="san-pham-item">
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Windstorm 72">
-                                <h3>Vợt cầu lông Lining Windstorm 72</h3>
-                                <p class="price">1.680.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 7 - Lining -->
-                            <div class="san-pham-item">
-                                <div class="discount">-5%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining Turbo Charging 75">
-                                <h3>Vợt cầu lông Lining Turbo Charging 75</h3>
-                                <p class="price">1.520.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 8 - Lining -->
-                            <div class="san-pham-item">
-                                <div class="discount">-7%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Lining 3D Calibar 900">
-                                <h3>Vợt cầu lông Lining 3D Calibar 900</h3>
-                                <p class="price">1.950.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 9 - Victor -->
-                            <div class="san-pham-item">
-                                <div class="discount">-10%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Thruster K 9000">
-                                <h3>Vợt cầu lông Victor Thruster K 9000</h3>
-                                <p class="price">2.250.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 10 - Victor -->
-                            <div class="san-pham-item">
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Jetspeed S 10">
-                                <h3>Vợt cầu lông Victor Jetspeed S 10</h3>
-                                <p class="price">1.980.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 11 - Victor -->
-                            <div class="san-pham-item">
-                                <div class="discount">-8%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Auraspeed 90S">
-                                <h3>Vợt cầu lông Victor Auraspeed 90S</h3>
-                                <p class="price">2.120.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Sản phẩm 12 - Victor -->
-                            <div class="san-pham-item">
-                                <div class="discount">-6%</div>
-                                <img src="../public/images/san-pham.jpg" alt="Vợt cầu lông Victor Bravesword 12">
-                                <h3>Vợt cầu lông Victor Bravesword 12</h3>
-                                <p class="price">1.880.000 đ</p>
-                                <div class="san-pham-buttons">
-                                    <button class="btn-add-cart">
-                                        <i class="fas fa-cart-plus"></i> Giỏ hàng
-                                    </button>
-                                    <button class="btn-buy-now">
-                                        <i class="fas fa-shopping-bag"></i> Mua ngay
-                                    </button>
-                                </div>
-                            </div>
+                            <?php
+                            if (!empty($result)) {
+                                foreach ($result as $row) {
+                                    $listImage = explode(',', $row['hinhAnh']);
+                            ?>
+                                    <div class="san-pham-item">
+                                        <div class="discount"><?php echo $row['khuyenMai']; ?></div>
+                                        <img src="../public/images/product/<?php echo $listImage[0] . '/' . $listImage[1]; ?>" alt="<?php echo $row['tenSanPham']; ?>">
+                                        <h3><?php echo $row['tenSanPham']; ?></h3>
+                                        <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                        <div class="san-pham-buttons">
+                                            <button class="btn-add-cart">
+                                                <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                            </button>
+                                            <button class="btn-buy-now">
+                                                <i class="fas fa-shopping-bag"></i> Mua ngay
+                                            </button>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo '<p>Không có sản phẩm nào được tìm thấy.</p>';
+                            }
+                            ?>
                         </div>
 
                         <!-- Phân trang -->
                         <div class="pagination">
-                            <a href="#" class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#" class="next">Trang sau <i class="fas fa-chevron-right"></i></a>
+                            <?php if ($currentPage > 1): ?>
+                                <a href="?page=<?php echo $currentPage - 1; ?>" class="prev">&laquo; Trang trước</a>
+                            <?php endif; ?>
+
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <a href="?page=<?php echo $i; ?>" class="<?php echo $i === $currentPage ? 'active' : ''; ?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            <?php endfor; ?>
+
+                            <?php if ($currentPage < $totalPages): ?>
+                                <a href="?page=<?php echo $currentPage + 1; ?>" class="next">Trang sau &raquo;</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

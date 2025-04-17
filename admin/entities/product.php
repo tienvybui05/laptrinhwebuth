@@ -49,5 +49,30 @@ class product{
         $sql= "DELETE FROM product WHERE idProduct = '$id'";
         return $this->data->delete($sql);
     }
+    public function getPaginatedProducts($currentPage, $productsPerPage) {
+        $offset = ($currentPage - 1) * $productsPerPage;
+
+        // Lấy tổng số sản phẩm
+        $sqlTotal = "SELECT COUNT(*) as total FROM product";
+        $resultTotal = $this->data->select($sqlTotal);
+        $totalProducts = 0;
+        if ($row = $resultTotal->fetch_assoc()) {
+            $totalProducts = $row['total'];
+        }
+
+        // Tính tổng số trang
+        $totalPages = ceil($totalProducts / $productsPerPage);
+
+        // Lấy sản phẩm theo trang và sắp xếp theo idProduct tăng dần
+        $sql = "SELECT * FROM product ORDER BY idProduct ASC LIMIT $offset, $productsPerPage";
+        $resultProducts = $this->data->select($sql);
+
+        $products = [];
+        while ($row = $resultProducts->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        return [$products, $totalPages];
+    }
 }
 ?>
