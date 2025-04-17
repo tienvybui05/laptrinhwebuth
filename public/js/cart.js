@@ -11,6 +11,16 @@ document.addEventListener("DOMContentLoaded", function() {
     closesidecart.addEventListener("click",()=>{
         body.classList.remove("showCart");
     });
+    // Khi click vào overlay (phần tối bên ngoài giỏ hàng)
+    document.addEventListener('click', (e) => {
+        if (body.classList.contains('showCart') && 
+            !e.target.closest('.cart-side') && 
+            !e.target.closest('.cart-icon')) {
+        body.classList.remove('showCart');
+        }
+    });
+
+
     // xử lý thêm giỏ hàng và lưu vào storage
     const btn = document.querySelectorAll(".btn-add-cart")
     btn.forEach(function(button,index){
@@ -38,7 +48,19 @@ function addToCart(img, name, price, quantity) {
     const existingProduct = cart.find(item => item.name === name);
     
     if (existingProduct) {
+        // Tăng số lượng trong localStorage
         existingProduct.quantity += 1;
+
+        // Cập nhật UI: tìm phần tử hiển thị quantity và cập nhật lại
+        const allItems = document.querySelectorAll(".detail_cart-side");
+        allItems.forEach(item => {
+            const itemName = item.querySelector(".item-name").innerText;
+            if (itemName === name.toUpperCase()) {
+                item.querySelector(".quantity").innerText = existingProduct.quantity;
+            }
+        });
+
+        total();
     } else {
         cart.push({
             image: img,
@@ -46,23 +68,25 @@ function addToCart(img, name, price, quantity) {
             price: price,
             quantity: quantity
         });
-    }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Đã thêm vào giỏ hàng!");
-    var productElement = document.createElement("div");
+        var productElement = document.createElement("div");
         productElement.className = "detail_cart-side";
         productElement.innerHTML = `
             <img src="${img}" alt="${name}" class="product-image">
             <div class="item-info">
                 <div class="item-name">${name.toUpperCase()}</div>
                 <div class="item-quantity">
-                    <span style="color: red;">${quantity}</span> × ${price}
+                    <span class="quantity" style="color: red;">${quantity}</span> × <span class="price">${price}</span>
                 </div>
             </div>
         `;
         
         document.querySelector(".detail-side").appendChild(productElement);
+        total();
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Đã thêm vào giỏ hàng!");
 }
 
 function loadCart(){
@@ -76,11 +100,32 @@ function loadCart(){
             <div class="item-info">
                 <div class="item-name">${item.name.toUpperCase()}</div>
                 <div class="item-quantity">
-                    <span style="color: red;">${item.quantity}</span> × ${item.price}
+                    <span class="quantity" style="color: red;">${item.quantity}</span> × <span class="price">${item.price}</span>
                 </div>
             </div>
         `;
         
         document.querySelector(".detail-side").appendChild(productElement);
+        total();
     });
+}
+
+
+function total() {
+    var cartItem = document.querySelectorAll(".detail-side .detail_cart-side");
+    var totalC = 0;
+    // console.log(cartItem.length);
+    for (var i = 0; i < cartItem.length; i++) {
+        var inputValue = cartItem[i].querySelector(".item-quantity .price").innerText
+        var cleanPrice = inputValue.replace(/[^\d]/g, ''); // Chỉ giữ lại số
+        var numberPrice = parseInt(cleanPrice);
+        var productPrice = cartItem[i].querySelector(".item-quantity .quantity").innerText
+        totalA = productPrice*numberPrice
+        totalC = totalC+totalA;
+        totalD = totalC.toLocaleString('de-DE')
+        
+        
+    }
+    var cartTotalA = document.querySelector(".total-cart-side .productTotal .total-amount")
+    cartTotalA.innerHTML = totalD;
 }

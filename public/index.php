@@ -158,7 +158,7 @@ $result = $product->getProduct($keyword);
 
                                     <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt cầu lông Yonex">
                                     <h3><?php echo($row['tenSanPham']); ?></h3>
-                                    <p class="price"><?php echo($row['gia']); ?></p>
+                                    <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
                                     <div class="san-pham-buttons">
                                         <button class="btn-add-cart">
                                             <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
@@ -575,7 +575,7 @@ $result = $product->getProduct($keyword);
             </div>
             <div class="total-cart-side">
                 <div>TỔNG TIỀN:</div>
-                <div>560.000đ</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
             </div>
             <div class="cart-buttons">
                 <button class="view-cart-btn">XEM GIỎ HÀNG</button>
@@ -587,5 +587,4 @@ $result = $product->getProduct($keyword);
     <script src="../public/js/cart.js"></script>
     <!-- <script src="../public/js/side-cart.js"></script> -->
 </body>
-
 </html>
