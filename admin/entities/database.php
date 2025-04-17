@@ -1,4 +1,9 @@
 <?php 
+if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+    http_response_code(403);
+    header("location:../auth/accessDenied.php ");
+    exit();
+}
 class database{
     private $servername='localhost';
     private $username='root';

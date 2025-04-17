@@ -1,4 +1,5 @@
-<?php
+<?php 
+include '../auth/checkLogin.php';
 include '../entities/user.php';
 $user = new user();
 $hoTen = $soDienThoai = "";
@@ -10,7 +11,6 @@ if(isset($_POST['taomoi'])){
 $hoTen = test_input($_POST['hoten']);
 $soDienThoai = test_input($_POST['sodienthoai']);
 $username = test_input($_POST['username']);
-// $password = password_hash(test_input($_POST['username']),PASSWORD_DEFAULT);
 $password = test_input($_POST['password']);
 $diaChi = test_input($_POST['diachi']);
 $vaiTro = test_input($_POST['vaitro']);

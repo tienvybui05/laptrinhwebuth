@@ -1,3 +1,69 @@
+<?php 
+session_start();
+if(!isset($_SESSION['idUser']))
+{
+    header("location: login.php");
+    exit;
+}
+include '../admin/entities/user.php';
+$user = new user();
+$id = $_SESSION['idUser'];
+$row = $user->getUserById($id);
+$hoTen = $row['hoTen'];
+$soDienThoai= $row['soDienThoai'];
+$diaChi= $row['diaChi'];
+$password = $row['password'];
+$username = $row['username'];
+$msgInformation="";
+$msgPassword ="";
+if(isset($_POST['information']))
+{
+    if(!empty($_POST['infoname']))
+    {
+        $hoTen=test_input($_POST['infoname']);
+    }
+    if(!empty($_POST['infoSoDienThaoi']))
+    {
+    
+        $soDienThoai=test_input($_POST['infoSoDienThaoi']);
+    }
+    if(!empty($_POST['infoaddress']))
+    {
+ 
+        $diaChi=test_input($_POST['infoaddress']);
+    }
+        $result = $user->updateUser($id,$hoTen,$soDienThoai,$username,$password,$diaChi,"customer");   
+        if ($result) 
+        {
+            $msgInformation='Cập nhật thông tin thành công!';
+        } 
+}
+if(isset($_POST['savePassword']))
+{
+    $passwordOld = test_input($_POST['passwordOld']); 
+    $result = $user->isAccount($username,$passwordOld);
+    if($result===false)
+    {
+        $msgPassword="Nhập sai mật khẩu!";
+    }
+    else{
+        $passwordNew =test_input($_POST['passwordNew']);
+        $result = $user->updateUser($id,$hoTen,$soDienThoai,$username, $passwordNew,$diaChi,"customer");  
+        if ($result) 
+        {
+            $msgPassword='Cập nhật mật khẩu thành công!';
+        }  
+    }
+}
+function test_input($data)
+{
+    $data =trim($data);
+    $data = stripcslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,51 +114,53 @@
                 </div>
                 <div class="main-account-body">
                     <div class="main-account-body-col">
-                        <form action="" class="info-user">
+                        <form action="" class="info-user" method = "post">
                             <div class="form-group">
                                 <label for="infoname" class="form-label">Họ và tên</label>
-                                <input class="form-control" type="text" name="infoname" id="infoname" placeholder="">
+                                <input class="form-control" type="text" name="infoname" id="infoname" placeholder="" value="<?php echo($hoTen);?>">
                             </div>
                             <div class="form-group">
-                                <label for="infoemail" class="form-label">Email</label>
-                                <input class="form-control" type="email" name="infoemail" id="infoemail"
-                                    placeholder="Thêm địa chỉ email của bạn">
+                                <label for="infoSoDienThaoi" class="form-label">Số điện thoại</label>
+                                <input class="form-control" type="text" name="infoSoDienThaoi" id="infoemail"
+                                    placeholder="Thêm số điện thoại của bạn" value="<?php echo($soDienThoai);?>">
                                 <span class="inforemail-error form-message"></span>
                             </div>
                             <div class="form-group">
                                 <label for="infoaddress" class="form-label">Địa chỉ</label>
                                 <input class="form-control" type="text" name="infoaddress" id="infoaddress"
-                                    placeholder="Thêm địa chỉ giao hàng của bạn">
+                                    placeholder="Thêm địa chỉ của bạn" value="<?php echo($diaChi);?>">
                             </div>
                             <div>
-                                <button id="save-info-user" onclick="changeInformation()">
+                                <p><?php echo($msgInformation); ?></p>
+                                <button id="save-info-user" onclick="changeInformation()" name = "information">
                                     <i class="fa-regular fa-floppy-disk"></i> Lưu thay đổi
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div class="main-account-body-col">
-                        <form action="" class="change-password">
+                        <form action="" class="change-password" method="post">
                             <div class="form-group">
                                 <label for="" class="form-label w60">Mật khẩu hiện tại</label>
-                                <input class="form-control" type="password" name="" id="password-cur-info"
+                                <input class="form-control" type="password" name="passwordOld" id="password-cur-info"
                                     placeholder="Nhập mật khẩu hiện tại">
                                 <span class="password-cur-info-error form-message"></span>
                             </div>
                             <div class="form-group">
                                 <label for="" class="form-label w60">Mật khẩu mới </label>
-                                <input class="form-control" type="password" name="" id="password-after-info"
+                                <input class="form-control" type="password" name="passwordNew" id="password-after-info"
                                     placeholder="Nhập mật khẩu mới">
                                 <span class="password-after-info-error form-message"></span>
                             </div>
                             <div class="form-group">
                                 <label for="" class="form-label w60">Xác nhận mật khẩu mới</label>
-                                <input class="form-control" type="password" name="" id="password-comfirm-info"
+                                <input class="form-control" type="password" name="confirmPassword" id="password-comfirm-info"
                                     placeholder="Nhập lại mật khẩu mới">
                                 <span class="password-after-comfirm-error form-message"></span>
                             </div>
                             <div>
-                                <button id="save-password" onclick="changePassword()">
+                                <p><?php echo($msgPassword); ?></p>
+                                <button id="save-password" onclick="changePassword()" name ="savePassword">
                                     <i class="fa-regular fa-key"></i> Đổi mật khẩu
                                 </button>
                             </div>

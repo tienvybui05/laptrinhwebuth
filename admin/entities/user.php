@@ -1,4 +1,9 @@
 <?php
+if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+   http_response_code(403);
+   header("location:../auth/accessDenied.php");
+   exit();
+}
 include_once 'database.php';
 class user{
    private $data;
@@ -23,6 +28,7 @@ class user{
    }
    public function addUser($hoTen,$soDienThoai,$username,$password,$diaChi,$vaiTro)
    {
+    $password = password_hash($password,PASSWORD_DEFAULT);
     $sql = "INSERT INTO user(hoTen,soDienThoai,username,password,diaChi,vaiTro)
             VALUES ('$hoTen','$soDienThoai','$username','$password','$diaChi','$vaiTro')";
       return $this->data->insert($sql);
@@ -40,6 +46,7 @@ class user{
    }
    public function updateUser($id,$hoTen,$soDienThoai,$username,$password,$diaChi,$vaiTro)
    {
+    $password = password_hash($password,PASSWORD_DEFAULT);
     $sql = "UPDATE user SET hoTen = '$hoTen', soDienThoai = '$soDienThoai' , username = '$username',
                             password = '$password' ,diaChi='$diaChi',vaiTro ='$vaiTro'
                             WHERE idUser = '$id'";
@@ -52,17 +59,16 @@ class user{
    }
    public function isAccount($username,$password)
    {
-      $sql = "SELECT * FROM user WHERE user.username='$username' and user.password= '$password'";
+      $sql = "SELECT * FROM user WHERE user.username='$username'";
       $result = $this->data->select($sql);
       if($this->data->numRows() == 1)
       {
          $row = $this->data->fetch();
-         if($row==null)
+         if(password_verify($password,$row['password']))
          {
-            return false;
+            return [$row['idUser'],$row['vaiTro'],$row['hoTen']];
          }
-         
-            return [$row['idUser'],$row['vaiTro']];
+         return false;
       }
       return false;
       

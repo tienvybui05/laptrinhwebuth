@@ -138,9 +138,17 @@ margin: 0 6px;
 font-size: 12px;
 }
 /*Login*/
+.login-admin{
+    display: flex;
+    align-items: center;
+
+}
+.login-admin p{
+    padding-right: 10px;
+    color: white;
+}
 .login-admin .login{
     width: 60px;
-   
     line-height: 90px;
 }
 #content{

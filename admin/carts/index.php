@@ -1,5 +1,5 @@
-
 <?php
+include '../auth/checkLogin.php';
 include_once '../entities/cart.php';
 $cart = new cart();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword']:''; 

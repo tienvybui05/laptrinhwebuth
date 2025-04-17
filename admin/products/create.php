@@ -1,4 +1,5 @@
-<?php
+<?php 
+include '../auth/checkLogin.php';
 include '../entities/product.php';
 $product = new product();
 // Tạo các biến

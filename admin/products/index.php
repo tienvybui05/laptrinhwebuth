@@ -1,7 +1,5 @@
-<?php
-
-?>
-<?php
+<?php 
+include '../auth/checkLogin.php';
 include '../entities/product.php';
 $product = new product();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
