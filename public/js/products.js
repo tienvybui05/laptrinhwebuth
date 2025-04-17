@@ -1,287 +1,292 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Xử lý dropdown filter
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Đóng tất cả các dropdown khác
-            document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
-                if (dropdown !== this.nextElementSibling) {
-                    dropdown.classList.remove('visible');
-                }
-            });
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn !== this) {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Toggle dropdown hiện tại
-            const dropdown = this.nextElementSibling;
-            if (dropdown) {
-                dropdown.classList.toggle('visible');
-                this.classList.toggle('active');
-            }
-        });
-    });
-    
-    // Đóng dropdown khi click ra ngoài
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.filter-group')) {
-            document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
-                dropdown.classList.remove('visible');
-            });
-            
-            document.querySelectorAll('.filter-btn').forEach(button => {
-                button.classList.remove('active');
-            });
+document.addEventListener("DOMContentLoaded", () => {
+  // Xử lý dropdown filter
+  const filterButtons = document.querySelectorAll(".filter-btn")
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+      e.preventDefault()
+      e.stopPropagation()
+
+      // Đóng tất cả các dropdown khác
+      document.querySelectorAll(".filter-dropdown").forEach((dropdown) => {
+        if (dropdown !== this.nextElementSibling) {
+          dropdown.classList.remove("visible")
         }
-    });
-    
-    // Xử lý thanh trượt giá hai đầu
-    function setupPriceRangeSlider() {
-        const minSlider = document.getElementById('min-price-slider');
-        const maxSlider = document.getElementById('max-price-slider');
-        const minPriceInput = document.getElementById('min-price-input');
-        const maxPriceInput = document.getElementById('max-price-input');
-        
-        if (!minSlider || !maxSlider || !minPriceInput || !maxPriceInput) return;
-        
-        // Cập nhật giá trị hiển thị khi di chuyển thanh trượt
-        function updateSliderValues() {
-            // Đảm bảo min không vượt quá max
-            if (parseInt(minSlider.value) > parseInt(maxSlider.value)) {
-                minSlider.value = maxSlider.value;
-            }
-            
-            // Cập nhật giá trị trong ô input
-            minPriceInput.value = minSlider.value;
-            maxPriceInput.value = maxSlider.value;
-            
-            // Cập nhật vị trí của track highlight
-            updateSliderTrack();
+      })
+
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        if (btn !== this) {
+          btn.classList.remove("active")
         }
-        
-        // Cập nhật track highlight giữa hai thumb
-        function updateSliderTrack() {
-            const sliderTrack = document.querySelector('.slider-track');
-            if (!sliderTrack) return;
-            
-            const percent1 = (minSlider.value / minSlider.max) * 100;
-            const percent2 = (maxSlider.value / maxSlider.max) * 100;
-            
-            sliderTrack.style.background = `linear-gradient(to right, #ddd ${percent1}%, #1e88e5 ${percent1}%, #1e88e5 ${percent2}%, #ddd ${percent2}%)`;
-        }
-        
-        // Cập nhật thanh trượt khi thay đổi giá trị trong ô input
-        minPriceInput.addEventListener('input', function() {
-            let value = parseInt(this.value) || 0;
-            
-            // Đảm bảo giá trị không vượt quá max
-            if (value > parseInt(maxPriceInput.value)) {
-                value = parseInt(maxPriceInput.value);
-                this.value = value;
-            }
-            
-            minSlider.value = value;
-            updateSliderTrack();
-        });
-        
-        maxPriceInput.addEventListener('input', function() {
-            let value = parseInt(this.value) || 19500000;
-            
-            // Đảm bảo giá trị không nhỏ hơn min
-            if (value < parseInt(minPriceInput.value)) {
-                value = parseInt(minPriceInput.value);
-                this.value = value;
-            }
-            
-            maxSlider.value = value;
-            updateSliderTrack();
-        });
-        
-        // Xử lý sự kiện khi di chuyển thanh trượt
-        minSlider.addEventListener('input', updateSliderValues);
-        maxSlider.addEventListener('input', updateSliderValues);
-        
-        // Khởi tạo ban đầu
-        updateSliderTrack();
+      })
+
+      // Toggle dropdown hiện tại
+      const dropdown = this.nextElementSibling
+      if (dropdown) {
+        dropdown.classList.toggle("visible")
+        this.classList.toggle("active")
+      }
+    })
+  })
+
+  // Đóng dropdown khi click ra ngoài
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".filter-group")) {
+      document.querySelectorAll(".filter-dropdown").forEach((dropdown) => {
+        dropdown.classList.remove("visible")
+      })
+
+      document.querySelectorAll(".filter-btn").forEach((button) => {
+        button.classList.remove("active")
+      })
     }
-    
-    // Gọi hàm thiết lập thanh trượt
-    setupPriceRangeSlider();
-    
-    // Xử lý các tùy chọn lọc
-    const filterOptions = document.querySelectorAll('.price-option, .stiffness-option, .balance-option, .tension-option, .play-style-option');
-    
-    filterOptions.forEach(option => {
-        option.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Lấy tất cả các option cùng loại
-            const optionType = this.classList[0];
-            const sameTypeOptions = document.querySelectorAll('.' + optionType);
-            
-            // Thêm class active cho option được chọn
-            sameTypeOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Đóng dropdown sau khi chọn
-            setTimeout(() => {
-                this.closest('.filter-dropdown').classList.remove('visible');
-                this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-            }, 300);
-        });
-    });
-    
-    // Xử lý nút áp dụng lọc giá
-    const applyFilterBtn = document.querySelector('.apply-filter-btn');
-    
-    if (applyFilterBtn) {
-        applyFilterBtn.addEventListener('click', function() {
-            const minPrice = document.getElementById('min-price-input').value || 0;
-            const maxPrice = document.getElementById('max-price-input').value || 19500000;
-            
-            console.log(`Lọc sản phẩm từ ${minPrice}đ đến ${maxPrice}đ`);
-            
-            // Đóng dropdown sau khi áp dụng
-            this.closest('.filter-dropdown').classList.remove('visible');
-            this.closest('.filter-group').querySelector('.filter-btn').classList.remove('active');
-        });
+  })
+
+  // Xử lý thanh trượt giá hai đầu
+  function setupPriceRangeSlider() {
+    const minSlider = document.getElementById("min-price-slider")
+    const maxSlider = document.getElementById("max-price-slider")
+    const minPriceInput = document.getElementById("min-price-input")
+    const maxPriceInput = document.getElementById("max-price-input")
+
+    if (!minSlider || !maxSlider || !minPriceInput || !maxPriceInput) return
+
+    // Lấy giá trị min/max từ thuộc tính của slider
+    const minValue = Number.parseInt(minSlider.min) || 0
+    const maxValue = Number.parseInt(minSlider.max) || 19500000
+
+    // Cập nhật giá trị hiển thị khi di chuyển thanh trượt
+    function updateSliderValues() {
+      // Đảm bảo min không vượt quá max
+      if (Number.parseInt(minSlider.value) > Number.parseInt(maxSlider.value)) {
+        minSlider.value = maxSlider.value
+      }
+
+      // Cập nhật giá trị trong ô input
+      minPriceInput.value = minSlider.value
+      maxPriceInput.value = maxSlider.value
+
+      // Cập nhật vị trí của track highlight
+      updateSliderTrack()
     }
-    
-    // Xử lý dropdown sắp xếp
-    const sortSelect = document.getElementById('sort-select');
-    
-    if (sortSelect) {
-        sortSelect.addEventListener('change', function() {
-            const sortValue = this.value;
-            const productItems = Array.from(document.querySelectorAll('.san-pham-item'));
-            
-            // Sắp xếp sản phẩm dựa trên giá trị được chọn
-            switch(sortValue) {
-                case 'price-asc':
-                    sortProductsByPrice(productItems, 'asc');
-                    break;
-                case 'price-desc':
-                    sortProductsByPrice(productItems, 'desc');
-                    break;
-                case 'name-asc':
-                    sortProductsByName(productItems);
-                    break;
-                case 'newest':
-                default:
-                    // Mặc định là mới nhất, không cần sắp xếp lại
-                    break;
-            }
-            
-            console.log(`Sắp xếp sản phẩm theo: ${sortValue}`);
-        });
-        
-        // Hàm sắp xếp sản phẩm theo giá
-        function sortProductsByPrice(products, order) {
-            products.sort((a, b) => {
-                const priceA = extractPrice(a.querySelector('.price').textContent);
-                const priceB = extractPrice(b.querySelector('.price').textContent);
-                
-                return order === 'asc' ? priceA - priceB : priceB - priceA;
-            });
-            
-            // Sắp xếp lại DOM
-            const productList = document.querySelector('.san-pham-list');
-            products.forEach(product => productList.appendChild(product));
-        }
-        
-        // Hàm sắp xếp sản phẩm theo tên
-        function sortProductsByName(products) {
-            products.sort((a, b) => {
-                const nameA = a.querySelector('h3').textContent.trim();
-                const nameB = b.querySelector('h3').textContent.trim();
-                
-                return nameA.localeCompare(nameB);
-            });
-            
-            // Sắp xếp lại DOM
-            const productList = document.querySelector('.san-pham-list');
-            products.forEach(product => productList.appendChild(product));
-        }
-        
-        // Hàm trích xuất giá từ chuỗi (ví dụ: "2.550.000 đ" -> 2550000)
-        function extractPrice(priceString) {
-            return parseInt(priceString.replace(/\./g, '').replace(/\s+đ/g, ''));
-        }
+
+    // Cập nhật track highlight giữa hai thumb
+    function updateSliderTrack() {
+      const sliderTrack = document.querySelector(".slider-track")
+      if (!sliderTrack) return
+
+      const percent1 = ((minSlider.value - minValue) / (maxValue - minValue)) * 100
+      const percent2 = ((maxSlider.value - minValue) / (maxValue - minValue)) * 100
+
+      sliderTrack.style.background = `linear-gradient(to right, #ddd ${percent1}%, #1e88e5 ${percent1}%, #1e88e5 ${percent2}%, #ddd ${percent2}%)`
     }
-    
-    // Xử lý danh mục sản phẩm ở sidebar
-    const categoryLinks = document.querySelectorAll('.category-list a');
-    
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Xóa class active từ tất cả các link
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            
-            // Thêm class active cho link được chọn
-            this.classList.add('active');
-            
-            const category = this.textContent;
-            console.log(`Đã chọn danh mục: ${category}`);
-        });
-    });
-    
-    // Xử lý nút thêm vào giỏ hàng
-    const addToCartButtons = document.querySelectorAll('.btn-add-cart');
-    
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productItem = this.closest('.san-pham-item');
-            const productName = productItem.querySelector('h3').textContent;
-            
-            // Hiển thị thông báo
-            showNotification(`Đã thêm "${productName}" vào giỏ hàng!`);
-        });
-    });
-    
-    // Xử lý nút mua ngay
-    const buyNowButtons = document.querySelectorAll('.btn-buy-now');
-    
-    buyNowButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productItem = this.closest('.san-pham-item');
-            const productName = productItem.querySelector('h3').textContent;
-            
-            alert(`Chuyển đến trang thanh toán cho sản phẩm: ${productName}`);
-        });
-    });
-    
-    // Hàm hiển thị thông báo
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-    
-    // Cập nhật số lượng sản phẩm hiển thị
-    function updateProductCount() {
-        const productCount = document.querySelector('.product-count');
-        const totalProducts = document.querySelectorAll('.san-pham-item').length;
-        const visibleProducts = document.querySelectorAll('.san-pham-item:not(.hidden)').length;
-        
-        if (productCount) {
-            productCount.textContent = `Hiển thị 1–${visibleProducts} của ${totalProducts} kết quả`;
+
+    // Cập nhật thanh trượt khi thay đổi giá trị trong ô input
+    minPriceInput.addEventListener("input", function () {
+      let value = Number.parseInt(this.value) || minValue
+
+      // Đảm bảo giá trị không vượt quá max
+      if (value > Number.parseInt(maxPriceInput.value)) {
+        value = Number.parseInt(maxPriceInput.value)
+        this.value = value
+      }
+
+      minSlider.value = value
+      updateSliderTrack()
+    })
+
+    maxPriceInput.addEventListener("input", function () {
+      let value = Number.parseInt(this.value) || maxValue
+
+      // Đảm bảo giá trị không nhỏ hơn min
+      if (value < Number.parseInt(minPriceInput.value)) {
+        value = Number.parseInt(minPriceInput.value)
+        this.value = value
+      }
+
+      maxSlider.value = value
+      updateSliderTrack()
+    })
+
+    // Xử lý sự kiện khi di chuyển thanh trượt
+    minSlider.addEventListener("input", updateSliderValues)
+    maxSlider.addEventListener("input", updateSliderValues)
+
+    // Khởi tạo ban đầu
+    updateSliderTrack()
+  }
+
+  // Gọi hàm thiết lập thanh trượt
+  setupPriceRangeSlider()
+
+  // Xử lý sự kiện cho các tùy chọn lọc
+  function setupFilterOptions() {
+    // Xử lý sự kiện cho các tùy chọn lọc độ cứng
+    const stiffnessOptions = document.querySelectorAll(".stiffness-option")
+    stiffnessOptions.forEach((option) => {
+      option.addEventListener("click", function (e) {
+        e.preventDefault()
+        const value = this.getAttribute("data-value")
+        applyFilter("do_cung", value)
+      })
+    })
+
+    // Xử lý sự kiện cho các tùy chọn lọc điểm cân bằng
+    const balanceOptions = document.querySelectorAll(".balance-option")
+    balanceOptions.forEach((option) => {
+      option.addEventListener("click", function (e) {
+        e.preventDefault()
+        const value = this.getAttribute("data-value")
+        applyFilter("diem_can_bang", value)
+      })
+    })
+
+    // Xử lý sự kiện cho các tùy chọn lọc trọng lượng
+    const tensionOptions = document.querySelectorAll(".tension-option")
+    tensionOptions.forEach((option) => {
+      option.addEventListener("click", function (e) {
+        e.preventDefault()
+        const value = this.getAttribute("data-value")
+        applyFilter("trong_luong", value)
+      })
+    })
+
+    // Xử lý sự kiện cho các tùy chọn lọc lối chơi
+    const playStyleOptions = document.querySelectorAll(".play-style-option")
+    playStyleOptions.forEach((option) => {
+      option.addEventListener("click", function (e) {
+        e.preventDefault()
+        const value = this.getAttribute("data-value")
+        applyFilter("loi_choi", value)
+      })
+    })
+
+    // Xử lý sự kiện cho các tùy chọn lọc giá có sẵn
+    const priceOptions = document.querySelectorAll(".price-option")
+    priceOptions.forEach((option) => {
+      option.addEventListener("click", function (e) {
+        e.preventDefault()
+        const minPrice = this.getAttribute("data-min")
+        const maxPrice = this.getAttribute("data-max")
+
+        // Cập nhật giá trị trong input và slider
+        document.getElementById("min-price-input").value = minPrice
+        document.getElementById("max-price-input").value = maxPrice
+
+        // Cập nhật giá trị slider nếu có
+        const minSlider = document.getElementById("min-price-slider")
+        const maxSlider = document.getElementById("max-price-slider")
+        if (minSlider && maxSlider) {
+          minSlider.value = minPrice
+          maxSlider.value = maxPrice
+
+          // Cập nhật track highlight
+          const sliderTrack = document.querySelector(".slider-track")
+          if (sliderTrack) {
+            const minValue = Number.parseInt(minSlider.min) || 0
+            const maxValue = Number.parseInt(minSlider.max) || 19500000
+            const percent1 = ((minPrice - minValue) / (maxValue - minValue)) * 100
+            const percent2 = ((maxPrice - minValue) / (maxValue - minValue)) * 100
+            sliderTrack.style.background = `linear-gradient(to right, #ddd ${percent1}%, #1e88e5 ${percent1}%, #1e88e5 ${percent2}%, #ddd ${percent2}%)`
+          }
         }
+
+        // Áp dụng bộ lọc giá
+        applyPriceFilter()
+      })
+    })
+
+    // Xử lý nút lọc giá
+    const applyPriceFilterBtn = document.getElementById("apply-price-filter")
+    if (applyPriceFilterBtn) {
+      applyPriceFilterBtn.addEventListener("click", applyPriceFilter)
     }
-    
-    // Gọi hàm cập nhật số lượng sản phẩm khi trang được tải
-    updateProductCount();
-});
+  }
+
+  // Gọi hàm thiết lập các tùy chọn lọc
+  setupFilterOptions()
+
+  // Hàm áp dụng bộ lọc
+  function applyFilter(filterName, filterValue) {
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set(filterName, filterValue)
+    urlParams.set("page", 1) // Reset về trang 1 khi áp dụng bộ lọc mới
+    window.location.href = window.location.pathname + "?" + urlParams.toString()
+  }
+
+  // Hàm áp dụng bộ lọc giá
+  function applyPriceFilter() {
+    const minPrice = document.getElementById("min-price-input").value || 0
+    const maxPrice = document.getElementById("max-price-input").value || 19500000
+
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set("price_min", minPrice)
+    urlParams.set("price_max", maxPrice)
+    urlParams.set("page", 1) // Reset về trang 1 khi áp dụng bộ lọc mới
+
+    window.location.href = window.location.pathname + "?" + urlParams.toString()
+  }
+
+  // Hàm áp dụng sắp xếp
+  window.applySort = (sortValue) => {
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set("sort", sortValue)
+    window.location.href = window.location.pathname + "?" + urlParams.toString()
+  }
+
+  // Xử lý nút thêm vào giỏ hàng
+  const addToCartButtons = document.querySelectorAll(".btn-add-cart")
+  addToCartButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const productItem = this.closest(".san-pham-item")
+      const productName = productItem.querySelector("h3").textContent
+      const productId = this.getAttribute("data-id")
+
+      // Hiển thị thông báo
+      showNotification(`Đã thêm "${productName}" vào giỏ hàng!`)
+
+      // Ở đây có thể thêm code để lưu sản phẩm vào giỏ hàng (localStorage hoặc gửi AJAX request)
+      console.log(`Thêm sản phẩm ID: ${productId} vào giỏ hàng`)
+    })
+  })
+
+  // Xử lý nút mua ngay
+  const buyNowButtons = document.querySelectorAll(".btn-buy-now")
+  buyNowButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const productItem = this.closest(".san-pham-item")
+      const productName = productItem.querySelector("h3").textContent
+      const productId = this.getAttribute("data-id")
+
+      // Hiển thị thông báo và chuyển hướng đến trang thanh toán
+      showNotification(`Đang chuyển đến trang thanh toán cho sản phẩm: ${productName}`)
+
+      // Sau 1 giây, chuyển hướng đến trang thanh toán
+      setTimeout(() => {
+        // Ở đây có thể thay đổi URL để chuyển đến trang thanh toán thực tế
+        console.log(`Mua ngay sản phẩm ID: ${productId}`)
+        // window.location.href = `checkout.php?product_id=${productId}`;
+      }, 1000)
+    })
+  })
+
+  // Hàm hiển thị thông báo
+  function showNotification(message) {
+    // Xóa thông báo cũ nếu có
+    const oldNotification = document.querySelector(".notification")
+    if (oldNotification) {
+      oldNotification.remove()
+    }
+
+    // Tạo thông báo mới
+    const notification = document.createElement("div")
+    notification.className = "notification"
+    notification.textContent = message
+    document.body.appendChild(notification)
+
+    // Tự động xóa thông báo sau 3 giây
+    setTimeout(() => {
+      notification.remove()
+    }, 3000)
+  }
+})

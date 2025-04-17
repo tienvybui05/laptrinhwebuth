@@ -9,16 +9,51 @@ if ($currentPage < 1) {
     $currentPage = 1;
 }
 
+// Lấy tham số lọc từ URL
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+$priceMin = isset($_GET['price_min']) ? (int)$_GET['price_min'] : 0;
+$priceMax = isset($_GET['price_max']) ? (int)$_GET['price_max'] : 0; // Đặt giá trị mặc định là 0
+$doCung = isset($_GET['do_cung']) ? $_GET['do_cung'] : '';
+$diemCanBang = isset($_GET['diem_can_bang']) ? $_GET['diem_can_bang'] : '';
+$trongLuong = isset($_GET['trong_luong']) ? $_GET['trong_luong'] : '';
+$loiChoi = isset($_GET['loi_choi']) ? $_GET['loi_choi'] : '';
+$category = isset($_GET['category']) ? $_GET['category'] : '';
+$sortBy = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 
-if (!empty($keyword)) {
-    // Nếu có từ khóa tìm kiếm, chỉ lấy sản phẩm theo từ khóa
-    $result = $product->getProduct($keyword);
-    $totalPages = 1; // Khi tìm kiếm, không cần phân trang
-} else {
-    // Nếu không có từ khóa, lấy sản phẩm theo phân trang
-    list($result, $totalPages) = $product->getPaginatedProducts($currentPage, $productsPerPage);
+// Lấy khoảng giá từ cơ sở dữ liệu
+$priceRange = $product->getPriceRange();
+
+// Nếu giá max chưa được đặt trong URL, sử dụng giá max từ cơ sở dữ liệu
+if ($priceMax == 0) {
+    $priceMax = $priceRange['max'];
 }
+
+// Lấy tổng số sản phẩm (không phân trang)
+$totalProducts = $product->getTotalProducts($keyword, $priceMin, $priceMax, $doCung, $diemCanBang, $trongLuong, $loiChoi, $category);
+
+// Lấy sản phẩm theo phân trang và các bộ lọc
+$result = $product->getFilteredProducts($keyword, $priceMin, $priceMax, $doCung, $diemCanBang, $trongLuong, $loiChoi, $sortBy, $currentPage, $productsPerPage, $category);
+$totalPages = ceil($totalProducts / $productsPerPage);
+
+// Tính vị trí bắt đầu và kết thúc của sản phẩm hiển thị
+$startItem = (($currentPage - 1) * $productsPerPage) + 1;
+$endItem = min($startItem + count($result) - 1, $totalProducts);
+
+// Cập nhật phần lấy dữ liệu từ cơ sở dữ liệu
+// Lấy danh sách danh mục
+$categories = $product->getCategories();
+
+// Lấy danh sách các giá trị lọc từ cơ sở dữ liệu
+$stiffnessValues = $product->getStiffnessValues();
+$balanceValues = $product->getBalanceValues();
+$tensionValues = $product->getTensionValues();
+$playStyleValues = $product->getPlayStyleValues();
+
+// Lấy các khoảng giá phổ biến
+$popularPriceRanges = $product->getPopularPriceRanges();
+
+// Kiểm tra xem có bộ lọc nào được áp dụng không
+$hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'] || !empty($doCung) || !empty($diemCanBang) || !empty($trongLuong) || !empty($loiChoi) || !empty($category);
 ?>
 
 <!DOCTYPE html>
@@ -28,22 +63,19 @@ if (!empty($keyword)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sản phẩm</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
-
 </head>
 
 <body>
     <div class="wrapper">
-        <header class="header">
+    <header class="header">
             <div class="container">
                 <!--Thanh menu  -->
                 <nav class="navbar">
                     <a href="#" id="logo">
-                        <img src="/public/images/logo.png" alt="logo">
+                        <img src="../public/images/logo.png" alt="logo">
                     </a>
                     <ul id="main-menu">
                         <li><a href="../public/index.html" class="">Trang chủ</a></li>
@@ -89,7 +121,7 @@ if (!empty($keyword)) {
                     </div>
                 </nav>
             </div>
-        </header>
+    </header>
         <main class="main">
             <div class="container">
 
@@ -101,10 +133,10 @@ if (!empty($keyword)) {
                                 DANH MỤC SẢN PHẨM
                             </div>
                             <ul class="category-list">
-                                <li><a href="#" class="active">Vợt cầu lông Yonex</a></li>
-                                <li><a href="#">Vợt cầu lông Lining</a></li>
-                                <li><a href="#">Vợt cầu lông Victor</a></li>
-                                <li><a href="#">Phụ kiện khác</a></li>
+                                <li><a href="products.php" class="<?php echo empty($category) ? 'active' : ''; ?>">Tất cả sản phẩm</a></li>
+                                <?php foreach ($categories as $cat): ?>
+                                <li><a href="products.php?category=<?php echo urlencode($cat); ?>" class="<?php echo $category === $cat ? 'active' : ''; ?>"><?php echo $cat; ?></a></li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </aside>
@@ -113,137 +145,193 @@ if (!empty($keyword)) {
                     <div class="product-area">
                         <div class="product-controls">
                             <div class="breadcrumbs">
-                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="./products.html">Sản phẩm</a>
+                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
+                                <?php if (!empty($category)): ?>
+                                &gt; <span><?php echo $category; ?></span>
+                                <?php endif; ?>
                             </div>
                             <div class="product-count">
-                                Hiển thị 1–12 của 24 kết quả
+                                Hiển thị <?php echo $startItem; ?>–<?php echo $endItem; ?> của <?php echo $totalProducts; ?> kết quả
                             </div>
                             <div class="product-sort">
                                 <span>Sắp xếp:</span>
-                                <select id="sort-select">
-                                    <option value="newest">Mới nhất</option>
-                                    <option value="price-asc">Giá: Thấp đến cao</option>
-                                    <option value="price-desc">Giá: Cao đến thấp</option>
-                                    <option value="name-asc">Tên: A-Z</option>
+                                <select id="sort-select" onchange="applySort(this.value)">
+                                    <option value="newest" <?php echo $sortBy == 'newest' ? 'selected' : ''; ?>>Mới nhất</option>
+                                    <option value="price-asc" <?php echo $sortBy == 'price-asc' ? 'selected' : ''; ?>>Giá: Thấp đến cao</option>
+                                    <option value="price-desc" <?php echo $sortBy == 'price-desc' ? 'selected' : ''; ?>>Giá: Cao đến thấp</option>
+                                    <option value="name-asc" <?php echo $sortBy == 'name-asc' ? 'selected' : ''; ?>>Tên: A-Z</option>
                                 </select>
                             </div>
                         </div>
 
+                        <!-- Hiển thị các bộ lọc đã chọn -->
+                        <?php if ($hasFilters): ?>
+                        <div class="active-filters">
+                            <div class="active-filters-header">
+                                <span>Bộ lọc đã chọn:</span>
+                                <a href="products.php" class="clear-all-filters">Xóa tất cả</a>
+                            </div>
+                            <div class="filter-tags">
+                                <?php if (!empty($keyword)): ?>
+                                <div class="filter-tag">
+                                    Từ khóa: <?php echo htmlspecialchars($keyword); ?>
+                                    <a href="<?php echo removeFilterFromUrl('keyword'); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <?php if ($priceMin > 0 || $priceMax < $priceRange['max']): ?>
+                                <div class="filter-tag">
+                                    Giá: <?php echo number_format($priceMin, 0, ',', '.'); ?>đ - <?php echo number_format($priceMax, 0, ',', '.'); ?>đ
+                                    <a href="<?php echo removeFilterFromUrl(['price_min', 'price_max']); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($doCung)): ?>
+                                <div class="filter-tag">
+                                    Độ cứng: <?php echo $doCung; ?>
+                                    <a href="<?php echo removeFilterFromUrl('do_cung'); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($diemCanBang)): ?>
+                                <div class="filter-tag">
+                                    Điểm cân bằng: <?php echo $diemCanBang; ?>
+                                    <a href="<?php echo removeFilterFromUrl('diem_can_bang'); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($trongLuong)): ?>
+                                <div class="filter-tag">
+                                    Trọng lượng: <?php echo $trongLuong; ?>
+                                    <a href="<?php echo removeFilterFromUrl('trong_luong'); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($loiChoi)): ?>
+                                <div class="filter-tag">
+                                    Lối chơi: <?php echo $loiChoi; ?>
+                                    <a href="<?php echo removeFilterFromUrl('loi_choi'); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($category)): ?>
+                                <div class="filter-tag">
+                                    Danh mục: <?php echo $category; ?>
+                                    <a href="<?php echo removeFilterFromUrl('category'); ?>" class="remove-filter"><i class="ti-close"></i></a>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
                         <div class="filter-bar">
                             <div class="filter-group">
-                                <button class="filter-btn">Khoảng Giá <i class="fas fa-chevron-down"></i></button>
+                                <button class="filter-btn">Khoảng Giá <i class="ti-angle-down"></i></button>
                                 <div class="filter-dropdown price-dropdown">
                                     <div class="price-options">
-                                        <a href="#" class="price-option">300k - 500k</a>
-                                        <a href="#" class="price-option">Dưới 1tr</a>
-                                        <a href="#" class="price-option">1tr - 1tr5</a>
-                                        <a href="#" class="price-option">1tr5 - 2tr</a>
-                                        <a href="#" class="price-option">2tr - 3tr</a>
-                                        <a href="#" class="price-option">3tr - 5tr</a>
+                                        <?php foreach ($popularPriceRanges as $range): ?>
+                                        <a href="#" class="price-option" data-min="<?php echo $range['min']; ?>" data-max="<?php echo $range['max']; ?>"><?php echo $range['label']; ?></a>
+                                        <?php endforeach; ?>
                                     </div>
 
                                     <div class="price-custom">
                                         <p>Hoặc chọn mức giá phù hợp với bạn</p>
                                         <div class="price-range-inputs">
-                                            <input type="text" class="price-input" id="min-price-input" placeholder="0">
+                                            <input type="text" class="price-input" id="min-price-input" placeholder="<?php echo $priceRange['min']; ?>" value="<?php echo $priceMin; ?>">
                                             đ
                                             <input type="text" class="price-input" id="max-price-input"
-                                                placeholder="19500000"> đ
+                                                placeholder="<?php echo $priceRange['max']; ?>" value="<?php echo $priceMax; ?>"> đ
                                         </div>
 
                                         <div class="price-slider-container">
                                             <div class="price-slider-container">
                                                 <div class="multi-range-slider" id="price-range-slider">
-                                                    <input type="range" id="min-price-slider" min="0" max="19500000"
-                                                        value="0" class="price-slider min-slider">
-                                                    <input type="range" id="max-price-slider" min="0" max="19500000"
-                                                        value="19500000" class="price-slider max-slider">
+                                                    <input type="range" id="min-price-slider" min="<?php echo $priceRange['min']; ?>" max="<?php echo $priceRange['max']; ?>"
+                                                        value="<?php echo $priceMin; ?>" class="price-slider min-slider">
+                                                    <input type="range" id="max-price-slider" min="<?php echo $priceRange['min']; ?>" max="<?php echo $priceRange['max']; ?>"
+                                                        value="<?php echo $priceMax; ?>" class="price-slider max-slider">
                                                     <div class="slider-track"></div>
                                                 </div>
                                                 <div class="price-labels">
-                                                    <span>0đ</span>
-                                                    <span>19.500.000đ</span>
+                                                    <span><?php echo number_format($priceRange['min'], 0, ',', '.'); ?>đ</span>
+                                                    <span><?php echo number_format($priceRange['max'], 0, ',', '.'); ?>đ</span>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <button class="apply-filter-btn">LỌC</button>
+                                        <button class="apply-filter-btn" id="apply-price-filter">LỌC</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="filter-group">
-                                <button class="filter-btn">Độ Cứng <i class="fas fa-chevron-down"></i></button>
+                                <button class="filter-btn">Độ Cứng <i class="ti-angle-down"></i></button>
                                 <div class="filter-dropdown">
                                     <div class="stiffness-options">
+                                        <?php 
+                                        $stiffnessChunks = array_chunk($stiffnessValues, 3); // Hiển thị 3 giá trị mỗi hàng
+                                        foreach ($stiffnessChunks as $chunk): 
+                                        ?>
                                         <div class="stiffness-row">
-                                            <a href="#" class="stiffness-option">Cứng</a>
-                                            <a href="#" class="stiffness-option">Dẻo</a>
-                                            <a href="#" class="stiffness-option">Hơi Cứng</a>
-                                            <a href="#" class="stiffness-option">Hơi Dẻo</a>
+                                            <?php foreach ($chunk as $value): ?>
+                                            <a href="#" class="stiffness-option <?php echo $doCung == $value ? 'active' : ''; ?>" data-value="<?php echo $value; ?>"><?php echo $value; ?></a>
+                                            <?php endforeach; ?>
                                         </div>
-                                        <div class="stiffness-row">
-                                            <a href="#" class="stiffness-option">Rất Cứng</a>
-                                            <a href="#" class="stiffness-option">Siêu Cứng</a>
-                                            <a href="#" class="stiffness-option">Trung Bình</a>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="filter-group">
-                                <button class="filter-btn">Điểm Cân Bằng <i class="fas fa-chevron-down"></i></button>
+                                <button class="filter-btn">Điểm Cân Bằng <i class="ti-angle-down"></i></button>
                                 <div class="filter-dropdown balance-dropdown">
                                     <div class="balance-options">
+                                        <?php 
+                                        $balanceChunks = array_chunk($balanceValues, 2); // Hiển thị 2 giá trị mỗi hàng
+                                        foreach ($balanceChunks as $chunk): 
+                                        ?>
                                         <div class="balance-row">
-                                            <a href="#" class="balance-option">295mm (Hơi Nặng Đầu)</a>
-                                            <a href="#" class="balance-option">296mm (Hơi Nặng Đầu)</a>
+                                            <?php foreach ($chunk as $value): ?>
+                                            <a href="#" class="balance-option <?php echo $diemCanBang == $value ? 'active' : ''; ?>" data-value="<?php echo $value; ?>"><?php echo $value; ?></a>
+                                            <?php endforeach; ?>
                                         </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">298mm (Nặng Đầu)</a>
-                                            <a href="#" class="balance-option">300mm (Nặng Đầu)</a>
-                                        </div>
-                                        <div class="balance-row">
-                                            <a href="#" class="balance-option">Cân bằng</a>
-                                            <a href="#" class="balance-option">Hơi nặng đầu</a>
-                                            <a href="#" class="balance-option">Nặng đầu</a>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="filter-group">
-                                <button class="filter-btn">Mức Căng <i class="fas fa-chevron-down"></i></button>
+                                <button class="filter-btn">Trọng Lượng <i class="ti-angle-down"></i></button>
                                 <div class="filter-dropdown tension-dropdown">
                                     <div class="tension-options">
+                                        <?php 
+                                        $tensionChunks = array_chunk($tensionValues, 2); // Hiển thị 2 giá trị mỗi hàng
+                                        foreach ($tensionChunks as $chunk): 
+                                        ?>
                                         <div class="tension-row">
-                                            <a href="#" class="tension-option">4U ≤ 27lbs (12 Kg)</a>
-                                            <a href="#" class="tension-option">4U ≤ 28lbs (12,5 Kg)</a>
+                                            <?php foreach ($chunk as $value): ?>
+                                            <a href="#" class="tension-option <?php echo $trongLuong == $value ? 'active' : ''; ?>" data-value="<?php echo $value; ?>"><?php echo $value; ?></a>
+                                            <?php endforeach; ?>
                                         </div>
-                                        <div class="tension-row">
-                                            <a href="#" class="tension-option">4U ≤ 31lbs (14 Kg)</a>
-                                            <a href="#" class="tension-option">4U 20-28 LBS</a>
-                                        </div>
-                                        <div class="tension-row">
-                                            <a href="#" class="tension-option">4U: 19 - 27 Lbs</a>
-                                            <a href="#" class="tension-option">4U: 20 - 28 Lbs</a>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="filter-group">
-                                <button class="filter-btn">Lối Chơi <i class="fas fa-chevron-down"></i></button>
+                                <button class="filter-btn">Lối Chơi <i class="ti-angle-down"></i></button>
                                 <div class="filter-dropdown">
                                     <div class="play-style-options">
+                                        <?php 
+                                        $playStyleChunks = array_chunk($playStyleValues, 2); // Hiển thị 2 giá trị mỗi hàng
+                                        foreach ($playStyleChunks as $chunk): 
+                                        ?>
                                         <div class="play-style-row">
-                                            <a href="#" class="play-style-option">Tấn công</a>
-                                            <a href="#" class="play-style-option">Phòng thủ</a>
+                                            <?php foreach ($chunk as $value): ?>
+                                            <a href="#" class="play-style-option <?php echo $loiChoi == $value ? 'active' : ''; ?>" data-value="<?php echo $value; ?>"><?php echo $value; ?></a>
+                                            <?php endforeach; ?>
                                         </div>
-                                        <div class="play-style-row">
-                                            <a href="#" class="play-style-option">Toàn diện</a>
-                                            <a href="#" class="play-style-option">Kiểm soát</a>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
@@ -254,25 +342,33 @@ if (!empty($keyword)) {
                             if (!empty($result)) {
                                 foreach ($result as $row) {
                                     $listImage = explode(',', $row['hinhAnh']);
+                                    // Ẩn sản phẩm có khuyến mãi 0%
+                                    if ($row['khuyenMai'] == '0%') {
+                                        $discountClass = 'hidden-discount';
+                                    } else {
+                                        $discountClass = '';
+                                    }
                             ?>
                                     <div class="san-pham-item">
-                                        <div class="discount"><?php echo $row['khuyenMai']; ?></div>
-                                        <img src="../public/images/product/<?php echo $listImage[0] . '/' . $listImage[1]; ?>" alt="<?php echo $row['tenSanPham']; ?>">
-                                        <h3><?php echo $row['tenSanPham']; ?></h3>
-                                        <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                        <div class="discount <?php echo $discountClass; ?>"><?php echo $row['khuyenMai']; ?></div>
+                                        <a href="product-detail.php?id=<?php echo $row['idProduct']; ?>">
+                                            <img src="../public/images/product/<?php echo $listImage[0] . '/' . $listImage[1]; ?>" alt="<?php echo $row['tenSanPham']; ?>">
+                                            <h3><?php echo $row['tenSanPham']; ?></h3>
+                                            <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                        </a>
                                         <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng
+                                            <button class="btn-add-cart" data-id="<?php echo $row['idProduct']; ?>">
+                                                <i class="ti-shopping-cart"></i> Giỏ hàng
                                             </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay
+                                            <button class="btn-buy-now" data-id="<?php echo $row['idProduct']; ?>">
+                                                <i class="ti-shopping-bag"></i> Mua ngay
                                             </button>
                                         </div>
                                     </div>
                             <?php
                                 }
                             } else {
-                                echo '<p>Không có sản phẩm nào được tìm thấy.</p>';
+                                echo '<p class="no-products-found">Không có sản phẩm nào được tìm thấy.</p>';
                             }
                             ?>
                         </div>
@@ -280,17 +376,17 @@ if (!empty($keyword)) {
                         <!-- Phân trang -->
                         <div class="pagination">
                             <?php if ($currentPage > 1): ?>
-                                <a href="?page=<?php echo $currentPage - 1; ?>" class="prev">&laquo; Trang trước</a>
+                                <a href="?page=<?php echo $currentPage - 1; ?><?php echo getQueryString(['page']); ?>" class="prev">&laquo; Trang trước</a>
                             <?php endif; ?>
 
                             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                                <a href="?page=<?php echo $i; ?>" class="<?php echo $i === $currentPage ? 'active' : ''; ?>">
+                                <a href="?page=<?php echo $i; ?><?php echo getQueryString(['page']); ?>" class="<?php echo $i === $currentPage ? 'active' : ''; ?>">
                                     <?php echo $i; ?>
                                 </a>
                             <?php endfor; ?>
 
                             <?php if ($currentPage < $totalPages): ?>
-                                <a href="?page=<?php echo $currentPage + 1; ?>" class="next">Trang sau &raquo;</a>
+                                <a href="?page=<?php echo $currentPage + 1; ?><?php echo getQueryString(['page']); ?>" class="next">Trang sau &raquo;</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -313,7 +409,7 @@ if (!empty($keyword)) {
                     <ul>
                         <li><a href="../public/index.html">Trang chủ</a></li>
                         <li><a href="./about.html">Giới thiệu</a></li>
-                        <li><a href="./products.html">Sản phẩm</a></li>
+                        <li><a href="./products.php">Sản phẩm</a></li>
                         <li><a href="./news.html">Tin tức</a></li>
                         <li><a href="./contact.html">Liên hệ</a></li>
                     </ul>
@@ -321,16 +417,47 @@ if (!empty($keyword)) {
                 <div class="footer-right">
                     <h3>Theo dõi chúng tôi</h3>
                     <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i>Facebook</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i>Twitter</a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i>Instagram</a></li>
-                        <li><a href="#"><i class="fab fa-linkedin"></i>Linkedin</a></li>
+                        <li><a href="#"><i class="ti-facebook"></i>Facebook</a></li>
+                        <li><a href="#"><i class="ti-twitter"></i>Twitter</a></li>
+                        <li><a href="#"><i class="ti-instagram"></i>Instagram</a></li>
+                        <li><a href="#"><i class="ti-linkedin"></i>Linkedin</a></li>
                     </ul>
                 </div>
             </div>
         </footer>
     </div>
     <script src="../public/js/products.js"></script>
+    
+    <?php
+    // Hàm để tạo query string từ các tham số hiện tại, trừ các tham số cần loại bỏ
+    function getQueryString($excludeParams = []) {
+        $params = $_GET;
+        foreach ($excludeParams as $param) {
+            unset($params[$param]);
+        }
+        
+        if (empty($params)) {
+            return '';
+        }
+        
+        return '&' . http_build_query($params);
+    }
+    
+    // Hàm để tạo URL loại bỏ một hoặc nhiều bộ lọc
+    function removeFilterFromUrl($filterParams) {
+        $params = $_GET;
+        
+        if (is_array($filterParams)) {
+            foreach ($filterParams as $param) {
+                unset($params[$param]);
+            }
+        } else {
+            unset($params[$filterParams]);
+        }
+        
+        return 'products.php?' . http_build_query($params);
+    }
+    ?>
 </body>
 
 </html>
