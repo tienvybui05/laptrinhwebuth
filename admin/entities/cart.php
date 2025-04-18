@@ -30,7 +30,7 @@ class cart{
     public function getCartFetch()
     {
         return $this->data->fetch();
-    }
+    }   
 }
 
 ?>

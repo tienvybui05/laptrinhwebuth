@@ -27,25 +27,61 @@ document.addEventListener("DOMContentLoaded", function() {
     button.addEventListener("click", function(event){{
         var btnItem = event.target
         var product = btnItem.closest(".san-pham-item")
+        var productId = product.getAttribute("data-id");
         var productImg = product.querySelector("img").src
         var productName = product.querySelector("h3").innerText
         var productPrice = product.querySelector("p").innerText
         var productQuality = parseInt(1)
-        addToCart(productImg,productName,productPrice,productQuality)
+        addToCart(productId,productImg,productName,productPrice,productQuality)
         
 
     }})
     })    
     loadCart();
+
+    const viewCartBtn = document.querySelector('.view-cart-btn');
+    viewCartBtn.addEventListener('click', function () {
+        if (!isLoggedIn) {
+            // Chưa đăng nhập → Chuyển đến trang login
+            window.location.href = '../auth/login.php';
+        } else {
+            // Lấy cart từ localStorage
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Gửi qua PHP để lưu vào DB
+            fetch("../admin/carts/save-cart.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ cart: cart })
+            })
+            .then(response => {
+                return response.json(); // vẫn parse như thường
+            })
+            .then(data => {
+                if (data.success) {
+                    // Chuyển sang trang giỏ hàng nếu lưu thành công
+                    window.location.href = "../pages/cart.php";
+                } else {
+                    alert("Có lỗi khi lưu giỏ hàng");
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi gửi cart:", error);
+            });
+        }
+    });
+
 });
 
 
 
 
 
-function addToCart(img, name, price, quantity) {
+function addToCart(id, img, name, price, quantity) {
     var cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingProduct = cart.find(item => item.name === name);
+    const existingProduct = cart.find(item => item.id === id);
     
     if (existingProduct) {
         // Tăng số lượng trong localStorage
@@ -63,6 +99,7 @@ function addToCart(img, name, price, quantity) {
         total();
     } else {
         cart.push({
+            id: id,
             image: img,
             name: name,
             price: price,
@@ -109,6 +146,7 @@ function loadCart(){
         total();
     });
 }
+
 
 
 function total() {

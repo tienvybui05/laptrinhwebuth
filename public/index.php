@@ -1,4 +1,6 @@
 <?php
+session_start();
+echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
 include '../admin/entities/product.php';
 $product = new product();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
@@ -16,6 +18,10 @@ $result = $product->getProduct($keyword);
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./css/cart.css">
+    <script>
+        var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
+        let userId = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+    </script>
 </head>
 
 <body class="">
@@ -153,7 +159,7 @@ $result = $product->getProduct($keyword);
                                 $listImage =explode(',',$row['hinhAnh']); 
                             ?>
                             
-                                <div class="san-pham-item">
+                                <div class="san-pham-item" data-id = "<?php echo($row['idProduct'])?>">
                                     <div class="discount"><?php echo($row['khuyenMai']); ?></div>
 
                                     <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt cầu lông Yonex">
