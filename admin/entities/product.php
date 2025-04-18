@@ -12,7 +12,15 @@ class product{
         $sql="SELECT * FROM  product WHERE tensanpham like '%$keyword%' ORDER BY idProduct DESC";
         return $this->data->select($sql);
     }
-    
+    public function filterProductManager($thuongHieu,$keyword)
+    {
+        if($thuongHieu=="tatca")
+        {
+            return $this->getProduct($keyword);
+        }
+        $sql = "SELECT * FROM  product WHERE thuongHieu = '$thuongHieu' AND tensanpham like '%$keyword%' ORDER BY idProduct DESC";
+        return $this->data->select($sql);
+    }
     public function getProductFetch()
     {
         return $this->data->fetch();

@@ -241,3 +241,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 1000);
     }
 });
+//xắp xêp
+    function applySort(value)
+    {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("sort",value);
+        window.location.href = window.location.pathname + "?" +urlParams.toString();
+
+    }
+    

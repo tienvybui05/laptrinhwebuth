@@ -369,6 +369,8 @@ font-size: 12px;
 }
 .search-and-create .tim-kiem{
 width: 40%;
+display: flex;
+align-items: center;
 }
 .search-and-create .tim-kiem button{
     color: black;
@@ -515,6 +517,27 @@ width: 40%;
     text-decoration: none;
     color: black;
 }
+.loc-role-user{
+    padding: 10px;
+    background-color: rgb(169, 223, 216);
+    margin-left: 10px;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    height: 40px;
+}
+.loc-thuong-hieu-product{
+    padding: 10px;
+    background-color: rgb(169, 223, 216);
+    margin-left: 10px;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    height: 40px;
+}
+
 /* Chitiet */
 .detail-product{
     width: 100%;

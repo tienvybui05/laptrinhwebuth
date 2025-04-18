@@ -3,7 +3,10 @@ include '../auth/checkLogin.php';
 include '../entities/user.php';
 $user = new user();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword']:'';
-$result = $user->getUser($keyword);
+$role = isset($_GET['sort']) ? $_GET['sort']:'tatca';
+$result = $user->filterUser($role,$keyword);
+
+
 
 
 ?>
@@ -74,13 +77,17 @@ $result = $user->getUser($keyword);
             <div id="content">
                 <h2>Danh sách tài khoản</h2>
                 <div class="search-and-create">
-                   
                     <div class="tim-kiem">
                         <form action="" method="get">
                             <input name="keyword" placeholder="Nhập họ tên" type="text" 
                             value ="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
                             <button type="submit"><p>Tìm kiếm</p></button>
                         </form>
+                        <select name="sort"  class="loc-role-user" onchange="applySort(this.value)">
+                                    <option value="tatca" <?php if(isset($role) && $role == "tatca"){ echo "selected"; } ?>>Tất cả</option>
+                                    <option value="customer" <?php if(isset($role) && $role == "customer"){ echo "selected"; } ?>>Customer</option>
+                                    <option value="admin" <?php if(isset($role) && $role == "admin"){ echo "selected"; } ?>>Admin</option>
+                        </select>
                     </div>
                     <div class="tao-moi">
                         <a href="create.php">Tạo mới</a>
@@ -133,7 +140,7 @@ $result = $user->getUser($keyword);
                 <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>
             </div>
         </div>
-    </div>
+    </div> 
 <script src="../main.js"></script>
 </body>
 </html>

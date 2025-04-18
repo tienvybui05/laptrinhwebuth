@@ -3,7 +3,8 @@ include '../auth/checkLogin.php';
 include '../entities/product.php';
 $product = new product();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-$result = $product->getProduct($keyword);
+$thuongHieu = isset($_GET['sort']) ? $_GET['sort'] : 'tatca';
+$result = $product->filterProductManager($thuongHieu,$keyword);
 ?>
 <?php if(isset($_GET['msg'])&& $_GET['msg']=='create_product'): ?>
 <div class="toast-alert">✅ Thêm sản phẩm thành công!</div>
@@ -79,6 +80,12 @@ $result = $product->getProduct($keyword);
                             value ="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
                             <button type="submit"><p>Tìm kiếm</p></button>
                         </form>
+                        <select name="thuonghieu" class="loc-thuong-hieu-product" onchange="applySort(this.value)">
+                            <option value="tatca" <?php if(isset($thuongHieu) && $thuongHieu=="tatca"){  echo "selected"; } ?>>Tất cả</option>
+                            <option value="Victor" <?php if(isset($thuongHieu) && $thuongHieu=="Victor"){ echo "selected";} ?>>Victor</option>
+                            <option value="Yonex" <?php if(isset($thuongHieu) && $thuongHieu=="Yonex") { echo "selected";} ?>>Yonex</option>
+                            <option value="Lining" <?php if(isset($thuongHieu) && $thuongHieu=="Lining"){ echo "selected";} ?> >Lining</option>
+                        </select>
                     </div>
                     <div class="tao-moi">
                     

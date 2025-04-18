@@ -73,5 +73,15 @@ class user{
       return false;
       
    }
+   //Lọc
+   public function filterUser($role,$keyword)
+   {
+      if($role =="tatca")
+      {
+         return $this->getUser($keyword);
+      }
+     $sql = "SELECT * FROM user WHERE vaiTro = '$role' and hoTen LIKE '%$keyword%' ORDER BY idUser DESC";
+     return $this->data->select( $sql);
+   }
 }
 ?>
