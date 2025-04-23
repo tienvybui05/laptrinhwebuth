@@ -1,67 +1,9 @@
 <?php 
-include '../auth/checkLogin.php';
-include_once '../entities/orders.php';
+include_once __DIR__ . '/../auth/checkLogin.php';
 $orders= new orders();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword']:''; 
 $result = $orders->getOrders($keyword);
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../../public/themify-icons/themify-icons.css">
-</head>
-<body>
-    <div id="admin-container">
-        <div id="sidebar">
-            <div id="logo" >
-                <a href="#">
-                  <img src="../../public/images/logo.png" alt="">  
-                </a>
-            </div>
-            <div id="sidebar-menu">
-                <ul class="de-muc">
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-user"></i>
-                        <a href="#"> Tải khoản</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-briefcase"></i>
-                        <a href="#"> Sản phẩm</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-shopping-cart"></i>
-                        <a href="#"> Đơn hàng</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-comment"></i>
-                        <a href="#"> Đánh giá</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-drupal"></i>
-                        <a href="#"> Khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="main-content">
-            <div id="header">
-               <div class="search-admin">
-                    <i class="nav-arrow-down ti-search"></i>
-                   <input class="tim-kiem" type="text" placeholder="Tìm kiếm..">
-               </div>
-               <div class="login-admin">
-                    <div class="login">
-                        <a href="#">Login</a>
-                    </div>
-               </div>
-            </div>
-            <div id="content">
                 <h2>Quản lý giỏ hàng</h2>
                 <div class="search-and-create">
                    

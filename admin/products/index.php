@@ -1,6 +1,5 @@
 <?php 
-include '../auth/checkLogin.php';
-include '../entities/product.php';
+include_once __DIR__ . '/../auth/checkLogin.php';
 $product = new product();
 $soSanPham = 5;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
@@ -18,62 +17,6 @@ $reuslut=$product->getPaginatedProductsOfAdmin($currentPage,$soSanPham,$keyword,
 <?php if (isset($_GET['msg']) && $_GET['msg'] == 'delete_product'): ?>
 <div class="toast-alert">✅ Xóa sản phẩm thành công!</div>
 <?php endif; ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../../public/themify-icons/themify-icons.css">
-</head>
-<body>
-    <div id="admin-container">
-        <div id="sidebar">
-            <div id="logo" >
-                <a href="#">
-                  <img src="../../public/images/logo.png" alt="">  
-                </a>
-            </div>
-            <div id="sidebar-menu">
-                <ul class="de-muc">
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-user"></i>
-                        <a href="#"> Tải khoản</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-briefcase"></i>
-                        <a href="#"> Sản phẩm</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-shopping-cart"></i>
-                        <a href="#"> Đơn hàng</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-comment"></i>
-                        <a href="#"> Đánh giá</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-drupal"></i>
-                        <a href="#"> Khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="main-content">
-            <div id="header">
-               <div class="search-admin">
-                    <i class="nav-arrow-down ti-search"></i>
-                   <input class="tim-kiem" type="text" placeholder="Tìm kiếm..">
-               </div>
-               <div class="login-admin">
-                    <div class="login">
-                        <a href="#">Login</a>
-                    </div>
-               </div>
-            </div>
-            <div id="content">
                 <h2>Danh sách sản phẩm</h2>
                 <div class="search-and-create">
                    
@@ -92,8 +35,7 @@ $reuslut=$product->getPaginatedProductsOfAdmin($currentPage,$soSanPham,$keyword,
                         </select>
                     </div>
                     <div class="tao-moi">
-                    
-                        <a href="create.php">Tạo mới</a>
+                        <a href="index.php?pageAd=product&crud=create">Tạo mới</a>
                     </div>
                 </div>
                 <div class="danh-sach">
@@ -119,15 +61,15 @@ $reuslut=$product->getPaginatedProductsOfAdmin($currentPage,$soSanPham,$keyword,
                                     ?><tr>
                                         <td><?php echo($row['tenSanPham']); ?></td>
                                         <td><?php echo($row['thuongHieu']); ?></td>
-                                        <td class="hinh-anh"><img src="../../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt=""></td>
+                                        <td class="hinh-anh"><img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt=""></td>
                                         <td><?php echo($row['khuyenMai']); ?></td>
                                         <td><?php echo($row['gia']); ?></td>
                                         <td><?php echo($row['tonKho']); ?></td>
                                         <td><?php echo($row['trinhDo']); ?></td>
                                         <td class ="hanh-dong">
-                                            <a class="sua sua-product" href="edit.php?id=<?php echo($row['idProduct']); ?>">Sửa</a>
-                                            <a class="chitiet chitiet-product" href="detail.php?id=<?php echo($row['idProduct']); ?>">Chi tiết</a>
-                                            <a class="xoa xoa-product" href="#" data-url="delete.php?id=<?php echo($row['idProduct']); ?>">Xóa</a>
+                                            <a class="sua sua-product" href="index.php?pageAd=product&crud=edit&id=<?php echo($row['idProduct']); ?>">Sửa</a>
+                                            <a class="chitiet chitiet-product" href="index.php?pageAd=product&crud=detail&id=<?php echo($row['idProduct']); ?>">Chi tiết</a>
+                                            <a class="xoa xoa-product" href="#" data-url="index.php?pageAd=product&crud=delete&id=<?php echo($row['idProduct']); ?>">Xóa</a>
 
                                             <div class="xoa-confirmModal modal">
                                                 <div class="xoa-modal-content">
@@ -150,7 +92,7 @@ $reuslut=$product->getPaginatedProductsOfAdmin($currentPage,$soSanPham,$keyword,
                 <?php 
                        for ($i = 1; $i <= $reuslut[1]; $i++) 
                        {
-                        $link = "?page=$i&keyword=" . urlencode($keyword) . "&sort=" . urlencode($thuongHieu);
+                        $link = "index.php?pageAd=product&crud=index&page=$i&keyword=" . urlencode($keyword) . "&sort=" . urlencode($thuongHieu);
                         if ($currentPage == $i) 
                         {
                             echo "<span class='now'>$i</span> ";
@@ -162,12 +104,5 @@ $reuslut=$product->getPaginatedProductsOfAdmin($currentPage,$soSanPham,$keyword,
                     
                         ?>
                 </div>
-            </div>
-            <div id="footer">
-                <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>
-            </div>
-        </div>
-    </div>
-<script src="../main.js"></script>
-</body>
-</html>
+        
+           

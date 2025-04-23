@@ -1,13 +1,12 @@
-<?php 
-include '../auth/checkLogin.php';
-include '../entities/product.php';
+<?php
+include_once __DIR__ . '/../auth/checkLogin.php'; 
 if(isset($_GET['id']))
 {
 $id = $_GET['id'];
 $product = new product();
 $row = $product->getProductbyId($id);
 $listImage = explode(',',$row['hinhAnh']);
-$folder = "../../public/images/product/".$listImage[0];
+$folder = "../public/images/product/".$listImage[0];
 $result = $product->deleteProduct($id);
 if($result)
 {
@@ -16,14 +15,14 @@ if($result)
     }
     if (is_dir($folder)) {
         rmdir($folder);
-        header("Location: index.php?msg=delete_product");
+        header("location: index.php?pageAd=product&crud=index&msg=delete_product");
         exit;
     }
 }
 }
 function deleteImage($anh,$duongDanFile)
 {
-    $target_dir="../../public/images/product/".$duongDanFile."/";
+    $target_dir="../public/images/product/".$duongDanFile."/";
     $target_file = $target_dir.basename($anh);
     if(file_exists($target_file))
     {

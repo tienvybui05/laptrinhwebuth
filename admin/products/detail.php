@@ -1,6 +1,5 @@
 <?php 
-include '../auth/checkLogin.php';
-include '../entities/product.php';
+include_once __DIR__ . '/../auth/checkLogin.php';
 if(isset($_GET['id']))
 {
     $id= test_input($_GET['id']);
@@ -30,62 +29,7 @@ function test_input($data)
     return $data;
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../../public/themify-icons/themify-icons.css">
-     
-</head>
-<body>
-    <div id="admin-container">
-        <div id="sidebar">
-            <div id="logo" >
-                <a href="#">
-                  <img src="../../public/images/logo.png" alt="">  
-                </a>
-            </div>
-            <div id="sidebar-menu">
-                <ul class="de-muc">
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-user"></i>
-                        <a href="#"> Tải khoản</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-briefcase"></i>
-                        <a href="#"> Sản phẩm</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-shopping-cart"></i>
-                        <a href="#"> Đơn hàng</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-comment"></i>
-                        <a href="#"> Đánh giá</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-drupal"></i>
-                        <a href="#"> Khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="main-content">
-            <div id="header">
-               <div class="search-admin">
-                    <i class="nav-arrow-down ti-search"></i>
-                   <input class="tim-kiem" type="text" placeholder="Tìm kiếm..">
-               </div>
-               <div class="login-admin">
-                    <div class="login">
-                        <a href="#">Login</a>
-                    </div>
-               </div>
-            </div>
-            <div id="content">
+
                 
                 <div>
                     <h2>Chi tiết thông tin sản phẩm</h2>
@@ -104,15 +48,15 @@ function test_input($data)
                     <div class="hinh-detail-product">
                         <div>
                             <p>Hình 1</p>
-                            <img src="../../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Hình 1">
+                            <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Hình 1">
                         </div>
                         <div>
                             <p>Hình 2</p>
-                            <img src="../../public/images/product/<?php echo ($listImage[0]."/".$listImage[2]);?>" alt="Hình 2 ">
+                            <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[2]);?>" alt="Hình 2 ">
                         </div>
                         <div>
                             <p>Hình 3</p>
-                            <img src="../../public/images/product/<?php echo ($listImage[0]."/".$listImage[3]);?>" alt="Hình 3">
+                            <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[3]);?>" alt="Hình 3">
                         </div>
                     </div>
                     <div class="mo-ta-san-pham">
@@ -131,17 +75,8 @@ function test_input($data)
                         </ul>
                     </div>
                     <div class="detail-product-quay-ve">
-                        <button class="quay-ve" type="button" onclick="window.location.href='index.php'">Quay về</button>
+                        <button class="quay-ve" type="button" onclick="window.location.href='index.php?pageAd=product&crud=index'">Quay về</button>
                     </div>
                 </div>
                 
-                
-            </div>
-            <div id="footer">
-                <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>
-            </div>
-        </div>
-    </div>
-    <script src="../main.js"></script>
-</body>
-</html>
+          

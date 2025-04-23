@@ -1,6 +1,5 @@
 <?php 
-include '../auth/checkLogin.php';
-include '../entities/product.php';
+include_once __DIR__ . '/../auth/checkLogin.php';
 $product = new product();
 // Tạo các biến
 $tenSanPham = $thuongHieu = $anh = $khuyenMai = $gia = "";
@@ -22,7 +21,7 @@ if(isset($_POST['taomoi']))
     $product_name = $tenSanPham; 
     $timestamp = date('Ymd_His');
     $folder_name = $product_name . '_' . $timestamp;
-    $upload_dir = '../../public/images/product/' . $folder_name . '/';
+    $upload_dir = '../public/images/product/' . $folder_name . '/';
     $anh = $folder_name.",".$_FILES['anh1']['name'].",".$_FILES['anh2']['name'].",".$_FILES['anh3']['name'];
     //add vào csdl
     $result = $product->addProduct($tenSanPham,$thuongHieu, $khuyenMai,$gia,$moTa,$trongLuong,$tonKho,$doCung,$diemCanBang,$anh,$trinhDo);
@@ -34,7 +33,7 @@ if(isset($_POST['taomoi']))
              upLoadImage($_FILES["anh2"]["name"],$_FILES["anh2"]["tmp_name"],$folder_name) === true &&
              upLoadImage($_FILES["anh3"]["name"],$_FILES["anh3"]["tmp_name"],$folder_name) === true)
             {
-                header("location: index.php?msg=create_product");
+                header("location: index.php?pageAd=product&crud=index&msg=create_product");
                 exit;
             }
         else
@@ -58,7 +57,7 @@ function test_input($data)
 }
 function upLoadImage($x,$y,$folder_name)
 {
-    $target_dir_img ="../../public/images/product/".$folder_name."/";
+    $target_dir_img ="../public/images/product/".$folder_name."/";
     $target_file_img=$target_dir_img.basename($x); 
     if(move_uploaded_file($y, $target_file_img))
     {
@@ -67,62 +66,6 @@ function upLoadImage($x,$y,$folder_name)
     return false;
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../../public/themify-icons/themify-icons.css">
-</head>
-<body>
-    <div id="admin-container">
-        <div id="sidebar">
-            <div id="logo" >
-                <a href="#">
-                  <img src="../../public/images/logo.png" alt="">  
-                </a>
-            </div>
-            <div id="sidebar-menu">
-                <ul class="de-muc">
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-user"></i>
-                        <a href="#"> Tải khoản</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-briefcase"></i>
-                        <a href="#"> Sản phẩm</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-shopping-cart"></i>
-                        <a href="#"> Đơn hàng</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-comment"></i>
-                        <a href="#"> Đánh giá</a>
-                    </li>
-                    <li class="muc">
-                        <i class="nav-arrow-down ti-drupal"></i>
-                        <a href="#"> Khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="main-content">
-            <div id="header">
-               <div class="search-admin">
-                    <i class="nav-arrow-down ti-search"></i>
-                   <input class="tim-kiem" type="text" placeholder="Tìm kiếm..">
-               </div>
-               <div class="login-admin">
-                    <div class="login">
-                        <a href="#">Login</a>
-                    </div>
-               </div>
-            </div>
-            <div id="content">
                 
                 <div>
                     <h2>Thêm sản phẩm</h2>
@@ -183,17 +126,9 @@ function upLoadImage($x,$y,$folder_name)
                         </div>
                         <div class="message-product" style="color: red; margin-bottom: 10px;"></div>
                         <div class="button-group">
-                        <button class="quay-ve" type="button" onclick="window.location.href='index.php'">Quay về</button>
+                        <button class="quay-ve" type="button" onclick="window.location.href='index.php?pageAd=product&crud=index'">Quay về</button>
                             <input class="cap-nhat-sql"type="submit" value="Tạo mới" name="taomoi">
                         </div>
                     </form>
                 </div>
-            </div>
-            <div id="footer">
-                <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>
-            </div>
-        </div>
-    </div>
-    <script src="../main.js"></script>
-</body>
-</html>
+            
