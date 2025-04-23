@@ -66,10 +66,16 @@ $result = $product->getProduct($keyword);
                         <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
                         <div class="user-menu">
                             <a href="#" class="user-icon"><i class="ti-user"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><i class="ti-user"></i> Thông tin người dùng</a></li>
-                                <li><a href="#"><i class="ti-power-off"></i> Đăng xuất</a></li>
-                            </ul>
+                                <?php 
+                                 if(isset($_SESSION['idUser']))
+                                 { ?>
+                                    <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="ti-user"></i> Thông tin người dùng</a></li>
+                                    <li><a href="../auth/logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
+                                    </ul>
+                                 <?php }   
+                                ?>
+                                
                         </div>
                         <script>// Lấy phần tử user-menu
                         </script>

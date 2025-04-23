@@ -1,9 +1,27 @@
 <?php
 session_start();
-session_unset(); // Xóa tất cả biến trong session
-session_destroy(); // Hủy toàn bộ session
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
 
-// Chuyển hướng về trang chủ hoặc trang đăng nhập
-header("Location: index.php"); 
-exit();
+if (isset($_SESSION['idUser'])) {
+    session_unset();
+    session_destroy();
+}
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng xuất...</title>
+    <script>
+        // Xóa localStorage & sessionStorage trước khi chuyển trang
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = '../public/index.php'; // Redirect bằng JS
+    </script>
+</head>
+<body>
+    <p>Đang đăng xuất...</p>
+</body>
+</html>
