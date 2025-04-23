@@ -66,6 +66,7 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
+ 
 </head>
 
 <body>
@@ -338,39 +339,39 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
                         </div>
 
                         <div class="san-pham-list">
-                            <?php
-                            if (!empty($result)) {
-                                foreach ($result as $row) {
-                                    $listImage = explode(',', $row['hinhAnh']);
-                                    // Ẩn sản phẩm có khuyến mãi 0%
-                                    if ($row['khuyenMai'] == '0%') {
-                                        $discountClass = 'hidden-discount';
-                                    } else {
-                                        $discountClass = '';
-                                    }
-                            ?>
-                                    <div class="san-pham-item">
-                                        <div class="discount <?php echo $discountClass; ?>"><?php echo $row['khuyenMai']; ?></div>
-                                        <a href="product-detail.php?id=<?php echo $row['idProduct']; ?>">
-                                            <img src="../public/images/product/<?php echo $listImage[0] . '/' . $listImage[1]; ?>" alt="<?php echo $row['tenSanPham']; ?>">
-                                            <h3><?php echo $row['tenSanPham']; ?></h3>
-                                            <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
-                                        </a>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart" data-id="<?php echo $row['idProduct']; ?>">
-                                                <i class="ti-shopping-cart"></i> Giỏ hàng
-                                            </button>
-                                            <button class="btn-buy-now" data-id="<?php echo $row['idProduct']; ?>">
-                                                <i class="ti-shopping-bag"></i> Mua ngay
-                                            </button>
-                                        </div>
-                                    </div>
-                            <?php
-                                }
-                            } else {
-                                echo '<p class="no-products-found">Không có sản phẩm nào được tìm thấy.</p>';
-                            }
-                            ?>
+                            
+                        <?php
+if (!empty($result)) {
+    foreach ($result as $row) {
+        $listImage = explode(',', $row['hinhAnh']);
+        // Ẩn sản phẩm có khuyến mãi 0%
+        if ($row['khuyenMai'] == '0%') {
+            $discountClass = 'hidden-discount';
+        } else {
+            $discountClass = '';
+        }
+?>
+        <div class="san-pham-item" data-id="<?php echo($row['idProduct'])?>">
+            <div class="discount <?php echo $discountClass; ?>"><?php echo($row['khuyenMai']); ?></div>
+
+            <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt cầu lông Yonex">
+            <h3><?php echo($row['tenSanPham']); ?></h3>
+            <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+            <div class="san-pham-buttons">
+                <button class="btn-add-cart">
+                    <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                </button>
+                <button class="btn-buy-now">
+                    <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
+                </button>
+            </div>
+        </div>
+<?php
+    }
+} else {
+    echo '<p class="no-products-found">Không có sản phẩm nào được tìm thấy.</p>';
+}
+?>
                         </div>
 
                         <!-- Phân trang -->

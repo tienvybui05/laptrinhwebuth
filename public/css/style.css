@@ -665,6 +665,10 @@ html {
     overflow: hidden;
 }
 
+.hidden-discount {
+    display: none !important;
+}
+
 .san-pham-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
