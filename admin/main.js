@@ -242,11 +242,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 //xắp xêp
-    function applySort(value)
-    {
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set("sort",value);
-        window.location.href = window.location.pathname + "?" +urlParams.toString();
+    // function applySort(value)
+    // {
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     urlParams.set("sort",value);
+    //     window.location.href = window.location.pathname + "?" +urlParams.toString();
 
+    // }
+    function applySort(value) {
+        const params = new URLSearchParams(window.location.search);
+        params.set('sort', value);
+        // giữ lại keyword nếu có
+        if (!params.get('keyword')) params.set('keyword', '');
+        // quay lại trang 1 khi đổi thương hiệu
+        params.set('page', 1); 
+        window.location.href = '?' + params.toString();
     }
-    

@@ -2,9 +2,12 @@
 include '../auth/checkLogin.php';
 include '../entities/product.php';
 $product = new product();
+$soSanPham = 5;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 $thuongHieu = isset($_GET['sort']) ? $_GET['sort'] : 'tatca';
-$result = $product->filterProductManager($thuongHieu,$keyword);
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$reuslut=$product->getPaginatedProductsOfAdmin($currentPage,$soSanPham,$keyword,$thuongHieu);
+
 ?>
 <?php if(isset($_GET['msg'])&& $_GET['msg']=='create_product'): ?>
 <div class="toast-alert">✅ Thêm sản phẩm thành công!</div>
@@ -78,6 +81,7 @@ $result = $product->filterProductManager($thuongHieu,$keyword);
                         <form action="" method="get">
                             <input name="keyword" placeholder="Nhập tên sản phẩm" type="text" 
                             value ="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
+                            <input type="hidden" name="sort" value="<?php echo htmlspecialchars($thuongHieu); ?>">
                             <button type="submit"><p>Tìm kiếm</p></button>
                         </form>
                         <select name="thuonghieu" class="loc-thuong-hieu-product" onchange="applySort(this.value)">
@@ -105,7 +109,10 @@ $result = $product->filterProductManager($thuongHieu,$keyword);
                             <th>Hành động</th>
                         </tr>
                         <?php
-                                while($row=$product->getProductFetch())
+                    if(!empty($reuslut[0]))
+                    {
+
+                                foreach($reuslut[0] as $row)
                                 {
                                     $listImage =explode(',',$row['hinhAnh']);
 
@@ -135,11 +142,26 @@ $result = $product->filterProductManager($thuongHieu,$keyword);
                                         </tr>
                                     <?php
                                 }
+                            }
                         ?>
                     </table>
-                    
                 </div>
-                
+                <div class="phan-trang">
+                <?php 
+                       for ($i = 1; $i <= $reuslut[1]; $i++) 
+                       {
+                        $link = "?page=$i&keyword=" . urlencode($keyword) . "&sort=" . urlencode($thuongHieu);
+                        if ($currentPage == $i) 
+                        {
+                            echo "<span class='now'>$i</span> ";
+                        } else 
+                        {
+                            echo "<a href='$link'>$i</a> ";
+                        }
+                    }
+                    
+                        ?>
+                </div>
             </div>
             <div id="footer">
                 <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>

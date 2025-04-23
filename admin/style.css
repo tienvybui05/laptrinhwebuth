@@ -396,8 +396,9 @@ align-items: center;
     background-color: rgb(43, 43, 54);
 }
 .search-and-create .tao-moi{
-    padding: 10px 10px 10px 0;
+    padding: 2px 2px 2px 0;
     margin: 10px ;
+    
     
 
 }
@@ -405,11 +406,12 @@ align-items: center;
     border: none;
     outline: none;
     box-shadow: none;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: rgb(169, 223, 216);
-    padding: 10px;
+    padding: 5px;
     color: black;
     text-decoration: none;
+    font-size: 13px;
 }
 .search-and-create .tao-moi a:hover{
     background-color: aqua;
@@ -531,13 +533,36 @@ align-items: center;
     padding: 10px;
     background-color: rgb(169, 223, 216);
     margin-left: 10px;
-    border-radius: 2px;
+    border-radius: 10px;
     border: none;
     outline: none;
     box-shadow: none;
     height: 40px;
 }
+/*Phan trang*/
+.phan-trang{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin: 2px auto; 
+    width: fit-content; 
 
+}
+.phan-trang .now{
+    background-color: rgb(220, 242, 242);
+}
+.phan-trang a{
+    background-color: rgb(255, 255, 75);
+}
+.phan-trang a, .phan-trang .now{
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    color: black;
+    padding: 5px 10px;
+    margin: 1px 1px; 
+    text-align: center;
+}
 /* Chitiet */
 .detail-product{
     width: 100%;

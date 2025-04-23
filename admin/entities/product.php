@@ -12,6 +12,40 @@ class product{
         $sql="SELECT * FROM  product WHERE tensanpham like '%$keyword%' ORDER BY idProduct DESC";
         return $this->data->select($sql);
     }
+    public function getPaginatedProductsOfAdmin($currentPage, $productsPerPage,$keyword,$thuongHieu) {
+        $offset = ($currentPage - 1) * $productsPerPage;
+
+        // Lấy tổng số sản phẩm
+        if($thuongHieu=="tatca") {
+            $sqlTotal = "SELECT COUNT(*) as total FROM product WHERE tensanpham LIKE '%$keyword%'";
+        } else {
+            $sqlTotal = "SELECT COUNT(*) as total FROM product WHERE thuongHieu = '$thuongHieu' AND tensanpham LIKE '%$keyword%'";
+        }
+        $resultTotal = $this->data->select($sqlTotal);
+        $totalProducts = 0;
+        if ($row = $resultTotal->fetch_assoc()) {
+            $totalProducts = $row['total'];
+        }
+
+        // Tính tổng số trang
+        $totalPages = ceil($totalProducts / $productsPerPage);
+
+        if($thuongHieu=="tatca") 
+        {
+            $sql = "SELECT * FROM product WHERE tensanpham LIKE '%$keyword%' ORDER BY idProduct ASC LIMIT $offset, $productsPerPage";
+        } else 
+        {
+            $sql = "SELECT * FROM product WHERE thuongHieu = '$thuongHieu' AND tensanpham LIKE '%$keyword%' ORDER BY idProduct ASC LIMIT $offset, $productsPerPage";
+        }
+        $resultProducts = $this->data->select($sql);
+
+        $products = [];
+        while ($row = $resultProducts->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        return [$products, $totalPages];
+    }
     public function filterProductManager($thuongHieu,$keyword)
     {
         if($thuongHieu=="tatca")
