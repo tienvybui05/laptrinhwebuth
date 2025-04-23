@@ -2,12 +2,11 @@
 include '../auth/checkLogin.php';
 include '../entities/user.php';
 $user = new user();
+$soUser = 20;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword']:'';
 $role = isset($_GET['sort']) ? $_GET['sort']:'tatca';
-$result = $user->filterUser($role,$keyword);
-
-
-
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$result=$user->getPaginatedUserOfAdmin($currentPage,$soUser,$keyword,$role);
 
 ?>
 <?php if (isset($_GET['msg']) && $_GET['msg'] == 'delete_user'): ?>
@@ -81,6 +80,7 @@ $result = $user->filterUser($role,$keyword);
                         <form action="" method="get">
                             <input name="keyword" placeholder="Nhập họ tên" type="text" 
                             value ="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
+                            <input type="hidden" name="sort" value="<?php echo htmlspecialchars($role); ?>">
                             <button type="submit"><p>Tìm kiếm</p></button>
                         </form>
                         <select name="sort"  class="loc-role-user" onchange="applySort(this.value)">
@@ -105,7 +105,9 @@ $result = $user->filterUser($role,$keyword);
                             <th>Hành động</th>
                         </tr>
                         <?php 
-                        while($row = $user->getUserFetch() )
+                        if(!empty($result[0]))
+                        {
+                        foreach($result[0] as $row )
                         { ?>
                              <tr>
                                 <td><?php echo($row['hoTen']); ?></td>
@@ -129,12 +131,27 @@ $result = $user->filterUser($role,$keyword);
                                 </td>
                             </tr>
                         <?php }
+                        }
                         ?>
                        
                     </table>
                     
                 </div>
-                
+                <div class="phan-trang">
+                <?php 
+                       for ($i = 1; $i <= $result[1]; $i++) 
+                       {
+                            $link = "?page=$i&keyword=" . urlencode($keyword) . "&sort=" . urlencode($role);
+                            if ($currentPage == $i) 
+                            {
+                                echo "<span class='now'>$i</span> ";
+                            } else 
+                            {
+                                echo "<a href='$link'>$i</a> ";
+                            }
+                        }
+                     ?>
+                </div>
             </div>
             <div id="footer">
                 <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>

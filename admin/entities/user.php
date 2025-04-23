@@ -11,6 +11,41 @@ class user{
      $sql = "SELECT * FROM User WHERE hoTen LIKE '%$keyword%' ORDER BY idUser DESC";
      return $this->data->select($sql);
    }
+   public function getPaginatedUserOfAdmin($currentPage, $usersPerPage,$keyword,$role)
+   {
+      $offset =($currentPage - 1) * $usersPerPage;
+      // Lấy tổng số người dùng
+      if($role =="tatca")
+      {
+         $sqlCount = "SELECT COUNT(*) as total FROM user WHERE hoTen LIKE '%$keyword%' ";
+      }
+      else
+      {
+         $sqlCount = "SELECT COUNT(*) as total FROM user WHERE vaiTro = '$role' and hoTen LIKE '%$keyword%'";
+      }
+      $resultCount = $this->data->select($sqlCount);
+      $totalUsers = 0;
+      if ($row =  $resultCount->fetch_assoc()) 
+      {
+         $totalUsers = $row['total'];
+      }
+      $totalPages = ceil($totalUsers/$usersPerPage);
+      if($role=="tatca")
+      {
+         $sql = "SELECT * FROM user WHERE hoTen LIKE '%$keyword%' ORDER BY idUser ASC LIMIT $offset, $usersPerPage";
+      }
+      else
+      {
+         $sql = "SELECT * FROM user WHERE vaiTro = '$role' and hoTen LIKE '%$keyword%' ORDER BY idUser ASC LIMIT $offset, $usersPerPage";
+      }
+      $result = $this->data->select($sql);
+      $users = [];
+      while($row = $result->fetch_assoc() )
+      {
+         $users[] = $row;
+      }
+      return [$users, $totalPages];
+   }
    public function getUserById($id)
    {
     $sql = "SELECT * FROM User WHERE idUSer = $id ";
@@ -68,15 +103,6 @@ class user{
       return false;
       
    }
-   //Lọc
-   public function filterUser($role,$keyword)
-   {
-      if($role =="tatca")
-      {
-         return $this->getUser($keyword);
-      }
-     $sql = "SELECT * FROM user WHERE vaiTro = '$role' and hoTen LIKE '%$keyword%' ORDER BY idUser DESC";
-     return $this->data->select( $sql);
-   }
+   
 }
 ?>
