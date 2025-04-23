@@ -1,9 +1,4 @@
 <?php
-if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-    http_response_code(403);
-    header("location:../auth/accessDenied.php ");
-    exit();
-}
 include_once 'database.php';
 class cart{
     private $data;
@@ -20,7 +15,8 @@ class cart{
                 cart.idProduct AS idProduct,
                 cart.soLuong AS soLuong,
                 cart.thanhTien AS thanhTien,
-                product.tenSanPham AS tenSanPham
+                product.tenSanPham AS tenSanPham,
+                product.hinhAnh AS hinhAnh
                 FROM user
                 JOIN cart ON cart.idUser = user.idUser
                 JOIN product ON cart.idProduct = product.idProduct

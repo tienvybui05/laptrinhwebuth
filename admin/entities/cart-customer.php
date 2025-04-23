@@ -1,6 +1,5 @@
 <?php
 include_once 'database.php';
-
 class cart_customer {
     private $data;
 

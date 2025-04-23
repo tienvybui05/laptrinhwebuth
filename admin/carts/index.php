@@ -78,15 +78,18 @@ $result = $cart->getCart($keyword);
                         <tr>
                             <th>Khách hàng</th>
                             <th>Sản phẩm</th>
+                            <th>Hình ảnh</th>
                             <th>Số lượng</th>
                             <th>Thành tiền</th>
                         </tr>
                         <?php
                                 while($row = $cart->getCartFetch())
                                 {
+                                    $listImage =explode(',',$row['hinhAnh']);
                                     ?><tr>
                                         <td><?php echo($row['hoTen']); ?></td>
                                         <td><?php echo($row['tenSanPham']); ?></td>
+                                        <td class="hinh-anh"><img src="../../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt=""></td>
                                         <td><?php echo($row['soLuong']); ?></td>
                                         <td><?php echo($row['thanhTien']); ?></td>
                                         </tr>
