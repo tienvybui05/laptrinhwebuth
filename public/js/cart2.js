@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const numericPrice = parseInt(product.price.replace(/\D/g, ""));
         const productTotal = numericPrice * product.quantity;
         total += productTotal;
-
+        updateTotal();
 
         // Thêm vào sidebar
         const sidebarItem = `

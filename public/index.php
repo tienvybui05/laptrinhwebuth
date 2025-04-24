@@ -1,6 +1,7 @@
 <?php
 session_start();
 echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
+echo("<div class='cart-icon'><button>thu</button></div>");
 include '../admin/entities/product.php';
 $product = new product();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';

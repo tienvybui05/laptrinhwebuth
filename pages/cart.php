@@ -2,7 +2,7 @@
 session_start();
 include_once '../admin/entities/cart-customer.php';
 $cart = new cart_customer();
-$idUser = $_SESSION['idUser'];
+$idUser = @$_SESSION['idUser'];
 $cart = new cart_customer();
 $result = $cart->getCartByUser($idUser);
 ?>
@@ -191,7 +191,6 @@ $result = $cart->getCartByUser($idUser);
     </div>
     <script src="../public/js/cart2.js"></script>
     <script src="../public/js/jquery-3.7.1.min.js"></script>
-
 </body>
 
 </html>
