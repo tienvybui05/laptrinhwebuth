@@ -5,8 +5,8 @@ header("Pragma: no-cache"); // HTTP 1.0
 header("Expires: 0"); // Proxies
 if(isset($_SESSION['idUser_admin']))
 {
-    session_unset();
-    session_destroy();
+    unset( $_SESSION['idUser_admin']);
+    unset( $_SESSION['hoTen_admin']);
 }
 header("Location: login.php"); // Hoặc trang nào bạn muốn chuyển về
 exit();

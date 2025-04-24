@@ -32,6 +32,7 @@ $hoTenAdmin = $_SESSION['hoTen_admin'];
                 include 'entities/user.php';
                 include 'entities/product.php';
                 include_once 'entities/orders.php';
+                include_once 'entities/cart.php';
                 if (isset($_GET['pageAd']) && isset($_GET['crud'])) 
                 {
                     $page = $_GET['pageAd'];
@@ -75,6 +76,10 @@ $hoTenAdmin = $_SESSION['hoTen_admin'];
                     else if ($page == "orders" && $crud == "index") 
                     {
                         include 'orders/index.php';
+                    } 
+                    else if ($page == "cart" && $crud == "index") 
+                    {
+                        include 'carts/index.php';
                     } 
                     else {
                         echo ("Trang này không tồn tại");
