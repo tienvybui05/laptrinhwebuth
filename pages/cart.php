@@ -1,3 +1,11 @@
+<?php
+session_start();
+include_once '../admin/entities/cart-customer.php';
+$cart = new cart_customer();
+$idUser = $_SESSION['idUser'];
+$cart = new cart_customer();
+$result = $cart->getCartByUser($idUser);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +50,6 @@
                         </div>
                         <script>// Lấy phần tử user-menu
                         </script>
-
                     </div>
                 </nav>
             </div>
@@ -70,38 +77,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="san-pham-items">
-                                <td><input type="checkbox" class="product-checkbox" name="chon" value=""></td>
-                                <td>
-                                    <div class="product-item">
-                                        <img src="../public/images/san-pham.jpg" alt="Vợt" class="product-image">
-                                        <div class="product-info">
-                                            <div class="product-name">Vợt cầu lông Yonex Astrox 99</div>
+                            <?php 
+                                if ($result && $result->num_rows > 0) {
+                                    while($row = $result->fetch_assoc()){ 
+                                        $listImage = explode(',', $row['hinhAnh']);
+                            ?>
+                                <tr class="san-pham-items">
+                                    <td><input type="checkbox" class="product-checkbox" name="chon" value=""></td>     
+                                    <td>
+                                        <div class="product-item">
+                                            <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt" class="product-image">
+                                            <div class="product-info">
+                                                <div class="product-name"><?php echo($row['tenSanPham']); ?></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="price">429.000đ</td>
-                                <td>
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn-minus">-</button>
-                                        <input type="text" value="1" class="quantity-input">
-                                        <button class="quantity-btn-plus">+</button>
-                                    </div>
-                                </td>
-                                <td class="price">429.000đ</td>
-                                <td class="close-cart_item">
-                                    <button class="action-btn">
-                                        <span>Xóa</span>
-                                    </button>
-                                </td>
-                            </tr>
+                                    </td>   
+                                    <td class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?>đ</td>
+                                    <td>
+                                        <div class="quantity-control">
+                                            <button class="quantity-btn-minus" data-id="<?php echo $row['idProduct']; ?>">-</button>
+                                            <input type="text" value="<?php echo($row['soLuong']); ?>" class="quantity-input">
+                                            <button class="quantity-btn-plus" data-id="<?php echo $row['idProduct']; ?>">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="product-total"><?php echo number_format($row['thanhTien'], 0, ',', '.'); ?>đ</td>
+                                    <td class="close-cart_item">
+                                        <button class="action-btn" data-id="<?php echo $row['idProduct']; ?>" data-iduser="<?php echo $_SESSION['idUser']; ?>">
+                                            <span>Xóa</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='6'>Không có sản phẩm trong giỏ hàng.</td></tr>";
+                                }
+                            ?>
                         </tbody>
                     </table>
                     <div class="summary">
                         <h3 class="summary-title">Tóm tắt đơn hàng</h3>
                         <div class="summary-row summary-total">
                             <div><span>Tổng cộng:</span></div>
-                            <div class="total-sum"><span>5.340.000đ</span></div>
+                            <div class="total-sum"><span class="total-amount">5.340.000đ</span></div>
                         </div>
                         <button class="checkout-btn">THANH TOÁN</button>
                     </div>
@@ -153,13 +171,13 @@
                 </div>
             </div>
             <div class="detail-side">
-                <!-- <div class="detail_cart-side">
+                <div class="detail_cart-side">
                     <img src="../public/images/san-pham.jpg" alt="Vợt" class="product-image">
                     <div class="item-info">
                         <div class="item-name">VỢT CẦU LÔNG YONEX ARCSABER 0</div>
                         <div class="item-quantity"><span style="color: red;">1</span> × 560.000đ</div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="total-cart-side">
                 <div>TỔNG TIỀN:</div>
@@ -172,6 +190,8 @@
         </div>
     </div>
     <script src="../public/js/cart2.js"></script>
+    <script src="../public/js/jquery-3.7.1.min.js"></script>
+
 </body>
 
 </html>

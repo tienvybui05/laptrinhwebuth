@@ -16,7 +16,8 @@ class cart{
                 cart.soLuong AS soLuong,
                 cart.thanhTien AS thanhTien,
                 product.tenSanPham AS tenSanPham,
-                product.hinhAnh AS hinhAnh
+                product.hinhAnh AS hinhAnh,
+                product.gia AS gia
                 FROM user
                 JOIN cart ON cart.idUser = user.idUser
                 JOIN product ON cart.idProduct = product.idProduct

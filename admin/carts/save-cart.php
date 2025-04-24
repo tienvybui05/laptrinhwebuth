@@ -27,7 +27,10 @@ $errors = [];
 foreach ($data['cart'] as $item) {
     $idProduct = $item['id'] ?? null;
     $soLuong = (int) ($item['quantity'] ?? 0);
-
+    $priceStr = $item['price'] ?? '0';
+    $priceStr = str_replace(['.', 'đ', ' '], '', $priceStr);
+    $donGia = (int) $priceStr;
+    $thanhTien = $soLuong * $donGia;
     if (!$idProduct) {
         $errors[] = "Thiếu ID sản phẩm";
         continue;
@@ -37,13 +40,13 @@ foreach ($data['cart'] as $item) {
 
     if ($existingItem) {
         if ($soLuong > 0) {
-            $cart->updateCart($idUser, $idProduct, $soLuong);
+            $cart->updateCart($idUser, $idProduct, $soLuong, $thanhTien);
         } else {
             $cart->deleteCartItem($idUser, $idProduct);
         }
     } else {
         if ($soLuong > 0) {
-            $cart->addToCart($idUser, $idProduct, $soLuong);
+            $cart->addToCart($idUser, $idProduct, $soLuong, $thanhTien);
         }
     }
 }

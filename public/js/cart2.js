@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const totalElement = document.querySelector(".total-cart-side div:last-child");
     const totalbill = document.querySelector(".total-sum");
     // Xóa nội dung cũ
-    cartTable.innerHTML = "";
+    // cartTable.innerHTML = "";
     sidebarCart.innerHTML = "";
 
     let total = 0;
@@ -17,35 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const productTotal = numericPrice * product.quantity;
         total += productTotal;
 
-        // Thêm vào bảng chính
-        const row = `
-            <tr class="san-pham-items" data-index="${index}">
-                <td><input type="checkbox" class="product-checkbox"></td>
-                <td>
-                    <div class="product-item">
-                        <img src="${product.image}" alt="${product.name}" class="product-image">
-                        <div class="product-info">
-                            <div class="product-name">${product.name}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="price">${product.price}</td>
-                <td>
-                    <div class="quantity-control">
-                        <button class="quantity-btn-minus">-</button>
-                        <input type="text" value="${product.quantity}" class="quantity-input">
-                        <button class="quantity-btn-plus">+</button>
-                    </div>
-                </td>
-                <td class="product-total">${calculateTotal(product.price, product.quantity)}</td>
-                <td class="close-cart_item">
-                    <button class="action-btn">
-                        <span>Xóa</span>
-                    </button>
-                </td>
-            </tr>
-        `;
-        cartTable.insertAdjacentHTML("beforeend", row);
 
         // Thêm vào sidebar
         const sidebarItem = `
@@ -62,41 +33,45 @@ document.addEventListener("DOMContentLoaded", function() {
         sidebarCart.insertAdjacentHTML("beforeend", sidebarItem);
     });
 
-    // Cập nhật tổng tiền
-    updateTotal();
 
     // Tăng giảm số lượng sản phẩm 
     document.querySelectorAll(".quantity-btn-minus, .quantity-btn-plus").forEach(button => {
         button.addEventListener("click", function() {
             const productRow = this.closest(".san-pham-items");
-            const index = productRow.dataset.index;
-            const productValue = productRow.querySelector(".quantity-input");
-            let quantityvalue = parseInt(productValue.value);
-            
+            const input = productRow.querySelector(".quantity-input");
+            const idProduct = this.dataset.id;
+            let quantity = parseInt(input.value);
+    
             if (this.classList.contains("quantity-btn-minus")) {
-                quantityvalue = Math.max(1, quantityvalue - 1);
+                quantity = Math.max(1, quantity - 1);
             } else {
-                quantityvalue = quantityvalue + 1;
+                quantity += 1;
             }
-            
-            productValue.value = quantityvalue;
-            
-            // Cập nhật số lượng trong giỏ hàng
-            cart[index].quantity = quantityvalue;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            
-            // Cập nhật tổng tiền sản phẩm
-            const price = cart[index].price;
-            const productTotal = calculateTotal(price, quantityvalue);
-            productRow.querySelector(".product-total").textContent = productTotal;
-            
-            // Cập nhật sidebar
-            updateSidebarItem(index, quantityvalue);
-            
-            // Cập nhật tổng tiền
-            updateTotal();
+    
+            input.value = quantity;
+    
+            // Gửi Ajax cập nhật số lượng
+            $.ajax({
+                url: '../admin/entities/update_quantity.php',
+                method: 'POST',
+                data: {
+                    idProduct: idProduct,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        //location.reload(); // reload lại để cập nhật thành tiền và tổng tiền
+                        updateTotal();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
         });
+        
     });
+    
 
     // check all 
     document.querySelector("#chonhet").addEventListener("click",function() {
@@ -129,40 +104,89 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Thêm sự kiện xóa sản phẩm
     document.querySelectorAll(".action-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             const productRow = this.closest(".san-pham-items");
-            const index = productRow.dataset.index;
-            
-            // Xóa khỏi DOM
+            const index = parseInt(productRow.dataset.index);
+            const removedProduct = cart[index]; // Lưu lại sản phẩm sắp xóa
+            const idUser = this.dataset.iduser; // Đảm bảo bạn đã lưu idUser vào localStorage khi đăng nhập
+            const idProduct = this.dataset.id;
+            // Xóa khỏi DOM chính
             productRow.remove();
-            
-            // Xóa khỏi giỏ hàng
+    
+            // Xóa khỏi localStorage
             cart.splice(index, 1);
             localStorage.setItem("cart", JSON.stringify(cart));
-            
-            // Cập nhật lại index cho các sản phẩm còn lại
+    
+            // Xóa khỏi sidebar
+            const sidebarItem = document.querySelector(`.detail_cart-side[data-index="${index}"]`);
+            if (sidebarItem) {
+                sidebarItem.remove();
+            }
+                $.ajax({
+                    url: '../admin/entities/delete_cart_item.php',
+                    method: 'POST',
+                    data: {
+                        idUser: idUser,
+                        idProduct: idProduct
+                    },
+                    dataType: 'text',
+                    success: function (response) {
+                        const data = JSON.parse(response);
+                        if (data.status !== "success") {
+                            alert("Xóa trên database thất bại: " + data.message);
+                        }
+                    }
+                });
+    
+            // Cập nhật lại index DOM chính
             updateProductIndexes();
-            
+    
+            // Cập nhật lại index sidebar
+            document.querySelectorAll(".detail_cart-side").forEach((item, i) => {
+                item.setAttribute("data-index", i);
+            });
+    
             // Cập nhật tổng tiền
             updateTotal();
-            
-            // Reload để cập nhật sidebar (có thể tối ưu bằng cách cập nhật DOM thay vì reload)
-            location.reload();
         });
-    });
-    // Hàm cập nhật tổng tiền
+    });       
+    // Hàm updateTotal xử lý DOM mà không cần reload hay gọi lại DB
     function updateTotal() {
         let newTotal = 0;
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        
-        cart.forEach(product => {
-            const numericPrice = parseInt(product.price.replace(/\D/g, ""));
-            newTotal += numericPrice * product.quantity;
+        const rows = document.querySelectorAll(".san-pham-items");
+
+        rows.forEach(row => {
+            const priceElement = row.querySelector(".price");
+            const quantityInput = row.querySelector(".quantity-input");
+            const subtotalCell = row.querySelector(".product-total");
+
+            const price = parseInt(priceElement.textContent.replace(/\D/g, ""));
+            const quantity = parseInt(quantityInput.value);
+
+            const subtotal = price * quantity;
+            newTotal += subtotal;
+
+            // Cập nhật thành tiền cho từng sản phẩm
+            if (subtotalCell) {
+                subtotalCell.textContent = `${formatVietnameseCurrency(subtotal)}đ`;
+            }
         });
-        
-        totalElement.textContent = `${formatVietnameseCurrency(newTotal)}đ`;
-        totalbill.textContent = `${formatVietnameseCurrency(newTotal)}đ`;
+
+        // Cập nhật tổng tiền toàn giỏ hàng
+        const totalElement = document.querySelector(".total-cart-side div:last-child");
+        const totalAmountSpan = document.querySelector(".total-sum .total-amount");
+
+        if (totalElement) totalElement.textContent = `${formatVietnameseCurrency(newTotal)}đ`;
+        if (totalAmountSpan) totalAmountSpan.textContent = `${formatVietnameseCurrency(newTotal)}đ`;
     }
+
+    // Hàm định dạng tiền
+    function formatVietnameseCurrency(number) {
+        return number.toString()
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }  
+    
 
     // Hàm cập nhật sidebar item
     function updateSidebarItem(index, newQuantity) {
