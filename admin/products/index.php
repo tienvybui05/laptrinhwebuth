@@ -30,18 +30,10 @@ $reuslut = $product->getPaginatedProductsOfAdmin($currentPage, $soSanPham, $keyw
             </button>
         </form>
         <select name="thuonghieu" class="loc-thuong-hieu-product" onchange="applySort(this.value)">
-            <option value="tatca" <?php if (isset($thuongHieu) && $thuongHieu == "tatca") {
-                                        echo "selected";
-                                    } ?>>Tất cả</option>
-            <option value="Victor" <?php if (isset($thuongHieu) && $thuongHieu == "Victor") {
-                                        echo "selected";
-                                    } ?>>Victor</option>
-            <option value="Yonex" <?php if (isset($thuongHieu) && $thuongHieu == "Yonex") {
-                                        echo "selected";
-                                    } ?>>Yonex</option>
-            <option value="Lining" <?php if (isset($thuongHieu) && $thuongHieu == "Lining") {
-                                        echo "selected";
-                                    } ?>>Lining</option>
+            <option value="tatca" <?php if (isset($thuongHieu) && $thuongHieu == "tatca") {echo "selected";} ?>>Tất cả</option>
+            <option value="Victor" <?php if (isset($thuongHieu) && $thuongHieu == "Victor") {echo "selected";} ?>>Victor</option>
+            <option value="Yonex" <?php if (isset($thuongHieu) && $thuongHieu == "Yonex") {echo "selected";} ?>>Yonex</option>
+            <option value="Lining" <?php if (isset($thuongHieu) && $thuongHieu == "Lining") {echo "selected";} ?>>Lining</option>
         </select>
     </div>
     <div class="tao-moi">
@@ -63,7 +55,8 @@ $reuslut = $product->getPaginatedProductsOfAdmin($currentPage, $soSanPham, $keyw
         <?php
         if (!empty($reuslut[0])) {
 
-            foreach ($reuslut[0] as $row) {
+            foreach ($reuslut[0] as $row) 
+            {
                 $listImage = explode(',', $row['hinhAnh']);
 
         ?><tr>
@@ -100,9 +93,11 @@ $reuslut = $product->getPaginatedProductsOfAdmin($currentPage, $soSanPham, $keyw
     <?php
     for ($i = 1; $i <= $reuslut[1]; $i++) {
         $link = "index.php?pageAd=product&crud=index&page=$i&keyword=" . urlencode($keyword) . "&sort=" . urlencode($thuongHieu);
-        if ($currentPage == $i) {
+        if ($currentPage == $i) 
+        {
             echo "<span class='now'>$i</span> ";
-        } else {
+        } else 
+        {
             echo "<a href='$link'>$i</a> ";
         }
     }

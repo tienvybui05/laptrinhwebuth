@@ -71,12 +71,8 @@ function test_input($data)
         <div class="form-group">
             <label for="">Vai trò:</label>
             <select name="vaitro">
-                <option value="admin" <?php if (isset($vaiTro) && $vaiTro == "admin") {
-                                            echo "selected";
-                                        } ?>>Admin</option>
-                <option value="customer" <?php if (isset($vaiTro) && $vaiTro == "customer") {
-                                                echo "selected";
-                                            } ?>>Customer</option>
+                <option value="admin" <?php if (isset($vaiTro) && $vaiTro == "admin") { echo "selected";} ?>>Admin</option>
+                <option value="customer" <?php if (isset($vaiTro) && $vaiTro == "customer") {echo "selected";} ?>>Customer</option>
             </select>
         </div>
         <div class="message-product" style="color: red; margin-bottom: 10px;"><?php echo ($ErrUsername); ?></div>

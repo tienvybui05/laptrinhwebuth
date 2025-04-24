@@ -30,15 +30,9 @@ $result = $user->getPaginatedUserOfAdmin($currentPage, $soUser, $keyword, $role)
             </button>
         </form>
         <select name="sort" class="loc-role-user" onchange="applySort(this.value)">
-            <option value="tatca" <?php if (isset($role) && $role == "tatca") {
-                                        echo "selected";
-                                    } ?>>Tất cả</option>
-            <option value="customer" <?php if (isset($role) && $role == "customer") {
-                                            echo "selected";
-                                        } ?>>Customer</option>
-            <option value="admin" <?php if (isset($role) && $role == "admin") {
-                                        echo "selected";
-                                    } ?>>Admin</option>
+            <option value="tatca" <?php if (isset($role) && $role == "tatca") {echo "selected";} ?>>Tất cả</option>
+            <option value="customer" <?php if (isset($role) && $role == "customer") { echo "selected";} ?>>Customer</option>
+            <option value="admin" <?php if (isset($role) && $role == "admin") { echo "selected";} ?>>Admin</option>
         </select>
     </div>
     <div class="tao-moi">
@@ -91,9 +85,11 @@ $result = $user->getPaginatedUserOfAdmin($currentPage, $soUser, $keyword, $role)
     <?php
     for ($i = 1; $i <= $result[1]; $i++) {
         $link = "index.php?pageAd=user&crud=index&page=$i&keyword=" . urlencode($keyword) . "&sort=" . urlencode($role);
-        if ($currentPage == $i) {
+        if ($currentPage == $i) 
+        {
             echo "<span class='now'>$i</span> ";
-        } else {
+        } else 
+        {
             echo "<a href='$link'>$i</a> ";
         }
     }
