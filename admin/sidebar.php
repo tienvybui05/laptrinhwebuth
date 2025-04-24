@@ -1,5 +1,5 @@
 <div id="logo">
-    <a href="#">
+    <a href="index.php">
         <img src="../public/images/logo.png" alt="">
     </a>
 </div>

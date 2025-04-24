@@ -122,7 +122,7 @@ function test_input($data)
             <p class="message"><?php echo($ErrAccount); ?></p>
             <hr>
             <!-- <button type="submit" name="login">Đăng nhập</button> -->
-            <input class="login" type="submit" name="login_admin" value="Tạo mới"/>
+            <input class="login" type="submit" name="login_admin" value="Đăng nhập"/>
         </form>
 
     </div>

@@ -6,7 +6,8 @@
     <div class="login-admin">
         <p><?php echo ($hoTenAdmin); ?></p>
         <div class="login">
-            <a href="auth/logout.php">Logout</a>
+            <a href="auth/logout.php"><i class="ti-power-off"></i></a>
+            
         </div>
     </div>
 </div>

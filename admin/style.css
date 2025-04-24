@@ -80,7 +80,6 @@ justify-content: center;
 #main-content {
     margin-left: 200px;
     flex-grow: 1;
-    padding: 15px;
     color: rgb(135, 136, 140);
 }
 #main-content #header{
@@ -88,7 +87,8 @@ justify-content: center;
     justify-content: space-between;
     height: 90px;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px 10px;
+    border-bottom: #6b6b6b solid 1px;
     
 
 }
@@ -141,21 +141,36 @@ font-size: 12px;
 .login-admin{
     display: flex;
     align-items: center;
+    margin-right: 20px;
 
 }
 .login-admin p{
     padding-right: 10px;
-    color: white;
+    color: rgb(177, 238, 224);
 }
 .login-admin .login{
-    width: 60px;
+    width: auto;
     line-height: 90px;
+    display: flex;
+    text-align: center;
+
+}
+.login-admin .login a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+.login-admin .login a i{
+    color: #ffffff;
 }
 #content{
     min-height: 600px;
 }
 /*Content*/
 /* row dau tien */
+#content{
+    margin-top: 10px;
+    padding: 15px;
+}
 #content .row-dau{
     display: flex;
     width: 100%;
@@ -523,7 +538,7 @@ align-items: center;
     padding: 10px;
     background-color: rgb(169, 223, 216);
     margin-left: 10px;
-    border-radius: 2px;
+    border-radius: 10px;
     border: none;
     outline: none;
     box-shadow: none;
