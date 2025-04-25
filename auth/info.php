@@ -17,59 +17,57 @@ $username = $row['username'];
 $msgInformation="";
 $msgPassword ="";
 
-if (isset($_POST['information'])) {
-    // Xử lý cập nhật thông tin
-    if (!empty($_POST['infoname'])) {
+if(isset($_POST['information']))
+{
+    // Cập nhật các thông tin khác ngoài mật khẩu
+    if(!empty($_POST['infoname']))
+    {
         $hoTen = test_input($_POST['infoname']);
-    } else {
-        $hoTen = ''; // Hoặc giá trị mặc định
     }
-
-    if (!empty($_POST['infoSoDienThoai'])) {
+    if(!empty($_POST['infoSoDienThoai']))
+    {
         $soDienThoai = test_input($_POST['infoSoDienThoai']);
-    } else {
-        $soDienThoai = ''; // Hoặc giá trị mặc định
     }
-
-    if (!empty($_POST['infoaddress'])) {
+    if(!empty($_POST['infoaddress']))
+    {
         $diaChi = test_input($_POST['infoaddress']);
-    } else {
-        $diaChi = ''; // Hoặc giá trị mặc định
     }
 
-    // Không thay đổi mật khẩu khi cập nhật thông tin
+    // Chỉ cập nhật mật khẩu khi người dùng thay đổi mật khẩu trong form đổi mật khẩu
+    // Nếu không thay đổi mật khẩu, giữ nguyên mật khẩu cũ
     $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $password, $diaChi, "customer");
 
-    if ($result) {
+    if ($result) 
+    {
         $msgInformation = 'Cập nhật thông tin thành công!';
-    } else {
-        $msgInformation = 'Cập nhật thông tin thất bại!';
     }
 }
 
-if (isset($_POST['savePassword'])) {
-    // Xử lý cập nhật mật khẩu
-    $passwordOld = test_input($_POST['passwordOld']);
-    $result = $user->isAccount($username, $passwordOld); // Kiểm tra mật khẩu cũ
-
-    if ($result === false) {
-        $msgPassword = "Nhập sai mật khẩu!";
-    } else {
+if(isset($_POST['savePassword']))
+{
+    $passwordOld = test_input($_POST['passwordOld']); 
+    $result = $user->isAccount($username, $passwordOld);
+    
+    if($result === false)
+    {
+        $msgPassword = "Mật khẩu hiện tại không chính xác!";
+    }
+    else{
         $passwordNew = test_input($_POST['passwordNew']);
-
-        // Mã hóa mật khẩu mới trước khi lưu
-        $passwordNewHash = password_hash($passwordNew, PASSWORD_DEFAULT);
-
-        // Chỉ cập nhật mật khẩu mới
-        $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $passwordNewHash, $diaChi, "customer");
-
-        if ($result) {
-            $msgPassword = 'Cập nhật mật khẩu thành công!';
+        // Kiểm tra mật khẩu mới và xác nhận mật khẩu
+        if ($passwordNew === $_POST['confirmPassword']) {
+            // Cập nhật mật khẩu mới
+            $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $passwordNew, $diaChi, "customer");  
+            if ($result) 
+            {
+                $msgPassword = 'Cập nhật mật khẩu thành công!';
+            }  
         } else {
-            $msgPassword = 'Cập nhật mật khẩu thất bại!';
+            $msgPassword = "Xác nhận mật khẩu mới không khớp!";
         }
     }
 }
+
 
 
 
