@@ -27,12 +27,12 @@
         }
         .access-denied div span{
             font-size: 100px;
-            color:rgb(143, 244, 230);
+            color:rgb(0, 0, 0);
             padding: 10px;
         }
         .access-denied .noi-dung-canh-bao{
             font-size: 20px;
-            color:rgb(68, 244, 220);
+            color:rgb(0, 0, 0);
         }
         .access-denied a{
             margin-top:20px;

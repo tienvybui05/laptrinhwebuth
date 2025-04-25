@@ -1,7 +1,6 @@
-<?php 
-if (!isset($_GET['pageAd'])) {
-    header("Location: index.php");
-    exit();
+<?
+if (!defined('ALLOW_INCLUDE')) {
+    header("location: auth/accessDenied.php");
 }
 ?>
 <div class="row-dau">

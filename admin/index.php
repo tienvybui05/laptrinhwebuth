@@ -4,6 +4,7 @@ if (!isset($_SESSION['idUser_admin'])) {
     header("location: auth/login.php");
     exit;
 }
+define('ALLOW_INCLUDE', true);
 $hoTenAdmin = $_SESSION['hoTen_admin'];
 ?>
 <!DOCTYPE html>
@@ -21,11 +22,11 @@ $hoTenAdmin = $_SESSION['hoTen_admin'];
     <div id="admin-container">
         <!-- sidebar -->
         <div id="sidebar">
-            <?php include 'sidebar.php' ?>
+            <?php include_once  'sidebar.php' ?>
         </div>
         <div id="main-content">
             <!-- header -->
-            <?php include 'header.php' ?>
+            <?php include_once 'header.php' ?>
             <div id="content">
                 <!-- content -->
                 <?php
@@ -86,13 +87,13 @@ $hoTenAdmin = $_SESSION['hoTen_admin'];
                     }
                 } else 
                 {
-                    include("main.php");
+                    include_once "main.php";
                 }
                 ?>
             </div>
             <!-- footer -->
             <div id="footer">
-                <?php include 'footer.php'; ?>
+                <?php include_once  'footer.php'; ?>
             </div>
         </div>
     </div>
