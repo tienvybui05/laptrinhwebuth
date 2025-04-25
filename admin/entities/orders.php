@@ -8,6 +8,16 @@ class orders {
         $this->data = new database();
     }
     
+ // Thêm sản phẩm vào giỏ hàng
+ public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) {
+    $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien, ngayDatHang) 
+            VALUES ('$idUser', '$idProduct', '$soLuong', '$thanhTien', NOW())";
+    return $this->data->insert($sql);
+}
+
+   
+
+
     /**
      * Tạo mã đơn hàng duy nhất theo phương pháp 2
      * Format: DH + User ID (5 chữ số) + Timestamp
@@ -18,21 +28,7 @@ class orders {
         $timestamp = date('YmdHis'); // Định dạng: năm tháng ngày giờ phút giây
         
         return $prefix . $userPart . $timestamp;
-    }
-<<<<<<< HEAD
-
-
-    // Thêm sản phẩm vào giỏ hàng
-    public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) {
-    $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien, ngayDatHang) 
-            VALUES ('$idUser', '$idProduct', '$soLuong', '$thanhTien', NOW())";
-    return $this->data->insert($sql);
-}
-
-    public function getOrdersFetch()
-    {
-        return $this->data->fetch();
-=======
+    }    
     
     /**
      * Lấy thông tin đơn hàng theo mã đơn hàng
@@ -197,7 +193,11 @@ class orders {
         $this->cachedResults = $allOrders;
         
         return count($allOrders) > 0;
->>>>>>> 691c5016d28f8d18d194fb55186d1de5f3240015
     }
 }
 ?>
+
+
+
+
+   
