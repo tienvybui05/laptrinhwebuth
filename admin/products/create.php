@@ -1,4 +1,8 @@
 <?php
+if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'product') {
+    header("Location: ../index.php?pageAd=product&crud=create");
+    exit();
+}
 include_once __DIR__ . '/../auth/checkLogin.php';
 $product = new product();
 // Tạo các biến

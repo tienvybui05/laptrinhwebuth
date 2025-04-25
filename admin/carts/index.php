@@ -1,4 +1,8 @@
 <?php
+if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'cart') {
+    header("Location: ../index.php?pageAd=cart&crud=index");
+    exit();
+}
 include_once __DIR__ . '/../auth/checkLogin.php';
 $cart = new cart();
 $soGioHang =5;

@@ -1,4 +1,8 @@
 <?php
+if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'product') {
+    header("Location: ../index.php?pageAd=product&crud=index");
+    exit();
+}
 include_once __DIR__ . '/../auth/checkLogin.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
