@@ -20,40 +20,9 @@ $result = $cart->getCartByUser($idUser);
 
 <body class="">
     <div class="wrapper" style="background-color: #f5f5f5;">
-        <header class="header">
-            <div class="container">
-                <!--Thanh menu  -->
-                <nav class="navbar">
-                    <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <ul id="main-menu">
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
-                    <!--Thanh tìm kiếm  -->
-                    <div class="search-bar">
-                        <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="ti-search"></i></button>
-                    </div>
-                    <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
-                        <div class="user-menu">
-                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><i class="ti-user"></i> Thông tin người dùng</a></li>
-                                <li><a href="#"><i class="ti-power-off"></i> Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                        <script>// Lấy phần tử user-menu
-                        </script>
-                    </div>
-                </nav>
-            </div>
-        </header>
+    <?php
+    include '../includes/header.php';
+?>
         <main class="main-cart">
             <div class="main_cart-container">
                 <div id="name_giohang">

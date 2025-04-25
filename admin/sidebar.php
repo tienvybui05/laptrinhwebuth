@@ -1,3 +1,9 @@
+<?php
+if (!isset($_GET['pageAd'])) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <div id="logo">
     <a href="index.php">
         <img src="../public/images/logo.png" alt="">

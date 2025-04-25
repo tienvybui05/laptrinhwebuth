@@ -1,3 +1,9 @@
+<?php 
+if (!isset($_GET['pageAd'])) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <div class="row-dau">
     <div class="row-thong-tin">
         <div class="tai-khoan thong-tin">

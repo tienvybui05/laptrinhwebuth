@@ -158,32 +158,9 @@ function test_input($data)
 
 <body>
     <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <!--Thanh menu  -->
-                <nav class="navbar">
-                    <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <ul id="main-menu">
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
-                    <!--Thanh tìm kiếm  -->
-                    <div class="search-bar">
-                        <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </div>
-                    <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
-                    </div>
-                </nav>
-            </div>
-        </header>
+    <?php
+    include '../includes/header.php';
+?>
         <main class="main-signin">
             <div class="formdangnhap">
                 <form id="signin" name="signin" method="post" action="#">

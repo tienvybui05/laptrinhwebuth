@@ -1,3 +1,9 @@
+<?php 
+if (!isset($_GET['pageAd'])) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <div id="header">
     <div class="datetime-glass-header">
         <i class="ti-alarm-clock"></i>
