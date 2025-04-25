@@ -4,17 +4,157 @@ class orders {
     private $data;
     private $cachedResults = null; // Thêm biến để lưu trữ kết quả
     
-    public function __construct() {
+    public function __construct() 
+    {
         $this->data = new database();
     }
     
  // Thêm sản phẩm vào giỏ hàng
- public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) {
+ public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) 
+ {
     $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien, ngayDatHang) 
             VALUES ('$idUser', '$idProduct', '$soLuong', '$thanhTien', NOW())";
     return $this->data->insert($sql);
 }
+    public function getOrdersOfAdmin()
+    {
+         $sql = "SELECT user.idUser AS idUser, 
+                    user.hoTen AS khachHang,
+                    orders.hoTen AS nguoiNhan, 
+                    orders.idOrder AS idOrder, 
+                    orders.idProduct AS idProduct,
+                    orders.soLuong AS soLuong,
+                    orders.thanhTien AS thanhTien,
+                    orders.soDienThoai AS soDienThoai,
+                    orders.diaChi AS diaChi,
+                    orders.ngayDatHang AS ngayDatHang,
+                    orders.phuongThuc AS phuongThuc,
+                    orders.ghiChu AS ghiChu,
+                    orders.maTongDonHang AS maTongDonHang,
+                    product.tenSanPham AS tenSanPham,
+                    product.hinhAnh AS hinhAnh,
+                    product.thuongHieu AS thuongHieu,
+                    product.gia AS gia
+                    FROM user
+                    JOIN orders ON orders.idUser = user.idUser
+                    JOIN product ON orders.idProduct = product.idProduct";
+                    return $this->data->select($sql);
+                    
+    }
+    public function getOrderAdminById($orderCode)
+    {
+        $sql = "SELECT user.idUser AS idUser, 
+        user.hoTen AS khachHang,
+        orders.hoTen AS nguoiNhan, 
+        orders.idOrder AS idOrder, 
+        orders.idProduct AS idProduct,
+        orders.soLuong AS soLuong,
+        orders.thanhTien AS thanhTien,
+        orders.soDienThoai AS soDienThoai,
+        orders.diaChi AS diaChi,
+        orders.ngayDatHang AS ngayDatHang,
+        orders.phuongThuc AS phuongThuc,
+        orders.ghiChu AS ghiChu,
+        orders.maTongDonHang AS maTongDonHang,
+        product.tenSanPham AS tenSanPham,
+        product.hinhAnh AS hinhAnh,
+        product.thuongHieu AS thuongHieu,
+        product.gia AS gia
+        FROM user
+        JOIN orders ON orders.idUser = user.idUser
+        JOIN product ON orders.idProduct = product.idProduct
+        WHERE orders.maTongDonHang ='$orderCode' ";
+        return $this->data->select($sql);
+    }
+    public function getOrdersFetchAdmin()
+    {
+        return $this->data->fetch();
+    }
+    public function getPaginatedOrdersOfAdmin($currentPage,$ordersPerpage,$keyword,$thuongHieu)
+    {
+        $offset = ($currentPage - 1) * $ordersPerpage;
 
+        // Lấy tổng số sản phẩm
+        if($thuongHieu=="tatca") 
+        {
+            $sqlTotal = "SELECT COUNT(*) as total FROM user
+                                                JOIN orders ON orders.idUser = user.idUser
+                                                JOIN product ON orders.idProduct = product.idProduct 
+                                                WHERE product.tenSanPham LIKE '%$keyword%'";
+        } else 
+        {
+            $sqlTotal = "SELECT COUNT(*) as total FROM user
+                                                JOIN orders ON orders.idUser = user.idUser
+                                                JOIN product ON orders.idProduct = product.idProduct 
+                                                WHERE product.thuongHieu = '$thuongHieu' AND product.tenSanPham LIKE '%$keyword%'";
+        }
+        $resultTotal = $this->data->select($sqlTotal);
+        $totalorders = 0;
+        if ($row = $resultTotal->fetch_assoc()) 
+        {
+            $totalorders = $row['total'];
+        }
+
+        // Tính tổng số trang
+        $totalPages = ceil($totalorders / $ordersPerpage);
+
+        if($thuongHieu=="tatca") 
+        {
+            $sql = "SELECT user.idUser AS idUser, 
+                    user.hoTen AS khachHang,
+                    orders.hoTen AS nguoiNhan, 
+                    orders.idOrder AS idOrder, 
+                    orders.idProduct AS idProduct,
+                    orders.soLuong AS soLuong,
+                    orders.thanhTien AS thanhTien,
+                    orders.soDienThoai AS soDienThoai,
+                    orders.diaChi AS diaChi,
+                    orders.ngayDatHang AS ngayDatHang,
+                    orders.phuongThuc AS phuongThuc,
+                    orders.ghiChu AS ghiChu,
+                    orders.maTongDonHang AS maTongDonHang,
+                    product.tenSanPham AS tenSanPham,
+                    product.hinhAnh AS hinhAnh,
+                    product.thuongHieu AS thuongHieu,
+                    product.gia AS gia
+                    FROM user
+                    JOIN orders ON orders.idUser = user.idUser
+                    JOIN product ON orders.idProduct = product.idProduct
+                    WHERE orders.maTongDonHang LIKE '%$keyword%' ORDER BY orders.idOrder ASC LIMIT $offset, $ordersPerpage";
+        } 
+        else 
+        {
+            $sql = "SELECT user.idUser AS idUser, 
+                    user.hoTen AS khachHang,
+                    orders.hoTen AS nguoiNhan, 
+                    orders.idOrder AS idOrder, 
+                    orders.idProduct AS idProduct,
+                    orders.soLuong AS soLuong,
+                    orders.thanhTien AS thanhTien,
+                    orders.soDienThoai AS soDienThoai,
+                    orders.diaChi AS diaChi,
+                    orders.ngayDatHang AS ngayDatHang,
+                    orders.phuongThuc AS phuongThuc,
+                    orders.ghiChu AS ghiChu,
+                    orders.maTongDonHang AS maTongDonHang,
+                    product.tenSanPham AS tenSanPham,
+                    product.hinhAnh AS hinhAnh,
+                    product.thuongHieu AS thuongHieu,
+                    product.gia AS gia
+                    FROM user
+                    JOIN orders ON orders.idUser = user.idUser
+                    JOIN product ON orders.idProduct = product.idProduct
+                    WHERE orders.maTongDonHang = '$thuongHieu' AND product.tenSanPham LIKE '%$keyword%' ORDER BY orders.idOrder ASC LIMIT $offset, $ordersPerpage";
+        }
+        $resultOrders = $this->data->select($sql);
+
+        $orders = [];
+        while ($row = $resultOrders->fetch_assoc()) {
+            $orders[] = $row;
+        }
+
+        return [$orders, $totalPages];
+    } 
    
 
 

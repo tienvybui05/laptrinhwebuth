@@ -1,48 +1,62 @@
 <?php 
-include_once __DIR__ . '/../auth/checkLogin.php';
+if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'orders') {
+    header("Location: ../index.php?pageAd=orders&crud=index");
+    exit();
+}
 $orders= new orders();
-$keyword = isset($_GET['keyword']) ? $_GET['keyword']:''; 
-$result = $orders->getOrders($keyword);
+$result = $orders->getOrdersOfAdmin();
+$groupOrders =[];
+foreach($result as $ojb)
+{
+    $orderCode = $ojb['maTongDonHang'];
+    if(!isset($groupOrders[$orderCode]))
+    {
+        $groupOrders[$orderCode] =[
+            'orderCode' => $orderCode,
+            'orderDate' => $ojb['ngayDatHang'],
+            'totalAmount' => 0,
+            'products' => [],
+        ];
+    }
+    $groupOrders[$orderCode]['products'][] = [
+        'price' => $ojb['thanhTien'] / $ojb['soLuong']
+        
+    ];
+    $groupOrders[$orderCode]['totalAmount'] += $ojb['thanhTien'];
+}
 ?>
                 <h2>Quản lý giỏ hàng</h2>
-                <div class="search-and-create">
+                <!-- <div class="search-and-create">
                    
                     <div class="tim-kiem">
                         <form action="" method="get">
-                            <input name="keyword" placeholder="Nhập tên sản phẩm" type="text" 
+                            <input name="keyword" placeholder="Nhập mã sản phẩm" type="text" 
                             value ="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
+                            <input type="hidden" name="pageAd" value="orders">
+                            <input type="hidden" name="crud" value="index">
                             <button type="submit"><p>Tìm kiếm</p></button>
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <div class="danh-sach">
                     <table class="table-danh-sach">
                         <tr>
-                            <th>Khách hàng</th>
-                            <th>Người nhận</th>
-                            <th>Số điện thoại</th>
-                            <th>Địa chỉ</th>
-                            <th>Sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Phương thức</th>
-                            <th>Ngày đặt hàng</th>
-                            <th>Thành tiền</th>
-                            <th>Ghi chú</th>
+                            
+                            <th>Mã đơn hàng</th>
+                            <th>ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Hành động</th>
                         </tr>
                         <?php
-                                while($row = $orders->getOrdersFetch())
+                                foreach($groupOrders as $row) 
                                 {
                                     ?><tr>
-                                        <td><?php echo($row['hoTen']); ?></td>
-                                        <td><?php echo($row['nguoiNhan']); ?></td>
-                                        <td><?php echo($row['soDienThoai']); ?></td>
-                                        <td><?php echo($row['diaChi']); ?></td>
-                                        <td><?php echo($row['tenSanPham']); ?></td>
-                                        <td><?php echo($row['soLuong']); ?></td>
-                                        <td><?php echo($row['phuongThuc']); ?></td>
-                                        <td><?php echo($row['ngayDatHang']); ?></td>
-                                        <td><?php echo($row['thanhTien']); ?></td>
-                                        <td><?php echo($row['ghiChu']); ?></td>
+                                        <td><?php echo($row['orderCode']); ?></td>
+                                        <td><?php echo($row['orderDate']); ?></td>
+                                        <td><?php echo(number_format($row['totalAmount'], 0, ',', '.')); ?></td>
+                                        <td class = "hanh-dong">
+                                        <a class="chitiet chitiet-product" href="index.php?pageAd=orders&crud=detail&id=<?php echo ($row['orderCode']); ?>">Chi tiết</a>
+                                        </td>
                                         </tr>
                                     <?php
                                 }
@@ -50,13 +64,3 @@ $result = $orders->getOrders($keyword);
                     </table>
                     
                 </div>
-                
-            </div>
-            <div id="footer">
-                <p>Bản quyền thuộc <a href="https://github.com/tienvybui05/laptrinhwebuth" > Vợt cầu lông</a></p>
-            </div>
-        </div>
-    </div>
-<script src="../main.js"></script>
-</body>
-</html>

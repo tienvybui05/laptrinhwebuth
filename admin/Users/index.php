@@ -28,6 +28,8 @@ $result = $user->getPaginatedUserOfAdmin($currentPage, $soUser, $keyword, $role)
             <input name="keyword" placeholder="Nhập họ tên" type="text"
                 value="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
             <input type="hidden" name="sort" value="<?php echo htmlspecialchars($role); ?>">
+            <input type="hidden" name="pageAd" value="user">
+            <input type="hidden" name="crud" value="index">
             <button type="submit">
                 <p>Tìm kiếm</p>
             </button>

@@ -28,6 +28,8 @@ $reuslut = $product->getPaginatedProductsOfAdmin($currentPage, $soSanPham, $keyw
             <input name="keyword" placeholder="Nhập tên sản phẩm" type="text"
                 value="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
             <input type="hidden" name="sort" value="<?php echo htmlspecialchars($thuongHieu); ?>">
+            <input type="hidden" name="pageAd" value="product">
+            <input type="hidden" name="crud" value="index">
             <button type="submit">
                 <p>Tìm kiếm</p>
             </button>

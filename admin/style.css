@@ -767,6 +767,56 @@ align-items: center;
     background-color: rgb(43, 43, 54);
     color: white;
 }
+/*trang chi tiết đơn hàng*/
+.chi-tiet-don-hang .thong-tin-khach-hang {
+    margin: 10px 0; 
+}
+.chi-tiet-don-hang .thong-tin-khach-hang .noi-dung p{
+margin: 10px 0;
+}
+.chi-tiet-san-pham-don-hang .san-pham{
+    margin: 10px 0;
+    padding: 10px;
+    background-color: rgb(33, 34, 45);
+    width: 70%;
+}
+.chi-tiet-san-pham-don-hang .san-pham table{
+    width: 100%;
+}
+.chi-tiet-san-pham-don-hang .san-pham th{
+    border-bottom: 1px solid rgb(69, 69, 70);
+    padding: 10px;
+    
+}
+.chi-tiet-san-pham-don-hang .san-pham td{
+    color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid rgb(69, 69, 70);
+}
+.chi-tiet-san-pham-don-hang .san-pham td .hinh-anh{
+    width: 100px;
+    height: 120px;
+    border-radius: 10px;
+}
+.detail-orders-quay-ve{
+    margin: 10px 0;
+}
+.detail-orders-quay-ve button{
+    padding: 6px;
+    border-radius: 5px;
+    background-color: rgb(53, 230, 168);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: 10px auto;
+    
+}
+.chi-tiet-don-hang .tong-thanh-toan{
+    color:red;
+}
+.chi-tiet-don-hang .ghi-chu{
+    margin: 20px 0;
+}
 /*Hiển thị thông báo*/
 .toast-alert {
     position: fixed;

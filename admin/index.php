@@ -78,6 +78,10 @@ $hoTenAdmin = $_SESSION['hoTen_admin'];
                     {
                         include 'orders/index.php';
                     } 
+                    else if ($page == "orders" && $crud == "detail") 
+                    {
+                        include 'orders/detail.php';
+                    } 
                     else if ($page == "cart" && $crud == "index") 
                     {
                         include 'carts/index.php';
