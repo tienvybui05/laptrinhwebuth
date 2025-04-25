@@ -1,5 +1,8 @@
 <?php
-include_once __DIR__ . '/../auth/checkLogin.php';
+if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'product') {
+    header("Location: ../index.php?pageAd=product&crud=index");
+    exit();
+}
 $product = new product();
 $soSanPham = 5;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';

@@ -1,7 +1,6 @@
 <?php
 session_start();
 echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
-echo("<div class='cart-icon'><button>thu</button></div>");
 include '../admin/entities/product.php';
 $product = new product();
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
@@ -19,6 +18,7 @@ $result = $product->getProduct($keyword);
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./css/cart.css">
+    
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
         let userId = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
@@ -27,7 +27,9 @@ $result = $product->getProduct($keyword);
 
 <body class="">
     <div class="wrapper">
-
+<?php
+    include '../includes/header.php';
+?>
         <main class="main">
             <div class="container">
                 <section class="banner">
