@@ -1,7 +1,6 @@
 <?php 
-if (!isset($_GET['pageAd'])) {
-    header("Location: index.php");
-    exit();
+if (!defined('ALLOW_INCLUDE')) {
+    header("location: auth/accessDenied.php");
 }
 ?>
 <div id="header">
@@ -13,7 +12,6 @@ if (!isset($_GET['pageAd'])) {
         <p><?php echo ($hoTenAdmin); ?></p>
         <div class="login">
             <a href="auth/logout.php"><i class="ti-power-off"></i></a>
-            
         </div>
     </div>
 </div>
