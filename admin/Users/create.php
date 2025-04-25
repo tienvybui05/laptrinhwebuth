@@ -3,7 +3,6 @@ if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'user') {
     header("Location: ../index.php?pageAd=user&crud=create");
     exit();
 }
-include_once __DIR__ . '/../auth/checkLogin.php';
 $user = new user();
 $hoTen = $soDienThoai = "";
 $password = $username = "";
