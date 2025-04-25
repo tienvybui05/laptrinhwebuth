@@ -195,42 +195,21 @@ function test_input($data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Thông tin tài khoản</title>
+
 
     <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../public/css/cart.css">
 
 
 </head>
 
 <body>
     <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <!--Thanh menu  -->
-                <nav class="navbar">
-                    <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <ul id="main-menu">
-                        <li><a href="../public/index.html" class="active">Trang chủ</a></li>
-                        <li><a href="../pages/about.html" class="">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
-                    <!--Thanh tìm kiếm  -->
-                    <div class="search-bar">
-                        <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </div>
-                    <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
-                    </div>
-                </nav>
-            </div>
-        </header>
+        <?php
+        include '../includes/header.php';
+        ?>
         <main class="main">
             <div class="main-account">
                 <div class="main-account-header">
@@ -320,8 +299,30 @@ function test_input($data) {
             </div>
         </footer>
     </div>
-<script src="../public/js/main.js"></script>
-<script src="../public/js/info.js"> </script>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
+    </div>
+    <script src="../public/js/main.js"></script>
+    <script src="../public/js/cart.js"></script>
 </body>
 
 </html>

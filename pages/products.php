@@ -1,4 +1,10 @@
 <?php
+session_start();
+echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
+
+?>
+<?php
+
 include '../admin/entities/product.php';
 $product = new product();
 
@@ -66,6 +72,7 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
+    <link rel="stylesheet" href="../public/css/cart.css">
  
 </head>
 
@@ -345,39 +352,34 @@ if (!empty($result)) {
                 </div>
             </div>
         </main>
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-left">
-                    <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <h3>Thông tin liên hệ</h3>
-                    <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-                    <p>Email: info@example.com</p>
-                    <p>Hotline: 0123.456.789</p>
+        </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
                 </div>
-                <div class="footer-center">
-                    <h3>Liên kết nhanh</h3>
-                    <ul>
-                        <li><a href="../public/index.html">Trang chủ</a></li>
-                        <li><a href="./about.html">Giới thiệu</a></li>
-                        <li><a href="./products.php">Sản phẩm</a></li>
-                        <li><a href="./news.html">Tin tức</a></li>
-                        <li><a href="./contact.html">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-right">
-                    <h3>Theo dõi chúng tôi</h3>
-                    <ul>
-                        <li><a href="#"><i class="ti-facebook"></i>Facebook</a></li>
-                        <li><a href="#"><i class="ti-twitter"></i>Twitter</a></li>
-                        <li><a href="#"><i class="ti-instagram"></i>Instagram</a></li>
-                        <li><a href="#"><i class="ti-linkedin"></i>Linkedin</a></li>
-                    </ul>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
                 </div>
             </div>
-        </footer>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
     </div>
+    <?php
+    include '../includes/footer.php';
+    ?>
+    <script src="../public/js/main.js"></script>
+    <script src="../public/js/cart.js"></script>
     <script src="../public/js/products.js"></script>
     
     <?php
@@ -410,6 +412,31 @@ if (!empty($result)) {
         return 'products.php?' . http_build_query($params);
     }
     ?>
+        <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
+    </div>
+
+<script src="../public/js/main.js"></script>
+<script src="../public/js/cart.js"></script>
 </body>
 
 </html>
