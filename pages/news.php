@@ -53,7 +53,6 @@ if (!empty($keyword)) {
                                         <h2><a href="news-detail.php?id=<?php echo $row['idTinTuc']; ?>"><?php echo $row['tieuDe']; ?></a></h2>
                                         <div class="news-meta">
                                             <span class="news-author"><i class="ti-user"></i> <?php echo $row['tacGia']; ?></span>
-                                            <span class="news-date"><i class="ti-calendar"></i> <?php echo date('d/m/Y', strtotime($row['ngayDang'])); ?></span>
                                         </div>
                                         <p class="news-description"><?php echo $row['moTa']; ?></p>
                                         <a href="news-detail.php?id=<?php echo $row['idTinTuc']; ?>" class="read-more">Đọc tiếp <i class="ti-arrow-right"></i></a>

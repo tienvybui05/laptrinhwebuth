@@ -458,7 +458,7 @@ $latestNews = $news->getAllNews(3);
                         </div>
                         <!-- Nút Xem thêm - Cập nhật đường dẫn đến trang tin tức -->
                         <div class="tin-tuc-view-more">
-                            <a href="news.php" class="btn-view-more">Xem thêm</a>
+                            <a href="../pages/news.php" class="btn-view-more">Xem thêm</a>
                         </div>
                     </div>
                 </section>
