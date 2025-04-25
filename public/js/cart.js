@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     // an gio hang
     let iconcart = document.querySelector(".cart-icon");
     let closesidecart = document.querySelector(".close_cart-side");
@@ -37,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }})
     })    
-    loadCart();
 
     const viewCartBtn = document.querySelector('.view-cart-btn');
     viewCartBtn.addEventListener('click', function () {
@@ -73,6 +71,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    if (userId) {
+        fetchCartFromDB(userId);
+    } else {
+        loadCart();             
+    }
 });
 
 
@@ -82,48 +85,79 @@ document.addEventListener("DOMContentLoaded", function() {
 function addToCart(id, img, name, price, quantity) {
     var cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProduct = cart.find(item => item.id === id);
+    console.log(userId);
     
-    if (existingProduct) {
-        // Tăng số lượng trong localStorage
-        existingProduct.quantity += 1;
+    if(!userId){
+        if (existingProduct) {
+            // Tăng số lượng trong localStorage
+            existingProduct.quantity += 1;
 
-        // Cập nhật UI: tìm phần tử hiển thị quantity và cập nhật lại
-        const allItems = document.querySelectorAll(".detail_cart-side");
-        allItems.forEach(item => {
-            const itemName = item.querySelector(".item-name").innerText;
-            if (itemName === name.toUpperCase()) {
-                item.querySelector(".quantity").innerText = existingProduct.quantity;
-            }
-        });
+            // Cập nhật UI: tìm phần tử hiển thị quantity và cập nhật lại
+            const allItems = document.querySelectorAll(".detail_cart-side");
+            allItems.forEach(item => {
+                const itemName = item.querySelector(".item-name").innerText;
+                if (itemName === name.toUpperCase()) {
+                    item.querySelector(".quantity").innerText = existingProduct.quantity;
+                }
+            });
 
-        total();
-    } else {
-        cart.push({
-            id: id,
-            image: img,
-            name: name,
-            price: price,
-            quantity: quantity
-        });
+            total();
+        } else {
+            cart.push({
+                id: id,
+                image: img,
+                name: name,
+                price: price,
+                quantity: quantity
+            });
 
-        var productElement = document.createElement("div");
-        productElement.className = "detail_cart-side";
-        productElement.innerHTML = `
-            <img src="${img}" alt="${name}" class="product-image">
-            <div class="item-info">
-                <div class="item-name">${name.toUpperCase()}</div>
-                <div class="item-quantity">
-                    <span class="quantity" style="color: red;">${quantity}</span> × <span class="price">${price}</span>
+            var productElement = document.createElement("div");
+            productElement.className = "detail_cart-side";
+            productElement.innerHTML = `
+                <img src="${img}" alt="${name}" class="product-image">
+                <div class="item-info">
+                    <div class="item-name">${name.toUpperCase()}</div>
+                    <div class="item-quantity">
+                        <span class="quantity" style="color: red;">${quantity}</span> × <span class="price">${price}</span>
+                    </div>
                 </div>
-            </div>
-        `;
-        
-        document.querySelector(".detail-side").appendChild(productElement);
-        total();
-    }
+            `;
+            
+            document.querySelector(".detail-side").appendChild(productElement);
+            total();
+        }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Đã thêm vào giỏ hàng!");
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Đã thêm vào giỏ hàng!");
+    }
+    else{
+        
+            // Đã đăng nhập → gọi API lưu vào DB
+            const product = { id, image: img, name, price, quantity };
+
+            fetch("../admin/carts/save-cart.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idUser: userId,
+                    cart: [product] // gửi 1 sản phẩm đơn
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Đã thêm vào giỏ hàng (server)!");
+                    fetchCartFromDB(userId); // Gọi lại giỏ hàng từ DB và render
+                } else {
+                    alert("Thêm vào giỏ hàng thất bại!");
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi gửi giỏ hàng:", err);
+            });
+    }
 }
 
 function loadCart(){
@@ -166,4 +200,42 @@ function total() {
     }
     var cartTotalA = document.querySelector(".total-cart-side .productTotal .total-amount")
     cartTotalA.innerHTML = totalD;
+}
+
+function renderCart(cart) {
+    const sidebarCart = document.querySelector(".detail-side");
+    sidebarCart.innerHTML = "";
+
+    cart.forEach((product, index) => {
+        const sidebarItem = `
+            <div class="detail_cart-side" data-index="${index}">
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="item-info">
+                    <div class="item-name">${product.name.toUpperCase()}</div>
+                    <div class="item-quantity">
+                        <span class="quantity" style="color: red;">${product.quantity}</span> × <span class="price">${product.price}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        sidebarCart.insertAdjacentHTML("beforeend", sidebarItem);
+    });
+
+    total();
+}
+
+function fetchCartFromDB(idUser) {
+    fetch(`../includes/cart/load_side-cart.php`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("🛒 Dữ liệu fetch từ DB:", data);
+            if (data.success) {
+                renderCart(data.cart); // ✅ render ra side-cart
+            } else {
+                console.error("Không có dữ liệu giỏ hàng", data.message);
+            }
+        })
+        .catch(err => {
+            console.error("Lỗi khi fetch cart từ DB:", err);
+        });
 }

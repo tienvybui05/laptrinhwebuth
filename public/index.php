@@ -523,6 +523,7 @@ $latestNews = $news->getAllNews(3);
     ?>
     <script src="../public/js/main.js"></script>
     <script src="../public/js/cart.js"></script>
+    <script src="../public/js/jquery-3.7.1.min.js"></script>
     <!-- <script src="../public/js/side-cart.js"></script> -->
 </body>
 </html>

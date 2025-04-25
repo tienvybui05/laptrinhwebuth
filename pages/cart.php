@@ -88,7 +88,7 @@ $result = $cart->getCartByUser($idUser);
                         <h3 class="summary-title">Tóm tắt đơn hàng</h3>
                         <div class="summary-row summary-total">
                             <div><span>Tổng cộng:</span></div>
-                            <div class="total-sum"><span class="total-amount">5.340.000đ</span></div>
+                            <div class="total-sum"><span class="total-amount">0đ</span></div>
                         </div>
                         <button class="checkout-btn">THANH TOÁN</button>
                     </div>

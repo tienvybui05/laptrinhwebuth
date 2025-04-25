@@ -40,11 +40,15 @@ foreach ($data['cart'] as $item) {
 
     if ($existingItem) {
         if ($soLuong > 0) {
+            $soLuong += (int)$existingItem['soLuong']; 
+            $thanhTien = $soLuong * $donGia;
             $cart->updateCart($idUser, $idProduct, $soLuong, $thanhTien);
         } else {
             $cart->deleteCartItem($idUser, $idProduct);
         }
-    } else {
+    }
+    
+    else {
         if ($soLuong > 0) {
             $cart->addToCart($idUser, $idProduct, $soLuong, $thanhTien);
         }
