@@ -2,9 +2,15 @@
 session_start();
 echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
 include '../admin/entities/product.php';
+include '../admin/entities/news.php'; // Thêm dòng này để import class news
+
 $product = new product();
+$news = new news(); // Khởi tạo đối tượng news
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 $result = $product->getProduct($keyword);
+
+// Lấy 3 tin tức mới nhất cho phần tin tức ở trang chủ
+$latestNews = $news->getAllNews(3);
 ?>
 
 
@@ -420,31 +426,39 @@ $result = $product->getProduct($keyword);
                     <div class="container">
                         <h2>TIN TỨC</h2>
                         <div class="tin-tuc-list">
-                            <div class="tin-tuc-item">
-                                <img src="./images/tin-tuc.jpg" alt="Tin tức 1">
-                                <h3>Tiêu đề bài viết 1</h3>
-                                <p>Mô tả ngắn gọn về bài viết 1. Đây là nội dung giới thiệu ngắn để thu hút người đọc.
-                                </p>
-                                <a href="#" class="btn-read-more">Đọc thêm</a>
-                            </div>
-                            <div class="tin-tuc-item">
-                                <img src="./images/tin-tuc.jpg" alt="Tin tức 2">
-                                <h3>Tiêu đề bài viết 2</h3>
-                                <p>Mô tả ngắn gọn về bài viết 2. Đây là nội dung giới thiệu ngắn để thu hút người đọc.
-                                </p>
-                                <a href="#" class="btn-read-more">Đọc thêm</a>
-                            </div>
-                            <div class="tin-tuc-item">
-                                <img src="./images/tin-tuc.jpg" alt="Tin tức 3">
-                                <h3>Tiêu đề bài viết 3</h3>
-                                <p>Mô tả ngắn gọn về bài viết 3. Đây là nội dung giới thiệu ngắn để thu hút người đọc.
-                                </p>
-                                <a href="#" class="btn-read-more">Đọc thêm</a>
-                            </div>
+                            <?php if ($latestNews && $latestNews->num_rows > 0): ?>
+                                <?php while ($row = $latestNews->fetch_assoc()): ?>
+                                    <div class="tin-tuc-item">
+                                        <img src="../public/images/news/<?php echo $row['hinhAnh']; ?>" alt="<?php echo $row['tieuDe']; ?>">
+                                        <h3><?php echo $row['tieuDe']; ?></h3>
+                                        <p><?php echo substr($row['moTa'], 0, 150); ?>...</p>
+                                        <a href="../pages/news-detail.php?id=<?php echo $row['idTinTuc']; ?>" class="btn-read-more">Đọc thêm</a>
+                                    </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <div class="tin-tuc-item">
+                                    <img src="./images/tin-tuc.jpg" alt="Tin tức 1">
+                                    <h3>Tiêu đề bài viết 1</h3>
+                                    <p>Mô tả ngắn gọn về bài viết 1. Đây là nội dung giới thiệu ngắn để thu hút người đọc.</p>
+                                    <a href="#" class="btn-read-more">Đọc thêm</a>
+                                </div>
+                                <div class="tin-tuc-item">
+                                    <img src="./images/tin-tuc.jpg" alt="Tin tức 2">
+                                    <h3>Tiêu đề bài viết 2</h3>
+                                    <p>Mô tả ngắn gọn về bài viết 2. Đây là nội dung giới thiệu ngắn để thu hút người đọc.</p>
+                                    <a href="#" class="btn-read-more">Đọc thêm</a>
+                                </div>
+                                <div class="tin-tuc-item">
+                                    <img src="./images/tin-tuc.jpg" alt="Tin tức 3">
+                                    <h3>Tiêu đề bài viết 3</h3>
+                                    <p>Mô tả ngắn gọn về bài viết 3. Đây là nội dung giới thiệu ngắn để thu hút người đọc.</p>
+                                    <a href="#" class="btn-read-more">Đọc thêm</a>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <!-- Nút Xem thêm -->
+                        <!-- Nút Xem thêm - Cập nhật đường dẫn đến trang tin tức -->
                         <div class="tin-tuc-view-more">
-                            <a href="./tin-tuc.html" class="btn-view-more">Xem thêm</a>
+                            <a href="news.php" class="btn-view-more">Xem thêm</a>
                         </div>
                     </div>
                 </section>
