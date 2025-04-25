@@ -82,7 +82,7 @@ $result = $cart->getCartByUser($idUser);
                                     while($row = $result->fetch_assoc()){ 
                                         $listImage = explode(',', $row['hinhAnh']);
                             ?>
-                                <tr class="san-pham-items">
+                                <tr class="san-pham-items" data-id="<?php echo $row['idProduct']; ?>">
                                     <td><input type="checkbox" class="product-checkbox" name="chon" value=""></td>     
                                     <td>
                                         <div class="product-item">

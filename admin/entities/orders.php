@@ -14,6 +14,15 @@ class orders{
              WHERE user.hoTen LIKE '%$keyword%'";
              return $this->data->select($sql);
     }
+
+
+    // Thêm sản phẩm vào giỏ hàng
+    public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) {
+    $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien, ngayDatHang) 
+            VALUES ('$idUser', '$idProduct', '$soLuong', '$thanhTien', NOW())";
+    return $this->data->insert($sql);
+}
+
     public function getOrdersFetch()
     {
         return $this->data->fetch();

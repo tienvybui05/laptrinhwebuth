@@ -149,7 +149,56 @@ document.addEventListener("DOMContentLoaded", function() {
             // Cập nhật tổng tiền
             updateTotal();
         });
-    });       
+    }); 
+
+    const checkboxes = document.querySelectorAll(".product-checkbox");
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            const row = checkbox.closest(".san-pham-items");
+
+            const id = row.getAttribute("data-id");
+            const img = row.querySelector("img").src;
+            const name = row.querySelector(".product-name").innerText;
+            const price = row.querySelector(".price").innerText;
+            const quantity = parseInt(row.querySelector(".quantity-input").value);
+
+            if (checkbox.checked) {
+                addToCartPhu(id, img, name, price, quantity);
+            } else {
+                removeFromCartPhu(id);
+            }
+        });
+    });
+
+    const viewCartBtn = document.querySelector('.checkout-btn');
+
+    viewCartBtn.addEventListener('click', function () {
+            let cart = JSON.parse(localStorage.getItem("cartphu")) || [];
+
+            fetch("../includes/cart/save_cartphu.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ cart: cart })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Đặt hàng thành công!");
+                    localStorage.removeItem("cartphu"); // xoá sau khi lưu
+                    window.location.href = "../pages/payment.php";
+                } else {
+                    alert("Lỗi khi đặt hàng: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi gửi cart:", error);
+            });
+    });
+
+
     // Hàm updateTotal xử lý DOM mà không cần reload hay gọi lại DB
     function updateTotal() {
         let newTotal = 0;
@@ -212,8 +261,37 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
 function calculateTotal(price, quantity) {
     const numericPrice = parseInt(price.replace(/\D/g, ""));
     const total = numericPrice * quantity;
     return `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`;
 }
+
+
+function addToCartPhu(id, img, name, price, quantity) {
+    let cartPhu = JSON.parse(localStorage.getItem("cartphu")) || [];
+
+    const existingProduct = cartPhu.find(item => item.id === id);
+
+    if (!existingProduct) {
+        cartPhu.push({
+            id: id,
+            image: img,
+            name: name,
+            price: price,
+            quantity: quantity
+        });
+        localStorage.setItem("cartphu", JSON.stringify(cartPhu));
+        console.log(`✅ Đã thêm ${name} vào cartphu`);
+    }
+}
+
+function removeFromCartPhu(id) {
+    let cartPhu = JSON.parse(localStorage.getItem("cartphu")) || [];
+
+    cartPhu = cartPhu.filter(item => item.id !== id);
+    localStorage.setItem("cartphu", JSON.stringify(cartPhu));
+    console.log(`❌ Đã xóa sản phẩm id ${id} khỏi cartphu`);
+}
+
