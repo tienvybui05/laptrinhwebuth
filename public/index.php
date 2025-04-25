@@ -507,13 +507,6 @@ $latestNews = $news->getAllNews(3);
                 </div>
             </div>
             <div class="detail-side">
-                <!-- <div class="detail_cart-side">
-                    <img src="../public/images/san-pham.jpg" alt="Vợt" class="product-image">
-                    <div class="item-info">
-                        <div class="item-name">VỢT CẦU LÔNG YONEX ARCSABER 0</div>
-                        <div class="item-quantity"><span style="color: red;">1</span> × 560.000đ</div>
-                    </div>
-                </div> -->
             </div>
             <div class="total-cart-side">
                 <div>TỔNG TIỀN:</div>
@@ -525,6 +518,9 @@ $latestNews = $news->getAllNews(3);
             </div>
         </div>
     </div>
+    <?php
+    include '../includes/footer.php';
+    ?>
     <script src="../public/js/main.js"></script>
     <script src="../public/js/cart.js"></script>
     <!-- <script src="../public/js/side-cart.js"></script> -->

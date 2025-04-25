@@ -1,3 +1,4 @@
+
 <header class="header">
     <div class="container">
         <!--Thanh menu  -->
@@ -9,7 +10,7 @@
                 <li><a href="../public/index.php" class="">Trang chủ</a></li>
                 <li><a href="../pages/about.php" class="">Giới thiệu</a></li>
                 <li><a href="../pages/products.php">Sản phẩm</a></li>
-                <li><a href="#">Tin tức</a></li>
+                <li><a href="../pages/contact.php">Tin tức</a></li>
                 <li><a href="../pages/contact.php">Liên hệ</a></li>
             </ul>
             <script>
@@ -42,7 +43,7 @@
                          if(isset($_SESSION['idUser']))
                          { ?>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="ti-user"></i> Thông tin người dùng</a></li>
+                        <li><a href="../auth/info.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
                         <li><a href="../auth/logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
                     </ul>
                     <?php }   
