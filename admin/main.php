@@ -9,33 +9,33 @@ if (!defined('ALLOW_INCLUDE')) {
             <p><i class="nav-arrow-down ti-user"></i></p>
             <p>Số lượng tài khoản</p>
             <p style="font-size: 30px;">10</p>
-            <button>
+            <!-- <button>
                 <a href="#">Tài khoản</a>
-            </button>
+            </button> -->
         </div>
         <div class="san-pham thong-tin">
             <p><i class="nav-arrow-down ti-gift"></i></p>
             <p>Số lượng sản phẩm</p>
             <p style="font-size: 30px;">10</p>
-            <button>
+            <!-- <button>
                 <a href="#">Sản phẩm</a>
-            </button>
+            </button> -->
         </div>
         <div class="don-hang thong-tin">
             <p><i class="nav-arrow-down ti-shopping-cart-full"></i></p>
             <p>Số lượng đơn hàng</p>
             <p style="font-size: 30px;">10</p>
-            <button>
+            <!-- <button>
                 <a href="#">Đơn hàng</a>
-            </button>
+            </button> -->
         </div>
         <div class="khach-hang thong-tin">
             <p><i class="nav-arrow-down ti-shopping-cart-full"></i></p>
             <p>Số lượng đơn hàng</p>
             <p style="font-size: 30px;">10</p>
-            <button>
+            <!-- <button>
                 <a href="#">Đơn hàng</a>
-            </button>
+            </button> -->
         </div>
         <div class="marquee-box">
             <marquee behavior="scroll" direction="left" scrollamount="6">

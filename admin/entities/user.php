@@ -103,6 +103,29 @@ class user{
       return false;
       
    }
-   
+  public function saveRememberToken($userId, $token, $expiresAt)
+  {
+   $sql ="INSERT INTO remember_tokens(user_id, token, expires_at) 
+          VALUES ('$userId','$token','$expiresAt') ";
+          return $this->data->insert($sql);
+  }
+  public function getUserByToken($token)
+  {
+  $sql = "SELECT user.idUser AS idUser , user.hoTen AS hoTen , user.vaiTro AS vaiTro FROM remember_tokens
+            JOIN user ON user.idUser = remember_tokens.user_id
+            WHERE remember_tokens.token = '$token' AND remember_tokens.expires_at > NOW() LIMIT 1"; 
+   $result = $this->data->select($sql);
+   if($this->data->numRows() === 1)
+   {
+    return  $this->data->fetch();
+   }
+   return false;
+   }
+   public function deleteToken($token)
+   {
+     $sql = "DELETE FROM remember_tokens WHERE token ='$token'";
+     
+     return $this->data->delete($sql);
+   }
 }
 ?>

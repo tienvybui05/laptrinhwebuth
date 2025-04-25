@@ -1,14 +1,25 @@
 <?php 
-
 session_start();
+include '../entities/user.php';
+$user = new user();
+if(isset($_COOKIE['remember_token'])&&!empty($_COOKIE['remember_token']))
+{
+    $token = $_COOKIE['remember_token'];
+    $result = $user->getUserByToken($token);
+    if($result && $result['vaiTro']==="admin")
+    {
+        $_SESSION['idUser_admin'] = $result['idUser'];
+        $_SESSION['hoTen_admin'] = $result['hoTen'];
+        
+        header("location:../index.php");
+        exit;
+    }
+}
 if(isset($_SESSION['idUser_admin']))
 {
     header("location:../index.php");
     exit;
 }
-include '../entities/user.php';
-$user = new user();
-
 $username = $password ="";
 $ErrAccount="";
 if(isset($_POST['login_admin']))
@@ -22,6 +33,13 @@ if(isset($_POST['login_admin']))
         {
             $_SESSION['idUser_admin'] =  $result[0];
             $_SESSION['hoTen_admin'] =$result[2];
+            if(isset($_POST['luudangnhap']))
+            {
+                $token = bin2hex(random_bytes(32));
+                $expiry = date("Y-m-d H:i:s", time() + (86400*7));
+                setcookie('remember_token', $token, time() + (7 * 24 * 60 * 60), "/", "", true, true);
+                $user->saveRememberToken($result[0], $token, $expiry);
+            }
                 header("location:../index.php");
                 exit;
         }
@@ -86,6 +104,15 @@ function test_input($data)
            border-radius: 5px;
            padding: 5px 10px;
         }
+        .form-login .luudangnhap{
+                width: 16px;
+                height: 16px;
+                
+                
+        }
+        .form-login label{
+            color: rgb(232, 232, 232);
+        }
         .form-login input:hover{
             background-color:rgb(23, 24, 33);
         }
@@ -119,9 +146,10 @@ function test_input($data)
         <form class="form-login" action="" method="post" >
             <input type="text" class="username" placeholder="Tên người dùng" name="username"><br/>
             <input type="password" class="password" placeholder="Mật khẩu" name="password"><br/>
-            <p class="message"><?php echo($ErrAccount); ?></p>
+            <input type="checkbox" class="luudangnhap" name="luudangnhap" value="luudangnhap">
+            <label for="luudangnhap">Lưu đăng nhập</label>
             <hr>
-            <!-- <button type="submit" name="login">Đăng nhập</button> -->
+            <p class="message"><?php echo($ErrAccount); ?></p>
             <input class="login" type="submit" name="login_admin" value="Đăng nhập"/>
         </form>
 
