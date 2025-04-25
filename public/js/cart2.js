@@ -73,13 +73,38 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
 
-    // check all 
-    document.querySelector("#chonhet").addEventListener("click",function() {
-            var status = this.checked;
-            document.querySelectorAll('.product-checkbox').forEach(function(checkbox) {
-                checkbox.checked = status; 
-            });
+    document.querySelector("#chonhet").addEventListener("click", function () {
+        const status = this.checked;
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        let cartPhu = [];
+    
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = status;
+    
+            const row = checkbox.closest(".san-pham-items");
+            const id = row.getAttribute("data-id");
+            const img = row.querySelector("img").src;
+            const name = row.querySelector(".product-name").innerText;
+            const price = row.querySelector(".price").innerText;
+            const quantity = parseInt(row.querySelector(".quantity-input").value);
+    
+            if (status) {
+                // Nếu chọn hết → lưu vào cartphu
+                cartPhu.push({ id, image: img, name, price, quantity });
+            }
+        });
+    
+        if (status) {
+            // Ghi lại toàn bộ cartphu
+            localStorage.setItem("cartphu", JSON.stringify(cartPhu));
+            console.log("✅ Đã chọn tất cả sản phẩm và lưu vào cartphu");
+        } else {
+            // Bỏ chọn hết → xoá cartphu
+            localStorage.removeItem("cartphu");
+            console.log("❌ Đã bỏ chọn tất cả, cartphu đã xoá");
+        }
     });
+        
     // an gio hang
     let iconcart = document.querySelector(".cart-icon");
     let closesidecart = document.querySelector(".close_cart-side");
@@ -168,8 +193,11 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 removeFromCartPhu(id);
             }
+            updateSelectAllCheckbox();
         });
     });
+
+    
 
     const viewCartBtn = document.querySelector('.checkout-btn');
 
@@ -295,3 +323,16 @@ function removeFromCartPhu(id) {
     console.log(`❌ Đã xóa sản phẩm id ${id} khỏi cartphu`);
 }
 
+
+function updateSelectAllCheckbox() {
+    const checkboxes = document.querySelectorAll(".product-checkbox");
+    const checked = document.querySelectorAll(".product-checkbox:checked");
+
+    const selectAllCheckbox = document.querySelector("#chonhet");
+
+    if (checked.length === checkboxes.length) {
+        selectAllCheckbox.checked = true;
+    } else {
+        selectAllCheckbox.checked = false;
+    }
+}
