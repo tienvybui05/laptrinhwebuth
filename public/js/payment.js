@@ -1,28 +1,56 @@
-document.addEventListener("DOMContentLoaded", function(){
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const productall = document.querySelector(".product-all");
-    
-    productall.innerHTML = "";
+document.addEventListener("DOMContentLoaded", () => {
+    // Xử lý hiển thị thông tin phương thức thanh toán
+    const paymentMethods = document.querySelectorAll('input[name="payment"]');
+    const codInfo = document.getElementById("cod-info");
+    const bankInfo = document.getElementById("bank-info");
 
-    // Thêm từng sản phẩm vào bảng chính và sidebar
-    cart.forEach((product, index) => {
+    // Ẩn cả hai thông tin thanh toán ban đầu
+    codInfo.classList.remove("active");
+    bankInfo.classList.remove("active");
 
-        // Thêm vào bảng chính
-        const row = `
-            <div class="product-summary" data-index="${index}">
-                <div class="product-info">
-                    <p class="product-name">${product.name}</p>
-                </div>
-                <div class="product-qty">x ${product.quantity}</div>
-                <div class="product-price">${calculateTotal(product.price, product.quantity)}</div>
-            </div>
-        `;
-        productall.insertAdjacentHTML("beforeend", row);
+    paymentMethods.forEach((method) => {
+        method.addEventListener("change", function () {
+            if (this.value === "COD") {
+                codInfo.classList.add("active");
+                bankInfo.classList.remove("active");
+            } else if (this.value === "BANK") {
+                bankInfo.classList.add("active");
+                codInfo.classList.remove("active");
+            }
+        });
+    });
+
+    // Xử lý form thanh toán
+    const checkoutForm = document.querySelector("form");
+
+    checkoutForm.addEventListener("submit", (e) => {
+        // Kiểm tra xem có sản phẩm trong giỏ hàng không
+        const productSummaries = document.querySelectorAll(".product-summary");
+        if (
+            productSummaries.length === 0 ||
+            (productSummaries.length === 1 && productSummaries[0].querySelector(".product-qty").textContent === "x 0")
+        ) {
+            e.preventDefault();
+            alert("Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.");
+            return;
+        }
+
+        // Kiểm tra các trường bắt buộc
+        const requiredFields = checkoutForm.querySelectorAll("[required]");
+        let isValid = true;
+
+        requiredFields.forEach((field) => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.style.borderColor = "red";
+            } else {
+                field.style.borderColor = "#ddd";
+            }
+        });
+
+        if (!isValid) {
+            e.preventDefault();
+            alert("Vui lòng điền đầy đủ thông tin giao hàng.");
+        }
     });
 });
-
-function calculateTotal(price, quantity) {
-    const numericPrice = parseInt(price.replace(/\D/g, ""));
-    const total = numericPrice * quantity;
-    return `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`;
-}

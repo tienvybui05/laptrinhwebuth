@@ -1,12 +1,77 @@
+<?php
+session_start();
+include_once '../admin/entities/cart-customer.php';
+include_once '../admin/entities/product.php';
+include_once '../admin/entities/orders.php';
+
+// Kiểm tra đăng nhập
+if (!isset($_SESSION['idUser'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$idUser = $_SESSION['idUser'];
+$cart = new cart_customer();
+$product = new product();
+$orders = new orders();
+
+// Lấy thông tin giỏ hàng
+$result = $cart->getCartByUser($idUser);
+
+// Tính tổng tiền
+$totalAmount = 0;
+$cartItems = [];
+
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $totalAmount += $row['thanhTien'];
+        $cartItems[] = $row;
+    }
+}
+
+// Xử lý khi form được gửi đi
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $hoTen = $_POST['ten'];
+    $soDienThoai = $_POST['dienthoai'];
+    $diaChi = $_POST['diachi'];
+    $ghiChu = $_POST['noidung'];
+    $phuongThuc = $_POST['payment'];
+    
+    // Chuẩn bị dữ liệu sản phẩm
+    $products = [];
+    foreach ($cartItems as $item) {
+        $products[] = [
+            'idProduct' => $item['idProduct'],
+            'soLuong' => $item['soLuong'],
+            'thanhTien' => $item['thanhTien']
+        ];
+    }
+    
+    // Tạo đơn hàng
+    $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
+    
+    if ($orderCode) {
+        // Xóa giỏ hàng sau khi đặt hàng thành công
+        $cart->clearCart($idUser);
+        
+        // Chuyển hướng đến trang đặt hàng thành công
+        header("Location: order-success.php?code=$orderCode");
+        exit();
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <style>
         .main-payment {
@@ -78,14 +143,12 @@
             width: 32%;
         }
 
-
-
         /* phuong thuc thanh toan */
         .payment-method {
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             background-color: white;
-            
+            margin-bottom: 20px;
         }
         .payment-status{
             padding: 20px;
@@ -102,11 +165,6 @@
             display: block;
             cursor: pointer;
         }
-
-
-
-
-
 
         /* Phần sản phẩm trong đơn hàng */
         .payment-item {
@@ -136,8 +194,6 @@
             cursor: pointer;
         }
 
-
-
         .slidebarpayment h2 {
             font-size: 20px;
             margin-bottom: 20px;
@@ -145,32 +201,6 @@
             font-weight: 600;
             padding-bottom: 10px;
             border-bottom: 1px solid #e0e0e0;
-        }
-
-        
-
-        
-
-        
-        .form-sale{
-            width: 80%;
-            padding: 15px;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-        }
-        .coupon-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .apply-coupon {
-            color: #e74c3c;
-            font-weight: 500;
-            font-size: 14px;
         }
 
         .price-summary {
@@ -216,15 +246,13 @@
             color: rgb(255, 255, 255);
         }
 
-        /* Header đơn hàng lllllllllllll*/
+        /* Header đơn hàng */
         .product-name {
             font-size: 15px;
             color: #333;
             margin-bottom: 5px;
             line-height: 1.4;
         }
-
-
 
         .product-price {
             font-weight: 500;
@@ -274,7 +302,14 @@
             text-align: center;
             color: #666;
         }
-
+        
+        .payment-info {
+            display: none;
+        }
+        
+        .payment-info.active {
+            display: block;
+        }
     </style>
 </head>
 
@@ -284,24 +319,31 @@
             <div class="container">
                 <!--Thanh menu  -->
                 <nav class="navbar">
-                    <a href="#" id="logo">
+                    <a href="../public/index.php" id="logo">
                         <img src="../public/images/logo.png" alt="logo">
                     </a>
                     <ul id="main-menu">
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="../public/index.php">Trang chủ</a></li>
+                        <li><a href="about.php">Giới thiệu</a></li>
+                        <li><a href="products.php">Sản phẩm</a></li>
+                        <li><a href="news.php">Tin tức</a></li>
+                        <li><a href="contact.php">Liên hệ</a></li>
                     </ul>
                     <!--Thanh tìm kiếm  -->
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="fas fa-search"></i></button>
+                        <button type="submit"><i class="ti-search"></i></button>
                     </div>
                     <div class="right-icons">
-                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                        <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
+                        <a href="cart.php" class="cart-icon"><i class="ti-shopping-cart"></i></a>
+                        <div class="user-menu">
+                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
+                                <li><a href="order-history.php"><i class="ti-package"></i> Đơn hàng của tôi</a></li>
+                                <li><a href="logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -311,10 +353,10 @@
                 <div class="leftpayment">
                     <h1>Thông tin giao hàng</h1>
                     <div class="signup-link">
-                        Bạn đã có tài khoản? <a href="./register.html">Đăng ký</a>
+                        Bạn đã có tài khoản? <a href="login.php">Đăng nhập</a>
                     </div>
                     <hr>
-                    <form>
+                    <form method="POST" action="">
                         <div class="row">
                             <div id="hang1">
                                 <div id="formhoten">
@@ -325,48 +367,46 @@
                                 </div>
                             </div>
                             <div class="form2">
-                                <input placeholder="Email" type="email" class="form-control" name="email" required>
-                            </div>
-                            <div class="form2">
                                 <input placeholder="Địa chỉ" type="text" class="form-control" name="diachi" required>
                             </div>
                             <div class="form2">
-                                <textarea placeholder="Ghi chú" class="form-control" name="noidung" rows="5" required></textarea>
+                                <textarea placeholder="Ghi chú" class="form-control" name="noidung" rows="5"></textarea>
                             </div>
                         </div>
-                    </form>
-                    <h3>Phương thức thanh toán</h3>
-                    <div class="payment-method">                 
-                        <div class="method-option">
-                            <label>
-                                <div class="payment-status">
-                                    <input type="radio" name="payment" value="cod" checked>
-                                    <strong>Thanh toán khi giao hàng (COD)</strong>
-                                </div>
-                                <div class="option-content">                               
+                    
+                        <h3>Phương thức thanh toán</h3>
+                        <div class="payment-method">                 
+                            <div class="method-option">
+                                <label>
+                                    <div class="payment-status">
+                                        <input type="radio" name="payment" value="COD">
+                                        <strong>Thanh toán khi giao hàng (COD)</strong>
+                                    </div>
+                                    <div class="option-content payment-info" id="cod-info">                               
                                         Tất cả đơn hàng được kiểm tra trước khi thanh toán<br>
-                                        • Thời gian nhận hàng nội thành Hà Nội: 1h-24h<br>
+                                        • Thời gian nhận hàng nội thành: 1h-24h<br>
                                         • Ngoại thành & tỉnh khác: 2-3 ngày<br>
                                         <em>Nếu không hài lòng, chỉ trả phí vận chuyển 45,000đ</em>
-                                </div>
-                            </label>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="method-option">
+                                <label>
+                                    <div class="payment-status">
+                                        <input type="radio" name="payment" value="BANK">
+                                        <strong>Chuyển khoản ngân hàng</strong>
+                                    </div>
+                                    <div class="option-content payment-info" id="bank-info">
+                                        Liên hệ hotline trước khi chuyển khoản : 0971.415.565</br>
+                                        Số Tài Khoản : 019704060152822</br>
+                                        Ngân hàng Quốc Tế VIB</br>
+                                        Chủ tài khoản : ĐÀO VĂN CÔNG</em>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
-                        
-                        <div class="method-option">
-                            <label>
-                                <div class="payment-status">
-                                    <input type="radio" name="payment" value="bank">
-                                    <strong>Chuyển khoản ngân hàng</strong>
-                                </div>
-                                <div class="option-content">
-                                    Liên hệ hotline trước khi chuyển khoản : 0971.415.565</br>
-                                    Số Tài Khoản : 019704060152822</br>
-                                    Ngân hàng Quốc Tế VIB</br>
-                                    Chủ tài khoản : ĐÀO VĂN CÔNG</em>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="slidebarpayment">
@@ -380,50 +420,37 @@
                 </div>
                 <hr>
                 <div class="product-all">
-                    <!-- Sản phẩm 1 -->
-                    <div class="product-summary">
-                        <div class="product-info">
-                            <p class="product-name">Vợt yonex 100zz navy</p>
+                    <?php if (!empty($cartItems)): ?>
+                        <?php foreach ($cartItems as $item): ?>
+                            <?php $listImage = explode(',', $item['hinhAnh']); ?>
+                            <div class="product-summary">
+                                <div class="product-info">
+                                    <p class="product-name"><?php echo $item['tenSanPham']; ?></p>
+                                </div>
+                                <div class="product-qty">x <?php echo $item['soLuong']; ?></div>
+                                <div class="product-price"><?php echo number_format($item['thanhTien'], 0, ',', '.'); ?>đ</div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="product-summary">
+                            <div class="product-info">
+                                <p class="product-name">Không có sản phẩm trong giỏ hàng</p>
+                            </div>
+                            <div class="product-qty">x 0</div>
+                            <div class="product-price">0đ</div>
                         </div>
-                        <div class="product-qty">x 2</div>
-                        <div class="product-price">1,300,000₫</div>
-                    </div>
-                    
-                    <!-- Sản phẩm 2 -->
-                    <div class="product-summary">
-                        <div class="product-info">
-                            <p class="product-name">Vợt 2</p>
-                        </div>
-                        <div class="product-qty">x 1</div>
-                        <div class="product-price">4,800,000₫</div>
-                    </div>
-                </div>
-                <hr>
-                <div class="coupon-section">
-                    <div class="coupon-header">
-                        <input placeholder="Mã giảm giá" type="text" class="form-sale" name="sale">
-                        <a href="#" class="apply-coupon">Sử dụng</a>
-                    </div>
+                    <?php endif; ?>
                 </div>
                 <hr>
                 <div class="price-summary">
-                    <div class="price-row">
-                        <span>Tạm tính</span>
-                        <span>5,721,927₫</span>
-                    </div>
-                    <div class="price-row">
-                        <span>Phí vận chuyển</span>
-                        <span>35,000₫</span>
-                    </div>
-                    <hr>
                     <div class="total-row">
                         <strong>Tổng cộng</strong>
-                        <strong class="total-amount">5,756,927₫</strong>
+                        <strong class="total-amount"><?php echo number_format($totalAmount ); ?>đ</strong>
                     </div>
                 </div>
                 
-                <button class="checkout-btn">Đặt hàng</button>
-
+                <button type="submit" class="checkout-btn">Đặt hàng</button>
+                </form>
             </div>
         </main>
         <footer class="footer">
@@ -434,32 +461,30 @@
                     </a>
                     <h3>Thông tin liên hệ</h3>
                     <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-                    <p>Email:
+                    <p>Email: info@example.com</p>
                 </div>
                 <div class="footer-center">
                     <h3>Liên kết nhanh</h3>
                     <ul>
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="../public/index.php">Trang chủ</a></li>
+                        <li><a href="about.php">Giới thiệu</a></li>
+                        <li><a href="products.php">Sản phẩm</a></li>
+                        <li><a href="news.php">Tin tức</a></li>
+                        <li><a href="contact.php">Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="footer-right">
                     <h3>Theo dõi chúng tôi</h3>
                     <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i>Facebook</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i>Twitter</a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i>Instagram</a></li>
-                        <li><a href="#"><i class="fab fa-linkedin"></i>Linkedin</a></li>
+                        <li><a href="#"><i class="ti-facebook"></i>Facebook</a></li>
+                        <li><a href="#"><i class="ti-twitter"></i>Twitter</a></li>
+                        <li><a href="#"><i class="ti-instagram"></i>Instagram</a></li>
+                        <li><a href="#"><i class="ti-linkedin"></i>Linkedin</a></li>
                     </ul>
                 </div>
             </div>
         </footer>
     </div>
     <script src="../public/js/payment.js"></script>
-
 </body>
-
 </html>
