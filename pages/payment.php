@@ -6,7 +6,7 @@ include_once '../admin/entities/orders.php';
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['idUser'])) {
-    header('Location: login.php');
+    header('Location: ../auth/login.php');
     exit();
 }
 
@@ -70,9 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/cart.css">
     <style>
         .main-payment {
             width: auto;
@@ -315,39 +316,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <!--Thanh menu  -->
-                <nav class="navbar">
-                    <a href="../public/index.php" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <ul id="main-menu">
-                        <li><a href="../public/index.php">Trang chủ</a></li>
-                        <li><a href="about.php">Giới thiệu</a></li>
-                        <li><a href="products.php">Sản phẩm</a></li>
-                        <li><a href="news.php">Tin tức</a></li>
-                        <li><a href="contact.php">Liên hệ</a></li>
-                    </ul>
-                    <!--Thanh tìm kiếm  -->
-                    <div class="search-bar">
-                        <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="ti-search"></i></button>
-                    </div>
-                    <div class="right-icons">
-                        <a href="cart.php" class="cart-icon"><i class="ti-shopping-cart"></i></a>
-                        <div class="user-menu">
-                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="profile.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
-                                <li><a href="order-history.php"><i class="ti-package"></i> Đơn hàng của tôi</a></li>
-                                <li><a href="logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
+    <?php
+    include '../includes/header.php';
+?>
         <main class="main-payment">
             <div class="main-leftpayment">
                 <div class="leftpayment">
@@ -453,38 +424,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
             </div>
         </main>
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-left">
-                    <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <h3>Thông tin liên hệ</h3>
-                    <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-                    <p>Email: info@example.com</p>
+        <?php
+    include '../includes/footer.php';
+    ?>
+    </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
                 </div>
-                <div class="footer-center">
-                    <h3>Liên kết nhanh</h3>
-                    <ul>
-                        <li><a href="../public/index.php">Trang chủ</a></li>
-                        <li><a href="about.php">Giới thiệu</a></li>
-                        <li><a href="products.php">Sản phẩm</a></li>
-                        <li><a href="news.php">Tin tức</a></li>
-                        <li><a href="contact.php">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-right">
-                    <h3>Theo dõi chúng tôi</h3>
-                    <ul>
-                        <li><a href="#"><i class="ti-facebook"></i>Facebook</a></li>
-                        <li><a href="#"><i class="ti-twitter"></i>Twitter</a></li>
-                        <li><a href="#"><i class="ti-instagram"></i>Instagram</a></li>
-                        <li><a href="#"><i class="ti-linkedin"></i>Linkedin</a></li>
-                    </ul>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
                 </div>
             </div>
-        </footer>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
     </div>
+    <script src="../public/js/main.js"></script>
+    <script src="../public/js/cart.js"></script>
     <script src="../public/js/payment.js"></script>
 </body>
 </html>
