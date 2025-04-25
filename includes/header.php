@@ -2,15 +2,15 @@
     <div class="container">
         <!--Thanh menu  -->
         <nav class="navbar">
-            <a href="#" id="logo">
-                <img src="./images/logo.png" alt="logo">
+            <a href="../public/index.php" id="logo">
+                <img src="../public/images/logo.png" alt="logo">
             </a>
             <ul id="main-menu">
-                <li><a href="../public/index.html" class="">Trang chủ</a></li>
-                <li><a href="../pages/about.html" class="">Giới thiệu</a></li>
-                <li><a href="../pages/products.html">Sản phẩm</a></li>
+                <li><a href="../public/index.php" class="">Trang chủ</a></li>
+                <li><a href="../pages/about.php" class="">Giới thiệu</a></li>
+                <li><a href="../pages/products.php">Sản phẩm</a></li>
                 <li><a href="#">Tin tức</a></li>
-                <li><a href="../pages/contact.html">Liên hệ</a></li>
+                <li><a href="../pages/contact.php">Liên hệ</a></li>
             </ul>
             <script>
                 // Lấy tên trang hiện tại (VD: index.html, about.html)

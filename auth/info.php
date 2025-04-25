@@ -16,7 +16,9 @@ $password = $row['password'];
 $username = $row['username'];
 $msgInformation="";
 $msgPassword ="";
+
 if (isset($_POST['information'])) {
+    // Xử lý cập nhật thông tin
     if (!empty($_POST['infoname'])) {
         $hoTen = test_input($_POST['infoname']);
     } else {
@@ -35,34 +37,41 @@ if (isset($_POST['information'])) {
         $diaChi = ''; // Hoặc giá trị mặc định
     }
 
+    // Không thay đổi mật khẩu khi cập nhật thông tin
     $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $password, $diaChi, "customer");
-    
+
     if ($result) {
         $msgInformation = 'Cập nhật thông tin thành công!';
+    } else {
+        $msgInformation = 'Cập nhật thông tin thất bại!';
     }
 }
 
-// Xử lý cập nhật mật khẩu
 if (isset($_POST['savePassword'])) {
-    $passwordOld = test_input($_POST['passwordOld']); 
+    // Xử lý cập nhật mật khẩu
+    $passwordOld = test_input($_POST['passwordOld']);
     $result = $user->isAccount($username, $passwordOld); // Kiểm tra mật khẩu cũ
-    
+
     if ($result === false) {
         $msgPassword = "Nhập sai mật khẩu!";
     } else {
         $passwordNew = test_input($_POST['passwordNew']);
-        
+
         // Mã hóa mật khẩu mới trước khi lưu
         $passwordNewHash = password_hash($passwordNew, PASSWORD_DEFAULT);
-        
+
         // Chỉ cập nhật mật khẩu mới
         $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $passwordNewHash, $diaChi, "customer");
-        
+
         if ($result) {
             $msgPassword = 'Cập nhật mật khẩu thành công!';
+        } else {
+            $msgPassword = 'Cập nhật mật khẩu thất bại!';
         }
     }
 }
+
+
 
 // Hàm xử lý đầu vào
 function test_input($data) {

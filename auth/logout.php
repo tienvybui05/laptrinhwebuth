@@ -19,7 +19,7 @@ if (isset($_SESSION['idUser'])) {
         sessionStorage.clear();
         window.location.href = '../public/index.php'; // Redirect bằng JS
     </script>
-</head>
+</head>     
 <body>
     <p>Đang đăng xuất...</p>
 </body>
