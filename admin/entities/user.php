@@ -137,5 +137,21 @@ class user{
         }
         return 0;
    }
+   public function updateInfoUser($id, $hoTen, $soDienThoai, $diaChi)
+{
+    $sql = "UPDATE user SET hoTen = '$hoTen', soDienThoai = '$soDienThoai', diaChi = '$diaChi'
+            WHERE idUser = '$id'";
+    return $this->data->update($sql);
 }
+public function updatePasswordUser($id, $password)
+{
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "UPDATE user SET password = '$password' WHERE idUser = '$id'";
+    return $this->data->update($sql);
+}
+
+}
+
+// updateUser 
+
 ?>
