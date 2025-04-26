@@ -19,11 +19,11 @@ if (!defined('ALLOW_INCLUDE')) {
             <a href="index.php?pageAd=product&crud=index"> Sản phẩm</a>
         </li>
         <li class="muc">
-            <i class="nav-arrow-down ti-shopping-cart"></i>
+            <i class="nav-arrow-down ti-package"></i>
             <a href="index.php?pageAd=orders&crud=index"> Đơn hàng</a>
         </li>
         <li class="muc">
-            <i class="nav-arrow-down ti-comment"></i>
+            <i class="nav-arrow-down ti-shopping-cart"></i>
             <a href="index.php?pageAd=cart&crud=index"> Giỏ hàng</a>
         </li>
         <li class="muc">

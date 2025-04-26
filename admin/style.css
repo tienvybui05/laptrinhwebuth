@@ -804,18 +804,41 @@ align-items: center;
     color: white;
 }
 /*trang chi tiết đơn hàng*/
-
+.chi-tiet-don-hang {
+    padding: 0 100px;
+}
+.chi-tiet-don-hang .thanh-tien-ghi-chu{
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+}
 .chi-tiet-don-hang .thong-tin-khach-hang {
-    margin: 10px 0; 
+    margin: 5px 0; 
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+}
+.chi-tiet-don-hang .chi-tiet-san-pham-don-hang{
+    margin: 5px 0; 
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+}
+.chi-tiet-don-hang .tong-thanh-toan, .chi-tiet-don-hang .ghi-chu{
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 2px;
+    color: black;
 }
 .chi-tiet-don-hang .thong-tin-khach-hang .noi-dung p{
 margin: 10px 0;
+color:black;
 }
 .chi-tiet-san-pham-don-hang .san-pham{
     margin: 10px 0;
     padding: 10px;
-    background-color: rgb(33, 34, 45);
-    width: 70%;
+    background-color: rgb(253, 253, 255);
+    width: 100%;
 }
 .chi-tiet-san-pham-don-hang .san-pham table{
     width: 100%;
@@ -829,6 +852,7 @@ margin: 10px 0;
     color: #fff;
     padding: 10px;
     border-bottom: 1px solid rgb(69, 69, 70);
+    color: black;
 }
 .chi-tiet-san-pham-don-hang .san-pham td .hinh-anh{
     width: 100px;
@@ -873,4 +897,9 @@ margin: 10px 0;
 }
 .toast-alert.fade-out {
     opacity: 0;
+}
+@media print {
+    #sidebar, #header, #footer {
+        display: none !important;
+    }
 }

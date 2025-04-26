@@ -50,8 +50,8 @@ return $data;
 <div class="chi-tiet-don-hang">
     <div class="thong-tin-khach-hang">
         <div class="tieu-de-1">
-            <h2>Mã hóa đơn: <?php echo($orderInfo['orderCode']); ?></h2>
-            <h2>Thông tin khách hàng</h2>
+            <h2 style="color: rgb(108, 203, 229);">Mã hóa đơn: <?php echo($orderInfo['orderCode']); ?></h2>
+            <h2 style="color: rgb(108, 203, 229);">Thông tin khách hàng</h2>
         </div>
         <div class="noi-dung">
             <p>Họ tên khách hàng: <?php echo($orderInfo['customerName']); ?></p>
@@ -64,7 +64,7 @@ return $data;
     </div>
     <div class="chi-tiet-san-pham-don-hang">
         <div class="tieu-de-2">
-            <h2>Chi tiết sản phẩm</h2>
+            <h2 style="color: rgb(108, 203, 229);">Chi tiết sản phẩm</h2>
         </div>
         <div class="san-pham">
            <table>
@@ -95,13 +95,19 @@ return $data;
            </table>
         </div>
     </div>
-    <div class="tong-thanh-toan">
-            <h4>Tổng thanh toán: <?php echo(number_format($totalAmount)); ?> đ</h4>
+    <div class="thanh-tien-ghi-chu">
+        <div class="tong-thanh-toan">
+                <h4>Tổng thanh toán: <?php echo(number_format($totalAmount)); ?> đ</h4>
+        </div>
+        <div class="ghi-chu">
+                <p>Ghi chú: <?php echo($orderInfo['orderNote']); ?></p>
+        </div>
     </div>
-    <div class="ghi-chu">
-            <p>Ghi chú: <?php echo($orderInfo['orderNote']); ?></p>
-    </div>
+    
     <div class="detail-orders-quay-ve">
         <button class="quay-ve" type="button" onclick="window.location.href='index.php?pageAd=orders&crud=index'">Quay về</button>
+        <button class="btn-print-order" onclick="window.print();">
+                    <i class="ti-printer"></i> In đơn hàng
+        </button>
     </div>
 </div>
