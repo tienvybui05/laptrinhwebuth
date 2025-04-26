@@ -22,7 +22,14 @@ if (isset($_GET['id'])) {
             $soDienThoai = test_input($_POST['sodienthoai']);
         }
         if (!empty($_POST['username'])) {
-            $username = test_input($_POST['username']);
+            if( $user->checkUsernameEdit($id,$_POST['username'])==true)
+            {
+                $username = test_input($_POST['username']);
+            }
+            else{
+                $ErrUsername = "Username đã tồn tại";
+            }
+           
         }
         if (!empty($_POST['password'])) {
             $password = test_input($_POST['password']);
@@ -33,15 +40,18 @@ if (isset($_GET['id'])) {
         if (!empty($_POST['vaitro'])) {
             $vaiTro = test_input($_POST['vaitro']);
         }
-        $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $password, $diaChi, $vaiTro);
-        header("location: index.php?pageAd=user&crud=index&msg=edit_user");
-        exit;
+        if($ErrUsername=="")
+        {
+            $result = $user->updateUser($id, $hoTen, $soDienThoai, $username, $password, $diaChi, $vaiTro);
+            header("location: index.php?pageAd=user&crud=index&msg=edit_user");
+            exit;
+        }
     }
 }
 function test_input($data)
 {
     $data = trim($data);
-    $data = stripcslashes($data);
+    $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
@@ -78,7 +88,7 @@ function test_input($data)
                 <option value="customer" <?php if (isset($vaiTro) && $vaiTro == "customer") {echo "selected";} ?>>Customer</option>
             </select>
         </div>
-        <div class="message-product" style="color: red; margin-bottom: 10px;"><?php echo ($ErrUsername); ?></div>
+        <div class="message-user" style="color: red; margin-bottom: 10px;"><?php echo ($ErrUsername); ?></div>
         <div class="button-group">
             <button class="quay-ve" type="button" onclick="window.location.href='index.php?pageAd=user&crud=index'">Quay về</button>
             <input class="cap-nhat-sql" type="submit" value="Chỉnh sửa" name="chinhsua">

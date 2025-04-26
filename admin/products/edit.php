@@ -97,7 +97,7 @@ if (isset($_GET['id'])) {
 function test_input($data)
 {
     $data = trim($data);
-    $data = stripcslashes($data);
+    $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }

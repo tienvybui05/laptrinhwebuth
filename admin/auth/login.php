@@ -57,8 +57,8 @@ if(isset($_POST['login_admin']))
 function test_input($data)
 {
     $data = trim($data);
-    $data = stripcslashes($data);
-    $data = htmlentities($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
     return $data;
 }
 

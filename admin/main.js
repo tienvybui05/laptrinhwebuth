@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded',function(){
 const create = document.querySelector('.form-create-user');
 create.addEventListener('submit',function(e){
     let isValid = true;
-    let message = document.querySelector(".message-product");
+    let message = document.querySelector(".message-user");
     message.innerText = "";
     const hoten = create.querySelector('input[name="hoten"]').value.trim();
     const sodienthoai = create.querySelector('input[name="sodienthoai"]').value.trim();
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const create = document.querySelector('.form-edit-user');
     create.addEventListener('submit',function(e){
         let isValid = true;
-        let message = document.querySelector(".message-product");
+        let message = document.querySelector(".message-user");
         message.innerText = "";
         const sodienthoai = create.querySelector('input[name="sodienthoai"]').value.trim();
         const username = create.querySelector('input[name="username"]').value.trim();

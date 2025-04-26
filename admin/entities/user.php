@@ -63,6 +63,18 @@ class user{
             VALUES ('$hoTen','$soDienThoai','$username','$password','$diaChi','$vaiTro')";
       return $this->data->insert($sql);
    }
+   public function checkUsernameEdit($id,$username)
+   {
+      $sql = "SELECT * FROM User WHERE username = '$username' AND idUser != '$id'";
+      $result = $this->data->select($sql);
+      $row = $this->data->fetch();
+      if ($row != null) 
+      {
+          return false;
+      }
+      return true;
+    
+   }
    public function isUsernameNotExist($username)
    {
     $sql = "SELECT username FROM User WHERE username = '$username'";

@@ -58,8 +58,8 @@ if(isset($_POST['sub']))
 function test_input($data)
 {
     $data = trim($data);
-    $data = stripcslashes($data);
-    $data = htmlentities($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
     return $data;
 }
 ?>

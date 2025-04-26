@@ -28,7 +28,7 @@ if (isset($_POST['taomoi'])) {
 function test_input($data)
 {
     $data = trim($data);
-    $data = stripcslashes($data);
+    $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
@@ -41,22 +41,27 @@ function test_input($data)
         <div class="form-group">
             <label for="">Họ và tên:</label>
             <input type="text" name="hoten">
+            <div class="error-message"> </div>
         </div>
         <div class="form-group">
             <label for="">Số điện thoại:</label>
             <input type="text" name="sodienthoai">
+            <div class="error-message"> </div>
         </div>
         <div class="form-group">
             <label for="">Username:</label>
             <input type="text" name="username">
+            <div class="error-message"> </div>
         </div>
         <div class="form-group">
             <label for="">Password:</label>
             <input type="text" name="password">
+            <div class="error-message"> </div>
         </div>
         <div class="form-group">
             <label for="">Địa chỉ:</label>
             <input type="text" name="diachi">
+            <div class="error-message"> </div>
         </div>
         <div class="form-group">
             <label for="">Vai trò:</label>
@@ -65,7 +70,7 @@ function test_input($data)
                 <option value="customer">Customer</option>
             </select>
         </div>
-        <div class="message-product" style="color: red; margin-bottom: 10px;"><?php echo ($ErrUsername); ?></div>
+        <div class="message-user" style="color: red; margin-bottom: 10px;"><?php echo ($ErrUsername); ?></div>
         <div class="button-group">
             <button class="quay-ve" type="button" onclick="window.location.href='index.php?pageAd=user&crud=index'">Quay về</button>
             <input class="cap-nhat-sql" type="submit" value="Tạo mới" name="taomoi">
