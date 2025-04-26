@@ -117,58 +117,23 @@ html {
     background-color: white;
 }
 
-
-
-/* Thanh tìm kiếm */
-.search-bar {
-    display: flex;
-    align-items: center;
-    margin: 0 50px;
-    /* Khoảng cách giữa menu và biểu tượng */
-}
-
-.search-bar input {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-}
-
-.search-bar button {
-    background-color: #555;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    margin-left: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.search-bar button:hover {
-    background-color: #333;
-}
-
 /* Icon */
 .right-icons {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin-left: auto;
     padding-right: 5%;
+    gap: 20px;
 }
 
 .right-icons a {
     color: white;
-    font-size: 20px;
+    font-size: 22px;
     margin-left: 35px;
     text-decoration: none;
 }
 
-.right-icons a:hover {
-    color: #ddd;
-}
-
-/* Định dạng menu sổ xuống */
 /* Định dạng menu sổ xuống */
 .user-menu {
     position: relative;
@@ -222,7 +187,6 @@ html {
     font-size: 14px;
     text-decoration: none;
     flex: 1;
-    /* chiếm toàn bộ để hover dễ bấm */
 }
 
 .dropdown-menu li a:hover {

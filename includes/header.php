@@ -37,19 +37,43 @@
                 <?php if(isset($_SESSION['idUser'])) { ?>
                 <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
                 <div class="user-menu">
-                    <p> <?php echo($_SESSION['hoTen']); ?><a href="#" class="user-icon"><i class="ti-user"></i> </a></p>
+                    <p >
+                        <a href="#" class="user-icon" onclick="toggleDropdown(event)" style="font-size: 18px;">
+                            <?php echo $_SESSION['hoTen']; ?> <i class="ti-user"></i>
+                        </a>
+                    </p>
 
                     <!-- Dropdown menu khi đã đăng nhập -->
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="display: none;">
                         <li><a href="../auth/info.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
                         <li><a href="../auth/changePassword.php"><i class="ti-key"></i> Đổi mật khẩu</a></li>
                         <li><a href="../pages/orderHistory.php"><i class="ti-receipt"></i> Lịch sử đơn hàng</a></li>
                         <li><a href="../auth/logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
                     </ul>
+                </div>
+
+                <script>
+                    function toggleDropdown(event) {
+                        event.preventDefault();
+                        const dropdownMenu = event.target.closest('.user-menu').querySelector('.dropdown-menu');
+                        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+                    }
+
+                    // Đóng dropdown khi click bên ngoài
+                    document.addEventListener('click', function (e) {
+                        const userMenu = document.querySelector('.user-menu');
+                        if (userMenu && !userMenu.contains(e.target)) {
+                            const dropdownMenu = userMenu.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                dropdownMenu.style.display = 'none';
+                            }
+                        }
+                    });
+                </script>
                     <?php } else { ?>
                     <!-- Hiển thị liên kết "Đăng nhập" nếu chưa đăng nhập -->
                     <a href="../auth/login.php" class="user-icon"><i class="ti-user"></i><span
-                            style="font-size: 16px; margin-left: 10px;">Đăng nhập</span></a>
+                            style="font-size: 16px;">Đăng nhập</span></a>
                     <?php } ?>
 
                 </div>
