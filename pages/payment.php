@@ -88,9 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderCode = $orders->updateOrder($idUser, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
         
         if ($orderCode) {
-            // Xóa giỏ hàng sau khi đặt hàng thành công
-            // $cart->clearCart($idUser);
-            
+            //Xóa giỏ hàng sau khi đặt hàng thành công
+            $cart->clearCart($idUser, $orderCode);
+            $cart->decreaseStock($idUser, $orderCode );
             // Chuyển hướng đến trang đặt hàng thành công
             header("Location: order-success.php?code=$orderCode");
             exit();
@@ -364,9 +364,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="main-leftpayment">
                 <div class="leftpayment">
                     <h1>Thông tin giao hàng</h1>
-                    <div class="signup-link">
-                        Bạn đã có tài khoản? <a href="login.php">Đăng nhập</a>
-                    </div>
                     <hr>
                     <form method="POST" action="">
                         <div class="row">
