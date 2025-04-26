@@ -40,13 +40,23 @@ document.addEventListener("DOMContentLoaded", function() {
             const input = productRow.querySelector(".quantity-input");
             const idProduct = this.dataset.id;
             let quantity = parseInt(input.value);
-    
-            if (this.classList.contains("quantity-btn-minus")) {
-                quantity = Math.max(1, quantity - 1);
-            } else {
-                quantity += 1;
-            }
-    
+            // Sau khi cập nhật số lượng trong cart...
+            let cartphu = JSON.parse(localStorage.getItem("cartphu")) || [];
+            const selectedProduct = cartphu.find(i => i.id == idProduct);
+            
+                if (this.classList.contains("quantity-btn-minus")) {
+                    if (selectedProduct) {
+                        quantity = Math.max(1, quantity - 1);
+                        selectedProduct.quantity = quantity;
+                    }
+                } else {
+                    if (selectedProduct) {
+                        quantity += 1;
+                        selectedProduct.quantity = quantity;
+                    }
+                }
+                
+            
             input.value = quantity;
     
             // Gửi Ajax cập nhật số lượng
@@ -67,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             });
+            localStorage.setItem("cartphu", JSON.stringify(cartphu));
             updateTotal();
         });
     });
