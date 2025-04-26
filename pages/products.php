@@ -73,7 +73,6 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
     <link rel="stylesheet" href="../public/css/cart.css">
-    <link rel="stylesheet" href="../public/css/index.css">
     
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
@@ -109,7 +108,7 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
                     <div class="product-area">
                         <div class="product-controls">
                             <div class="breadcrumbs">
-                                <a href="../public/index.php">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
+                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
                                 <?php if (!empty($category)): ?>
                                 &gt; <span><?php echo $category; ?></span>
                                 <?php endif; ?>
