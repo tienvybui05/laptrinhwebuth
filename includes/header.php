@@ -1,4 +1,3 @@
-
 <header class="header">
     <div class="container">
         <!--Thanh menu  -->
@@ -10,7 +9,7 @@
                 <li><a href="../public/index.php" class="">Trang chủ</a></li>
                 <li><a href="../pages/about.php" class="">Giới thiệu</a></li>
                 <li><a href="../pages/products.php">Sản phẩm</a></li>
-                <li><a href="../pages/contact.php">Tin tức</a></li>
+                <li><a href="../pages/news.php">Tin tức</a></li>
                 <li><a href="../pages/contact.php">Liên hệ</a></li>
             </ul>
             <script>
@@ -31,29 +30,29 @@
             </script>
 
             <!--Thanh tìm kiếm  -->
-            <div class="search-bar">
-                <input type="text" placeholder="Tìm kiếm..." />
-                <button type="submit"><i class="ti-search"></i></button>
-            </div>
+
             <div class="right-icons">
+
+
+                <?php if(isset($_SESSION['idUser'])) { ?>
                 <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
                 <div class="user-menu">
-                    <a href="#" class="user-icon"><i class="ti-user"></i></a>
-                    <?php 
-                         if(isset($_SESSION['idUser']))
-                         { ?>
+                    <a href="#" class="user-icon"><i class="ti-user"></i> </a>
+
+                    <!-- Dropdown menu khi đã đăng nhập -->
                     <ul class="dropdown-menu">
                         <li><a href="../auth/info.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
+                        <li><a href="../auth/changePassword.php"><i class="ti-key"></i> Đổi mật khẩu</a></li>
+                        <li><a href="../pages/orderHistory.php"><i class="ti-receipt"></i> Lịch sử đơn hàng</a></li>
                         <li><a href="../auth/logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
                     </ul>
-                    <?php }   
-                        ?>
+                    <?php } else { ?>
+                    <!-- Hiển thị liên kết "Đăng nhập" nếu chưa đăng nhập -->
+                    <a href="../auth/login.php" class="user-icon"><i class="ti-user"></i><span
+                            style="font-size: 16px; margin-left: 10px;">Đăng nhập</span></a>
+                    <?php } ?>
 
                 </div>
-                <script>// Lấy phần tử user-menu
-                </script>
-
-            </div>
         </nav>
     </div>
 </header>

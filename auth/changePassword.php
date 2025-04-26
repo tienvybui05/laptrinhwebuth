@@ -102,9 +102,34 @@ if(isset($_POST['savePassword'])) {
 
             </div>
         </main>
+        
         <?php include '../includes/footer.php'; ?>
     </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
+    </div>
     <script src="../public/js/info.js"> </script>
+    <script src="../public/js/cart.js"></script>
+    <script src="../public/js/main.js"></script>
 
 </body>
 </html>

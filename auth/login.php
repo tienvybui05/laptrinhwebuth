@@ -72,9 +72,10 @@ function test_input($data)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
+
+
     <style>
         .main-signin{
             background-color: whitesmoke;
@@ -148,13 +149,9 @@ function test_input($data)
         }
         .luu-dang-nhap{
             display:flex;
-            justify-content: flex-end;
         }
         .luu-dang-nhap input{
             width: auto;
-           
-        }
-        .luu-dang-nhap label{
            
         }
         /* Định dạng icon */
@@ -196,18 +193,18 @@ function test_input($data)
                     <h2>Đăng nhập</h2>
                     <div class="input-group">
                         <label for="account">Tài khoản</label>
-                        <i class="fas fa-user"></i>
+                        <i class="ti-user"></i>
                         <input name="username" id="account" type="text" required/>
                     </div>
                     
                     <div class="input-group">
                         <label for="password">Mật khẩu</label>
-                        <i class="fas fa-lock"></i>
+                        <i class="ti-lock"></i>
                         <input name="password" id="password" type="password" required/>
                     </div> 
                     <div class="luu-dang-nhap">
                     <input type="checkbox" class="luudangnhap" name="luudangnhap" value="luudangnhap">
-                    <label for="luudangnhap">Lưu đăng nhập</label>
+                    <label for="luudangnhap">Ghi nhớ đăng nhập.</label>
                     </div>
                     <div>
                         <p><?php echo($ErrAccount);?></p>

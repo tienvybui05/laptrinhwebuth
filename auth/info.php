@@ -4,6 +4,8 @@ if(!isset($_SESSION['idUser'])) {
     header("location: login.php");
     exit;
 }
+
+
 include '../admin/entities/user.php';
 $user = new user();
 $id = $_SESSION['idUser'];

@@ -2,9 +2,15 @@
 session_start();
 echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
 include '../admin/entities/product.php';
+include '../admin/entities/news.php'; // Thêm dòng này để import class news
+
 $product = new product();
+$news = new news(); // Khởi tạo đối tượng news
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 $result = $product->getProduct($keyword);
+
+// Lấy 3 tin tức mới nhất cho phần tin tức ở trang chủ
+$latestNews = $news->getAllNews(3);
 ?>
 
 <!DOCTYPE html>

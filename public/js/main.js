@@ -148,3 +148,125 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+
+//Đăng ký tài khoản
+document.addEventListener('DOMContentLoaded', function () {
+    const fullnameInput = document.getElementById('fullname');
+    const phoneInput = document.getElementById('soDienThoai');
+    const diaChiInput = document.getElementById('diaChi');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+
+    const errorFullname = document.getElementById('error-fullname');
+    const errorPhone = document.getElementById('error-phone');
+    const errorDiaChi = document.getElementById('error-diaChi');
+    const errorUsername = document.getElementById('error-username');
+    const errorPassword = document.getElementById('error-password');
+    const errorConfirmPassword = document.getElementById('error-confirm-password');
+
+    const submitButton = document.getElementById('submit');
+
+    let isFormValid = true; // Biến để kiểm tra tính hợp lệ của form
+
+    // Kiểm tra họ tên (không để trống) khi người dùng thoát khỏi ô
+    fullnameInput.addEventListener('blur', function () {
+        if (!fullnameInput.value.trim()) {
+            errorFullname.textContent = "Họ và tên không được để trống.";
+            isFormValid = false;
+        } else {
+            errorFullname.textContent = "";
+            isFormValid = true;
+        }
+    });
+
+    // Kiểm tra số điện thoại khi người dùng thoát khỏi ô
+    phoneInput.addEventListener('blur', function () {
+        const phoneRegex = /^[0-9]{9,11}$/;
+        if (!phoneInput.value.trim()) {
+            errorPhone.textContent = "Số điện thoại không được để trống!";
+            isFormValid = false;
+        } else if (!phoneRegex.test(phoneInput.value.trim())) {
+            errorPhone.textContent = "Số điện thoại phải có từ 9 đến 11 chữ số.";
+            isFormValid = false;
+        } else {
+            errorPhone.textContent = "";
+            isFormValid = true;
+        }
+    });
+
+    // Kiểm tra địa chỉ khi người dùng thoát khỏi ô
+    diaChiInput.addEventListener('blur', function () {
+        if (!diaChiInput.value.trim()) {
+            errorDiaChi.textContent = "Địa chỉ không được để trống!";
+            isFormValid = false;
+        } else {
+            errorDiaChi.textContent = "";
+            isFormValid = true;
+        }
+    });
+
+    // Kiểm tra username khi người dùng thoát khỏi ô
+    usernameInput.addEventListener('blur', function () {
+        if (!usernameInput.value.trim()) {
+            errorUsername.textContent = "Username không được để trống!";
+            isFormValid = false;
+        } else {
+            errorUsername.textContent = "";
+            isFormValid = true;
+        }
+    });
+
+    // Kiểm tra mật khẩu khi người dùng thoát khỏi ô
+    passwordInput.addEventListener('blur', function () {
+        if (!passwordInput.value.trim()) {
+            errorPassword.textContent = "Mật khẩu không được để trống!";
+            isFormValid = false;
+        } else {
+            errorPassword.textContent = "";
+            isFormValid = true;
+        }
+    });
+
+    // Kiểm tra xác nhận mật khẩu khi người dùng thoát khỏi ô
+    confirmPasswordInput.addEventListener('blur', function () {
+        if (confirmPasswordInput.value.trim() !== passwordInput.value.trim()) {
+            errorConfirmPassword.textContent = "Mật khẩu và xác nhận mật khẩu không khớp.";
+            isFormValid = false;
+        } else if (!confirmPasswordInput.value.trim()) {
+            errorConfirmPassword.textContent = "Xác nhận mật khẩu không được để trống.";
+            isFormValid = false;
+        } else {
+            errorConfirmPassword.textContent = "";
+            isFormValid = true;
+        }
+    });
+
+    // Ngăn nút submit khi có lỗi
+    submitButton.addEventListener('click', function (event) {
+        if (!isFormValid) {
+            event.preventDefault(); // Ngừng gửi form
+            showToastMessage("Vui lòng sửa các lỗi trước khi gửi form!");
+        }
+    });
+
+    // Hàm hiển thị thông báo toast
+    function showToastMessage(message, isSuccess) {
+        const toast = document.createElement('div');
+        toast.classList.add('toast-message');
+        toast.textContent = message;
+        if (isSuccess) {
+            toast.style.backgroundColor = '#4CAF50'; // Màu xanh cho thông báo thành công
+        } else {
+            toast.style.backgroundColor = '#f44336'; // Màu đỏ cho thông báo lỗi
+        }
+        document.body.appendChild(toast);
+
+        // Ẩn thông báo sau 3 giây
+        setTimeout(function () {
+            toast.style.display = 'none';
+        }, 3000);
+    }
+});
+
