@@ -16,7 +16,7 @@ $product = new product();
 $orders = new orders();
 
 // Lấy thông tin giỏ hàng
-$result = $cart->getCartByUser($idUser);
+$result = $orders->getOdersByUser($idUser);//
 
 // Tính tổng tiền
 $totalAmount = 0;
@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Tạo đơn hàng
-    $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
+    $orderCode = $orders->updateOrder($idUser, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
     
-    if ($orderCode) {
+    if ($orderCode > 0) {
         // Xóa giỏ hàng sau khi đặt hàng thành công
-        $cart->clearCart($idUser);
+        // $cart->clearCart($idUser);
         
         // Chuyển hướng đến trang đặt hàng thành công
-        header("Location: order-success.php?code=$orderCode");
+        header("Location: order-success.php");
         exit();
     }
 }
@@ -74,6 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/cart.css">
+    <script>
+        var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
+        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+    </script>
     <style>
         .main-payment {
             width: auto;
@@ -323,9 +327,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="main-leftpayment">
                 <div class="leftpayment">
                     <h1>Thông tin giao hàng</h1>
-                    <div class="signup-link">
-                        Bạn đã có tài khoản? <a href="login.php">Đăng nhập</a>
-                    </div>
                     <hr>
                     <form method="POST" action="">
                         <div class="row">
@@ -393,7 +394,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="product-all">
                     <?php if (!empty($cartItems)): ?>
                         <?php foreach ($cartItems as $item): ?>
-                            <?php $listImage = explode(',', $item['hinhAnh']); ?>
                             <div class="product-summary">
                                 <div class="product-info">
                                     <p class="product-name"><?php echo $item['tenSanPham']; ?></p>

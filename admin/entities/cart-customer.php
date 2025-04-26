@@ -50,11 +50,11 @@ class cart_customer {
         return $this->data->delete($sql);
     }
 
-    // Xóa toàn bộ giỏ hàng của người dùng (tuỳ chọn)
-    public function clearCart($idUser) {
-        $sql = "DELETE FROM cart WHERE idUser = '$idUser'";
-        return $this->data->delete($sql);
-    }
+    // // Xóa toàn bộ giỏ hàng của người dùng (tuỳ chọn)
+    // public function clearCart($idUser) {
+    //     $sql = "DELETE FROM cart WHERE idUser = '$idUser'";
+    //     return $this->data->delete($sql);
+    // }
 
     public function updateQuantity($idUser, $idProduct, $quantity) {
         // Lấy thông tin sản phẩm để tính thành tiền

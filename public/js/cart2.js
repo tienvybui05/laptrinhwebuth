@@ -49,10 +49,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         quantity = Math.max(1, quantity - 1);
                         selectedProduct.quantity = quantity;
                     }
+                    else{
+                        quantity = Math.max(1, quantity - 1);
+                    }
                 } else {
                     if (selectedProduct) {
                         quantity += 1;
                         selectedProduct.quantity = quantity;
+                    }
+                    else{
+                        quantity += 1;
                     }
                 }
                 
@@ -87,10 +93,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const status = this.checked;
         const checkboxes = document.querySelectorAll('.product-checkbox');
         let cartPhu = [];
-    
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = status;
-    
             const row = checkbox.closest(".san-pham-items");
             const id = row.getAttribute("data-id");
             const img = row.querySelector("img").src;
@@ -146,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const idProduct = this.dataset.id;
             // Xóa khỏi DOM chính
             productRow.remove();
-    
+            removeFromCartPhu(idProduct);
             // Xóa khỏi localStorage
             cart.splice(index, 1);
             localStorage.setItem("cart", JSON.stringify(cart));
@@ -207,33 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     
-
-    // const viewCartBtn = document.querySelector('.checkout-btn');
-
-    // viewCartBtn.addEventListener('click', function () {
-    //         let cart = JSON.parse(localStorage.getItem("cartphu")) || [];
-
-    //         fetch("../includes/cart/save_cartphu.php", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({ cart: cart })
-    //         })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 alert("Đặt hàng thành công!");
-    //                 localStorage.removeItem("cartphu"); // xoá sau khi lưu
-    //                 window.location.href = "../pages/payment.php";
-    //             } else {
-    //                 alert("Lỗi khi đặt hàng: " + data.message);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error("Lỗi khi gửi cart:", error);
-    //         });
-    // });
     const viewCartBtn = document.querySelector('.checkout-btn');
 
     viewCartBtn.addEventListener('click', function () {
@@ -251,26 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             if (data.success) {
                 alert("Đặt hàng thành công!");
-
-                // XÓA từng sản phẩm trong cartphu khỏi cart và giao diện
-                cartPhu.forEach(item => {
-                    // Tìm và xóa trong mảng cart
-                    cart = cart.filter(c => c.id != item.id);
-
-                    // Xóa khỏi DOM chính
-                    const row = document.querySelector(`.san-pham-items[data-id="${item.id}"]`);
-                    if (row) row.remove();
-
-                    // Xóa khỏi side-cart
-                    const sideItem = document.querySelector(`.detail_cart-side[data-id="${item.id}"]`);
-                    if (sideItem) sideItem.remove();
-                });
-
-                // Cập nhật lại localStorage và tổng tiền
-                localStorage.setItem("cart", JSON.stringify(cart));
-                localStorage.removeItem("cartphu");
-                updateTotal();
-
+                localStorage.removeItem('cartphu');
                 window.location.href = "../pages/payment.php";
             } else {
                 alert("Lỗi khi đặt hàng: " + data.message);
@@ -280,7 +238,6 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("Lỗi khi gửi cart:", error);
         });
     });
-
 
 
     // Hàm updateTotal xử lý DOM mà không cần reload hay gọi lại DB
@@ -345,6 +302,14 @@ document.addEventListener("DOMContentLoaded", function() {
             .replace(/\D/g, "") // Loại bỏ tất cả ký tự không phải số
             .replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Thay dấu phẩy thành dấu chấm
     }
+
+    // Check sẵn và kích hoạt sự kiện click
+    const chonHetCheckbox = document.querySelector("#chonhet");
+    if (chonHetCheckbox) {
+        chonHetCheckbox.checked = true;
+        chonHetCheckbox.dispatchEvent(new Event('click'));
+}
+
 });
 
 

@@ -27,7 +27,7 @@ $latestNews = $news->getAllNews(3);
     
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
-        let userId = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
     </script>
 </head>
 

@@ -223,6 +223,17 @@ class orders {
         
         return false;
     }
+    // Lấy sản phẩm từ order xuống hóa đơn
+    public function getOdersByUser($idUser){
+        $sql = "SELECT orders.*, product.tenSanPham, product.gia 
+        FROM orders
+        JOIN product ON orders.idProduct = product.idProduct
+        WHERE orders.idUser = '$idUser' AND orders.hoTen IS NULL";
+        return $this->data->select($sql);
+    }
+    
+    
+    
     
     /**
      * Lấy danh sách đơn hàng của người dùng
@@ -303,6 +314,33 @@ class orders {
         
         return $success ? $orderCode : false;
     }
+
+    public function updateOrder($idUser, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu) {
+        // Tạo mã đơn hàng duy nhất
+        $orderCode = $this->generateOrderCode($idUser);
+    
+        // Câu SQL update
+        $sql = "UPDATE orders 
+                SET hoTen = '$hoTen', 
+                    soDienThoai = '$soDienThoai', 
+                    diaChi = '$diaChi', 
+                    ngayDatHang = NOW(), 
+                    phuongThuc = '$phuongThuc',
+                    ghiChu = '$ghiChu',
+                    maTongDonHang = '$orderCode'
+                WHERE idUser = '$idUser' AND hoTen IS NULL";
+    
+        // Thực thi câu lệnh
+        $result = $this->data->update($sql);
+    
+        // Nếu update thành công hoặc không có gì để update, vẫn trả về true
+        if ($result !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     
     /**
      * Lấy tất cả đơn hàng (dành cho admin)

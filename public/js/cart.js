@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    if (userId) {
-        fetchCartFromDB(userId);
+    if (idUser) {
+        fetchCartFromDB(idUser);
     } else {
         loadCart();             
     }
@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", function() {
 function addToCart(id, img, name, price, quantity) {
     var cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProduct = cart.find(item => item.id === id);
-    console.log(userId);
+    console.log(idUser);
     
-    if(!userId){
+    if(!idUser){
         if (existingProduct) {
             // Tăng số lượng trong localStorage
             existingProduct.quantity += 1;
@@ -141,7 +141,7 @@ function addToCart(id, img, name, price, quantity) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    idUser: userId,
+                    idUser: idUser,
                     cart: [product] // gửi 1 sản phẩm đơn
                 })
             })
@@ -149,7 +149,7 @@ function addToCart(id, img, name, price, quantity) {
             .then(data => {
                 if (data.success) {
                     alert("Đã thêm vào giỏ hàng (server)!");
-                    fetchCartFromDB(userId); // Gọi lại giỏ hàng từ DB và render
+                    fetchCartFromDB(idUser); // Gọi lại giỏ hàng từ DB và render
                 } else {
                     alert("Thêm vào giỏ hàng thất bại!");
                 }
