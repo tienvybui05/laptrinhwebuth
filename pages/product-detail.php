@@ -203,8 +203,9 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                         </div>
 
                         <div class="product-actions">
-                            <button class="btn-buy-now">MUA NGAY</button>
+                            <button class="btn-buy-now" data-id="<?php echo $productId; ?>">MUA NGAY</button>
                             <button class="btn-add-cart">THÊM VÀO GIỎ HÀNG</button>
+                            <button class="btn-buy-now" data-id="<?php echo $product['id']; ?>">Mua ngay</button>
                         </div>
                     </div>
                 </div>
@@ -270,12 +271,12 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                             $relatedImages = explode(',', $relatedProduct['hinhAnh']);
                             $relatedImage = "../public/images/product/{$relatedImages[0]}/{$relatedImages[1]}";
                             
-                            // // Ẩn sản phẩm có khuyến mãi 0%
-                            // if ($relatedProduct['khuyenMai'] == '0%') {
-                            //     $discountClass = 'hidden-discount';
-                            // } else {
-                            //     $discountClass = '';
-                            // }
+                            // Ẩn sản phẩm có khuyến mãi 0%
+                            if ($relatedProduct['khuyenMai'] == '0%') {
+                                $discountClass = 'hidden-discount';
+                            } else {
+                                $discountClass = '';
+                            }
                         ?>
                         <div class="san-pham-item">
                             <div class="discount <?php echo $discountClass; ?>"><?php echo $relatedProduct['khuyenMai']; ?></div>
@@ -288,7 +289,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                                 <button class="btn-add-cart">
                                     <i class="fas fa-cart-plus"></i> Giỏ hàng
                                 </button>
-                                <button class="btn-buy-now">
+                                <button class="btn-buy-now" data-id="<?php echo $relatedProduct['idProduct']; ?>">
                                     <i class="fas fa-shopping-bag"></i> Mua ngay
                                 </button>
                             </div>
@@ -305,6 +306,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
     </div>
 
     <script src="../public/js/product-detail.js"></script>
+    <script src="../public/js/main.js"></script>
 </body>
 
 </html>

@@ -251,24 +251,29 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Xử lý nút mua ngay
-  const buyNowButtons = document.querySelectorAll(".btn-buy-now")
+  const buyNowButtons = document.querySelectorAll(".btn-buy-now");
+
   buyNowButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const productItem = this.closest(".san-pham-item")
-      const productName = productItem.querySelector("h3").textContent
-      const productId = this.getAttribute("data-id")
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-      // Hiển thị thông báo và chuyển hướng đến trang thanh toán
-      showNotification(`Đang chuyển đến trang thanh toán cho sản phẩm: ${productName}`)
+      // Lấy thông tin sản phẩm
+      const productId = this.getAttribute("data-id");
+      if (!productId) return;
 
-      // Sau 1 giây, chuyển hướng đến trang thanh toán
-      setTimeout(() => {
-        // Ở đây có thể thay đổi URL để chuyển đến trang thanh toán thực tế
-        console.log(`Mua ngay sản phẩm ID: ${productId}`)
-        // window.location.href = `checkout.php?product_id=${productId}`;
-      }, 1000)
-    })
-  })
+      // Lấy số lượng sản phẩm
+      let quantity = "1"; // Mặc định là 1 nếu không có input số lượng
+      const quantityInput = this.closest(".san-pham-item").querySelector(".quantity-input");
+      if (quantityInput) {
+        quantity = quantityInput.value;
+      }
+
+      // Chuyển hướng đến trang payment.php với thông tin sản phẩm
+      const paymentUrl = `../pages/payment.php?product_id=${productId}&quantity=${quantity}`;
+      window.location.href = paymentUrl;
+    });
+  });
 
   // Hàm hiển thị thông báo
   function showNotification(message) {

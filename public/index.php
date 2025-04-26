@@ -112,29 +112,40 @@ $latestNews = $news->getAllNews(3);
                     <div class="san-pham-content">
                         <!-- Danh sách sản phẩm Vợt Cầu Lông -->
                         <div class="san-pham-list active" id="vot">
-                         <?php
-                            while($row=$product->getProductFetch()){
-                                $listImage =explode(',',$row['hinhAnh']); 
-                            ?>
+                        <?php
+                                    if (!empty($result)) {
+                                        foreach ($result as $row) {
+                                            $listImage = explode(',', $row['hinhAnh']);
+                                            // Ẩn sản phẩm có khuyến mãi 0%
+                                            if ($row['khuyenMai'] == '0%') {
+                                                $discountClass = 'hidden-discount';
+                                            } else {
+                                                $discountClass = '';
+                                            }
+                                    ?>
                             
                                 <div class="san-pham-item" data-id = "<?php echo($row['idProduct'])?>">
                                     <div class="discount"><?php echo($row['khuyenMai']); ?></div>
-
+                                    <a href="../pages/product-detail.php?id=<?php echo($row['idProduct'])?>">
                                     <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt cầu lông Yonex">
                                     <h3><?php echo($row['tenSanPham']); ?></h3>
                                     <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                        </a>
                                     <div class="san-pham-buttons">
                                         <button class="btn-add-cart">
                                             <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
                                         </button>
-                                        <button class="btn-buy-now">
+                                        <button class="btn-buy-now" data-id="<?php echo($row['idProduct'])?>" data-price="<?php echo($row['gia']); ?>">
                                             <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
                                         </button>
                                     </div>
                                 </div>
                             
                         <?php
-                            }                   
+                            }  
+                        } else {
+                            echo '<p class="no-products-found">Không có sản phẩm nào được tìm thấy.</p>';
+                        }                 
                          ?>
                         </div>
                         

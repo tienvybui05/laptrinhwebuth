@@ -703,6 +703,17 @@ html {
     margin: 10px 0;
 }
 
+.san-pham-item a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .san-pham-item a:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+
 /* Nút thêm vào giỏ hàng và mua ngay */
 .san-pham-buttons {
     display: flex;

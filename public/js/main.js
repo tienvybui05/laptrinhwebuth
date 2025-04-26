@@ -94,3 +94,57 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('userMenu hoặc userIcon không tồn tại.');
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Xử lý nút "Mua ngay" trên tất cả các trang
+    const buyNowButtons = document.querySelectorAll(".btn-buy-now");
+
+    buyNowButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Lấy thông tin sản phẩm
+            const productId = this.getAttribute("data-id");
+            if (!productId) return;
+
+            // Lấy số lượng sản phẩm
+            let quantity = "1"; // Mặc định là 1 nếu không có input số lượng
+            const quantityInput = this.closest(".san-pham-item")?.querySelector(".quantity-input");
+            if (quantityInput) {
+                quantity = quantityInput.value;
+            }
+
+            // Gửi yêu cầu POST để lưu sản phẩm "Mua ngay"
+            fetch("../admin/carts/save-buy-now.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity,
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Không thể lưu sản phẩm 'Mua ngay'.");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data.success) {
+                        // Chuyển hướng đến trang thanh toán
+                        window.location.href = "../pages/payment.php";
+                    } else {
+                        alert("Đã xảy ra lỗi: " + data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Lỗi:", error);
+                    alert("Không thể lưu sản phẩm 'Mua ngay'. Vui lòng thử lại.");
+                });
+        });
+    });
+});

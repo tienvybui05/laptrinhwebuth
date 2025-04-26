@@ -15,17 +15,25 @@ $cart = new cart_customer();
 $product = new product();
 $orders = new orders();
 
-// Lấy thông tin giỏ hàng
-$result = $cart->getCartByUser($idUser);
+// Kiểm tra xem có sản phẩm "Mua ngay" trong session không
+$buyNowProduct = isset($_SESSION['buy_now']) ? $_SESSION['buy_now'] : null;
 
-// Tính tổng tiền
-$totalAmount = 0;
-$cartItems = [];
+if ($buyNowProduct) {
+    // Hiển thị sản phẩm "Mua ngay"
+    $cartItems = [$buyNowProduct];
+    $totalAmount = $buyNowProduct['thanhTien'];
+} else {
+    // Nếu không có sản phẩm "Mua ngay", hiển thị giỏ hàng như bình thường
+    $result = $cart->getCartByUser($idUser);
 
-if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $totalAmount += $row['thanhTien'];
-        $cartItems[] = $row;
+    $totalAmount = 0;
+    $cartItems = [];
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $totalAmount += $row['thanhTien'];
+            $cartItems[] = $row;
+        }
     }
 }
 
@@ -37,26 +45,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ghiChu = $_POST['noidung'];
     $phuongThuc = $_POST['payment'];
     
-    // Chuẩn bị dữ liệu sản phẩm
-    $products = [];
-    foreach ($cartItems as $item) {
-        $products[] = [
-            'idProduct' => $item['idProduct'],
-            'soLuong' => $item['soLuong'],
-            'thanhTien' => $item['thanhTien']
-        ];
-    }
-    
-    // Tạo đơn hàng
-    $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
-    
-    if ($orderCode) {
-        // Xóa giỏ hàng sau khi đặt hàng thành công
-        $cart->clearCart($idUser);
+    // Kiểm tra xem có phải là mua ngay không
+    if (isset($_POST['buy_now_product_id']) && isset($_POST['buy_now_product_qty'])) {
+        $productId = $_POST['buy_now_product_id'];
+        $quantity = $_POST['buy_now_product_qty'];
         
-        // Chuyển hướng đến trang đặt hàng thành công
-        header("Location: order-success.php?code=$orderCode");
-        exit();
+        // Lấy thông tin sản phẩm
+        $productInfo = $product->getProductbyId($productId);
+        
+        if ($productInfo) {
+            $thanhTien = $productInfo['gia'] * $quantity;
+            
+            // Chuẩn bị dữ liệu sản phẩm
+            $products = [
+                [
+                    'idProduct' => $productId,
+                    'soLuong' => $quantity,
+                    'thanhTien' => $thanhTien
+                ]
+            ];
+            
+            // Tạo đơn hàng
+            $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
+            
+            if ($orderCode) {
+                // Chuyển hướng đến trang đặt hàng thành công
+                header("Location: order-success.php?code=$orderCode");
+                exit();
+            }
+        }
+    } else {
+        // Chuẩn bị dữ liệu sản phẩm từ giỏ hàng
+        $products = [];
+        foreach ($cartItems as $item) {
+            $products[] = [
+                'idProduct' => $item['idProduct'],
+                'soLuong' => $item['soLuong'],
+                'thanhTien' => $item['thanhTien']
+            ];
+        }
+        
+        // Tạo đơn hàng
+        $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
+        
+        if ($orderCode) {
+            // Xóa giỏ hàng sau khi đặt hàng thành công
+            $cart->clearCart($idUser);
+            
+            // Chuyển hướng đến trang đặt hàng thành công
+            header("Location: order-success.php?code=$orderCode");
+            exit();
+        }
     }
 }
 
@@ -393,7 +432,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="product-all">
                     <?php if (!empty($cartItems)): ?>
                         <?php foreach ($cartItems as $item): ?>
-                            <?php $listImage = explode(',', $item['hinhAnh']); ?>
                             <div class="product-summary">
                                 <div class="product-info">
                                     <p class="product-name"><?php echo $item['tenSanPham']; ?></p>
