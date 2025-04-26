@@ -37,7 +37,7 @@
                 <?php if(isset($_SESSION['idUser'])) { ?>
                 <a href="#" class="cart-icon"><i class="ti-shopping-cart"></i></a>
                 <div class="user-menu">
-                    <a href="#" class="user-icon"><i class="ti-user"></i> </a>
+                    <p> <?php echo($_SESSION['hoTen']); ?><a href="#" class="user-icon"><i class="ti-user"></i> </a></p>
 
                     <!-- Dropdown menu khi đã đăng nhập -->
                     <ul class="dropdown-menu">

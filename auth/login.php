@@ -33,6 +33,7 @@ if(isset($_POST['sub']))
         if($result[1]=="customer")
         {
                 $_SESSION['idUser'] =  $result[0];
+                $_SESSION['hoTen'] = $result[2];
                 if(isset($_POST['luudangnhap']))
                 {
                     $token = bin2hex(random_bytes(32));
