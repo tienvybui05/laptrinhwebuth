@@ -6,7 +6,40 @@ class news {
     public function __construct() {
         $this->data = new database();
     }
-    
+    public function getPaginatedNewsOfAdmin($currentPage, $soTinTuc, $keyword,$loaiTinTuc)
+    {
+      $offset =($currentPage - 1) * $soTinTuc;
+      if($loaiTinTuc =="tatca")
+      {
+         $sqlCount = "SELECT COUNT(*) as total FROM news WHERE moTa LIKE '%$keyword%' ";
+      }
+      else
+      {
+         $sqlCount = "SELECT COUNT(*) as total FROM news WHERE tieuDe = '$loaiTinTuc' and moTa LIKE '%$keyword%'";
+      }
+      $resultCount = $this->data->select($sqlCount);
+      $totalNews = 0;
+      if ($row =  $resultCount->fetch_assoc()) 
+      {
+         $totalNews = $row['total'];
+      }
+      $totalPages = ceil($totalNews/$soTinTuc);
+      if($loaiTinTuc=="tatca")
+      {
+         $sql = "SELECT * FROM news WHERE moTa LIKE '%$keyword%' ORDER BY idTinTuc ASC LIMIT $offset, $soTinTuc";
+      }
+      else
+      {
+         $sql = "SELECT * FROM news WHERE tieuDe = '$loaiTinTuc' and hoTen LIKE '%$keyword%' ORDER BY idTinTuc ASC LIMIT $offset, $soTinTuc";
+      }
+      $result = $this->data->select($sql);
+      $news = [];
+      while($row = $result->fetch_assoc() )
+      {
+         $news[] = $row;
+      }
+      return [$news, $totalPages];
+    }
     // Lấy tất cả tin tức
     public function getAllNews($limit = null) {
         $sql = "SELECT * FROM news ORDER BY idTinTuc DESC";

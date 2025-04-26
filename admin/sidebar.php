@@ -26,5 +26,9 @@ if (!defined('ALLOW_INCLUDE')) {
             <i class="nav-arrow-down ti-comment"></i>
             <a href="index.php?pageAd=cart&crud=index"> Giỏ hàng</a>
         </li>
+        <li class="muc">
+            <i class="nav-arrow-down ti-comment"></i>
+            <a href="index.php?pageAd=news&crud=index"> Tin tức</a>
+        </li>
     </ul>
 </div>
