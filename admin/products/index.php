@@ -69,7 +69,7 @@ $reuslut = $product->getPaginatedProductsOfAdmin($currentPage, $soSanPham, $keyw
                     <td><?php echo ($row['thuongHieu']); ?></td>
                     <td class="hinh-anh"><img src="../public/images/product/<?php echo ($listImage[0] . "/" . $listImage[1]); ?>" alt=""></td>
                     <td><?php echo ($row['khuyenMai']); ?></td>
-                    <td><?php echo ($row['gia']); ?></td>
+                    <td><?php echo (number_format($row['gia'])); ?>đ</td>
                     <td><?php echo ($row['tonKho']); ?></td>
                     <td><?php echo ($row['trinhDo']); ?></td>
                     <td class="hanh-dong">

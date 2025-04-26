@@ -48,7 +48,7 @@ $result = $cart->getPaginatedCartOfAdmin($currentPage,$soGioHang,$keyword,$thuon
                 <td class="hinh-anh"><img src="../public/images/product/<?php echo ($listImage[0] . "/" . $listImage[1]); ?>" alt=""></td>
                 <td><?php echo ($row['thuongHieu']); ?></td>
                 <td><?php echo ($row['soLuong']); ?></td>
-                <td><?php echo ($row['thanhTien']); ?></td>
+                <td><?php echo (number_format($row['thanhTien'])); ?>đ</td>
             </tr>
         <?php
         }

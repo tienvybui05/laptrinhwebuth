@@ -44,7 +44,7 @@ function test_input($data)
 
     </div>
     <div class="gia-va-khuyen-mai">
-        <p>Giá: <span><?php echo ($row['gia']); ?></span></p>
+        <p>Giá: <span><?php echo (number_format($row['gia'])); ?>đ</span></p>
         <p>Khuyến mãi: <span><?php echo ($row['khuyenMai']); ?></span> </p>
     </div>
     <div class="hinh-detail-product">
