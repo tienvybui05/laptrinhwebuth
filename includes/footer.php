@@ -21,10 +21,10 @@
         <div class="footer-right">
             <h3>Theo dõi chúng tôi</h3>
             <ul>
-                <li><a href="../public/index.php">Facebook</a></li>
-                <li><a href="../pages/about.php">Twitter</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Linkedin</a></li>
+                <li><a href="https://www.facebook.com/">Facebook</a></li>
+                <li><a href="https://x.com/?lang=vi">Twitter</a></li>
+                <li><a href="https://www.instagram.com/">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/">Linkedin</a></li>
             </ul>
         </div>
     </div>

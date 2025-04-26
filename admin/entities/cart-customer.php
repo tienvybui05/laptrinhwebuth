@@ -50,11 +50,25 @@ class cart_customer {
         return $this->data->delete($sql);
     }
 
-    // // Xóa toàn bộ giỏ hàng của người dùng (tuỳ chọn)
-    // public function clearCart($idUser) {
-    //     $sql = "DELETE FROM cart WHERE idUser = '$idUser'";
-    //     return $this->data->delete($sql);
-    // }
+    // Xóa toàn bộ giỏ hàng của người dùng (tuỳ chọn)
+    public function clearCart($idUser, $orderCode) {
+        $sql = "DELETE cart
+                FROM cart 
+                JOIN orders ON cart.idProduct = orders.idProduct
+                WHERE cart.idUser = '$idUser' AND orders.maTongDonHang = '$orderCode'";
+        return $this->data->delete($sql);
+    }
+    
+    // Trừ tồn kho sản phẩm sau khi mua hàng
+    public function decreaseStock($idUser, $orderCode) {
+        $sql = "UPDATE product 
+                JOIN orders ON product.idProduct = orders.idProduct   
+                SET product.tonKho = product.tonKho - orders.soLuong
+                WHERE orders.idUser = '$idUser' AND orders.maTongDonHang = '$orderCode'";
+        return $this->data->update($sql);
+    }
+    
+
 
     public function updateQuantity($idUser, $idProduct, $quantity) {
         // Lấy thông tin sản phẩm để tính thành tiền

@@ -1,35 +1,42 @@
 <?php
-include '../admin/entities/user.php';
-$user = new user();
-$hoTen=$soDienThoai=$username=$password=$diaChi="";
-$ErrUsername="";
-if(isset($_POST['submit']))
-{
-$hoTen=test_input($_POST['fullname']);
-$soDienThoai=test_input($_POST['soDienThoai']);
-$diaChi=test_input($_POST['diaChi']);
-$username = test_input($_POST['username']);
-$password = test_input($_POST['password']);
-if($user->isUsernameNotExist($username))
-{
-    $result = $user->addUser($hoTen,$soDienThoai,$username,$password,$diaChi,"customer");
-    header("location: ../public/index.html");
+session_start(); // Bắt đầu session
+
+// Kiểm tra nếu đã đăng nhập
+if (isset($_SESSION['idUser'])) {
+    header("Location: ../public/index.php"); // Chuyển hướng đến trang index
     exit;
 }
-else
-{
-    $ErrUsername="Username của bạn đã tồn tại";
+
+include '../admin/entities/user.php';
+$user = new user();
+$hoTen = $soDienThoai = $username = $password = $diaChi = "";
+
+// Xử lý form đăng ký
+if (isset($_POST['submit'])) {
+    $hoTen = test_input($_POST['fullname']);
+    $soDienThoai = test_input($_POST['soDienThoai']);
+    $diaChi = test_input($_POST['diaChi']);
+    $username = test_input($_POST['username']);
+    $password = test_input($_POST['password']);
+
+    if ($user->isUsernameNotExist($username)) {
+        $result = $user->addUser($hoTen, $soDienThoai, $username, $password, $diaChi, "customer");
+        header("Location: ../public/index.html");
+        exit;
+    } else {
+        $_SESSION['error'] = "Username của bạn đã tồn tại";
+        header("Location: register.php"); // Tải lại trang
+        exit;
+    }
 }
-}
-function test_input($data)
-{
+
+function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -97,8 +104,13 @@ function test_input($data)
                     </div>
 
                     <div class="hong-bao-loi">
-                        <p>
-                            <?php echo($ErrUsername)?>
+                        <p style="color: red; font-size: 14px;">
+                            <?php
+                            if (isset($_SESSION['error'])) {
+                                echo $_SESSION['error'];
+                                unset($_SESSION['error']); // Xóa lỗi sau khi hiển thị
+                            }
+                            ?>
                         </p>
                     </div>
                     <div class="subm">
@@ -114,4 +126,5 @@ function test_input($data)
     </div>
     <script src="../public/js/main.js"></script>
 </body>
+
 </html>

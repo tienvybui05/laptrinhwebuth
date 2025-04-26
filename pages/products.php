@@ -109,7 +109,7 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
                     <div class="product-area">
                         <div class="product-controls">
                             <div class="breadcrumbs">
-                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
+                                <a href="../public/index.php">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
                                 <?php if (!empty($category)): ?>
                                 &gt; <span><?php echo $category; ?></span>
                                 <?php endif; ?>
