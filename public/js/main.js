@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Gửi yêu cầu POST để lưu sản phẩm "Mua ngay"
-            fetch("../admin/carts/save-buy-now.php", {
+            fetch("../admin/entities/orders.php?action=saveBuyNow", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

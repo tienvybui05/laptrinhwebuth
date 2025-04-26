@@ -353,10 +353,54 @@ class orders {
         
         return count($allOrders) > 0;
     }
+
+    public function saveBuyNowProduct($productId, $quantity) {
+        if ($quantity <= 0) {
+            return ['success' => false, 'message' => 'Số lượng không hợp lệ.'];
+        }
+
+        $product = new product();
+        $productInfo = $product->getProductbyId($productId);
+
+        if (!$productInfo) {
+            return ['success' => false, 'message' => 'Sản phẩm không tồn tại.'];
+        }
+
+        // Lưu sản phẩm "Mua ngay" vào session
+        $_SESSION['buy_now'] = [
+            'idProduct' => $productId,
+            'tenSanPham' => $productInfo['tenSanPham'],
+            'gia' => $productInfo['gia'],
+            'soLuong' => $quantity,
+            'thanhTien' => $productInfo['gia'] * $quantity
+        ];
+
+        return ['success' => true, 'message' => 'Sản phẩm đã được lưu tạm.'];
+    }
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'saveBuyNow') {
+    session_start();
+    include_once 'product.php';
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['productId']) || !isset($data['quantity'])) {
+        echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ.']);
+        exit;
+    }
+
+    $productId = (int)$data['productId'];
+    $quantity = (int)$data['quantity'];
+
+    $orders = new orders();
+    $response = $orders->saveBuyNowProduct($productId, $quantity);
+
+    echo json_encode($response);
+    exit;
 }
 ?>
 
 
 
 
-   
