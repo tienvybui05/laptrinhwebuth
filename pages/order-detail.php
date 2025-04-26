@@ -13,7 +13,7 @@ $userId = $_SESSION['idUser'];
 $orderCode = isset($_GET['code']) ? $_GET['code'] : '';
 
 if (empty($orderCode)) {
-    header('Location: order-history.php');
+    header('Location: orderHistory.php');
     exit();
 }
 
@@ -24,7 +24,7 @@ $product = new product();
 $orderDetails = $orders->getOrderById($orderCode, $userId);
 
 if (!$orderDetails) {
-    header('Location: order-history.php');
+    header('Location: orderHistory.php');
     exit();
 }
 
@@ -76,7 +76,7 @@ while ($row = $orders->getOrdersFetch()) {
         
         <main class="main">
             <div class="order-detail-container">
-                <a href="order-history.php" class="back-to-orders">
+                <a href="orderHistory.php" class="back-to-orders">
                     <i class="ti-arrow-left"></i> Quay lại lịch sử đơn hàng
                 </a>
                 

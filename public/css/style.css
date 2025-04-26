@@ -515,7 +515,8 @@ html {
 .gioi-thieu {
     padding: 20px 20px;
     /* Khoảng cách trên dưới và hai bên */
-    background-color: #f8f2f2;
+    background-color: #f9f9f9;
+    ;
     /* Màu nền nhạt */
 }
 
@@ -601,7 +602,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.832);
     z-index: 1;
 }
 
@@ -1031,7 +1032,7 @@ html {
 }
 
 .vot-lining {
-    background-color: #ebe1e1;
+    background-color: #fbfbfb;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -1055,7 +1056,8 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.932);
+
     z-index: 1;
 }
 
@@ -1093,34 +1095,12 @@ html {
     /* Căn chỉnh khoảng cách hai bên */
 }
 
-.vot .view-more-link {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1f3e3f;
-    /* Màu xanh */
-    text-decoration: none;
-    /* Loại bỏ gạch chân */
-    transition: color 0.3s ease;
-    float: right;
-    padding-right: 70px;
-    padding-top: 40px;
-    /* Hiệu ứng mượt khi hover */
-    z-index: 3;
-    /* Thêm z-index để nó nằm trên lớp overlay */
 
-}
-
-.vot .view-more-link:hover {
-    color: #ff5722;
-    /* Màu cam khi hover */
-    text-decoration: underline;
-    /* Gạch chân khi hover */
-}
 
 /* Phần Tin tức */
 .tin-tuc {
     padding: 10px 20px;
-    background-color: #ddd;
+    background-color: #ffffff;
 
 
     /* Màu nền nhạt */
@@ -1364,7 +1344,7 @@ html {
 .about-san-pham {
     display: flex;
     padding: 20px;
-    background-color: #f8f2f2;
+    background-color: #f3f0f0;
     color: #000;
     max-width: 3000px;
     margin: 0px auto;

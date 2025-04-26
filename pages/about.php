@@ -79,7 +79,7 @@ $latestNews = $news->getAllNews(3);
                                 <p>Giao hàng nhanh chóng - Ship toàn quốc với thời gian nhanh nhất.</p>
                             </li>
                         </ul>
-                        <p>Hãy khám phá ngay bộ sưu tập vợt cầu lông ngay <a href="#">Tại đây 🔥</a></p>
+                        <p>Hãy khám phá ngay bộ sưu tập vợt cầu lông ngay <a href="../pages/products.php">Tại đây 🔥</a></p>
                     </div>
                 </div>
                 <h2 class="center-about-lien-he">Thành viên trung tâm</h2>
@@ -92,7 +92,7 @@ $latestNews = $news->getAllNews(3);
                                 <p class="title-about">Tư vấn</p>
                                 <p>Tư vấn khách hàng về các loại vợt, phụ kiện cầu lông.</p>
                                 <p>TienVy@gmail.com</p>
-                                <p><button class="button-about">Liên hệ</button></p>
+                                <p><a href="https://facebook.com/TienVyBui05" target="_blank" style="text-decoration: none;"><button class="button-about">Liên hệ</button></a></p>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ $latestNews = $news->getAllNews(3);
                                 <p class="title-about">Kỹ thuật</p>
                                 <p>Kiểm tra, sửa chữa các lỗi trên vợt như nứt, gãy, hư dây đan.</p>
                                 <p>TanNgoc@gmail.com</p>
-                                <p><button class="button-about">Liên hệ</button></p>
+                                <p><a href="https://www.facebook.com/caongoctan.vo" target="_blank" style="text-decoration: none;"><button class="button-about">Liên hệ</button></a></p>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ $latestNews = $news->getAllNews(3);
                                 <p class="title-about">Thu ngân</p>
                                 <p>Xuất hóa đơn, kiểm tra các giao dịch.</p>
                                 <p>QuocDat@gmail.com</p>
-                                <p><button class="button-about">Liên hệ</button></p>
+                                <p><a href="https://www.facebook.com/quoc.at.145458" target="_blank" style="text-decoration: none;"><button class="button-about">Liên hệ</button></a></p>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@ $latestNews = $news->getAllNews(3);
                                 <p class="title-about">Chăm sóc khách hàng</p>
                                 <p>Giải quyết khiếu nại và phản hồi của khách hàng.</p>
                                 <p>MinhThai@gmail.com</p>
-                                <p><button class="button-about">Liên hệ</button></p>
+                                <p><a href="https://www.facebook.com/tran.thai.73594479" target="_blank" style="text-decoration: none;"><button class="button-about">Liên hệ</button></a></p>
                             </div>
                         </div>
                     </div>

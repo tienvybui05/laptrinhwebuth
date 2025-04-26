@@ -28,7 +28,6 @@ session_start();
             height: 450px;
             background: #ffffff;
             border-radius: 15px;
-            margin:60px 30px 0 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 25px;
             
@@ -38,7 +37,7 @@ session_start();
             color:rgb(188, 97, 0);
         }
         .main-lienhe h4{
-            color:rgb(0, 148, 136);
+            color:rgb(13, 14, 13);
         }
         .main-lienhe .bando{
             width: 50%;
@@ -66,9 +65,11 @@ session_start();
     include '../includes/header.php';
 ?>
         <main class="main-lienhe">
+            
     <div class="khung">
+    <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
         <div class="nd1">
-            <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
+            
             <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn bất cứ khi nào. Đừng ngần ngại liên hệ để được tư vấn miễn phí!</p>
             <div class="thongtin">
                 <div>
@@ -92,7 +93,7 @@ session_start();
     </div>
 
     <div class="bando">
-        <h3>BẢN ĐỒ CHỈ ĐƯỜNG</h3>
+        
         <div class="google-map">
             <iframe class="map-frame"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15673.148864820329!2d106.59906348715825!3d10.865745499999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b2a11844fb9%3A0xbed3d5f0a6d6e0fe!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBHaWFvIFRow7RuZyBW4bqtbiBU4bqjaSBUaMOgbmggUGjhu5EgSOG7kyBDaMOtIE1pbmggKFVUSCkgLSBDxqEgc-G7nyAz!5e0!3m2!1svi!2s!4v1742871467945!5m2!1svi!2s"

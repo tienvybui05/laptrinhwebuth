@@ -2,6 +2,7 @@
 session_start();
 include_once '../admin/entities/orders.php';
 
+
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['idUser'])) {
     header('Location: ../auth/login.php');
@@ -50,11 +51,14 @@ while ($row = $orders->getOrdersFetch()) {
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/products.css">
     <link rel="stylesheet" href="../public/css/order-history.css">
+    <link rel="stylesheet" href="../public/css/cart.css">
 </head>
 <body>
     <div class="wrapper">
         <!-- Header sẽ được thêm từ layout -->
-        
+        <?php
+    include '../includes/header.php';
+?>
         <main class="main">
             <div class="order-history-container">
                 <h1 class="order-history-title">Lịch sử đơn hàng</h1>
@@ -98,7 +102,35 @@ while ($row = $orders->getOrdersFetch()) {
         
         <!-- Footer sẽ được thêm từ layout -->
     </div>
+    <?php
+    include '../includes/footer.php';
+    ?>
+    </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
+    </div>
 
+    <script src="../public/js/main.js"></script>
+    <script src="../public/js/cart.js"></script>
     <script src="../public/js/order-history.js"></script>
 </body>
 </html>

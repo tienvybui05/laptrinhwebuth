@@ -24,6 +24,7 @@ $latestNews = $news->getAllNews(3);
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
@@ -78,34 +79,11 @@ $latestNews = $news->getAllNews(3);
                         </div>
                         <div class="service-item">
                             <h5>MIỄN PHÍ VẬN CHUYỂN</h5>
-                            <p>03xx.xxx.xxx</p>
+                            <p>0345.678.123</p>
                         </div>
                     </div>
 
                 </section>
-                <!-- <section class="gioi-thieu">
-                    <div class="gioi-thieu-container">
-                        <div class="gioi-thieu-text">
-                            <h2>Giới thiệu về chúng tôi</h2>
-                            <p>
-                                Chúng tôi là một công ty chuyên cung cấp các sản phẩm chất lượng cao, đáp ứng nhu cầu
-                                của khách hàng. Với đội ngũ chuyên nghiệp và tận tâm, chúng tôi cam kết mang đến trải
-                                nghiệm tốt nhất cho bạn.
-                            </p>
-                            <p>
-                                Sứ mệnh của chúng tôi là trở thành thương hiệu hàng đầu trong lĩnh vực cung cấp sản phẩm
-                                và dịch vụ, luôn đặt khách hàng làm trọng tâm.
-                            </p>
-                            <a href="#" class="btn">Tìm hiểu thêm</a>
-                        </div>
-                        <div class="gioi-thieu-image">
-                            <figure>
-                                <img src="./images/gioi-thieu.jpg" alt="Giới thiệu">
-                                <figcaption>Giới thiệu</figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </section> -->
                 <section class="san-pham-moi">
                     <h2>SẢN PHẨM MỚI</h2>
 
@@ -149,19 +127,14 @@ $latestNews = $news->getAllNews(3);
                          ?>
                         </div>
                         
-                            
-
-                            <!-- Danh sách sản phẩm Quả Cầu Lông -->
-                            <!-- <button class="slider-prev">&#10094;</button>
-                            <button class="slider-next">&#10095;</button> -->
+        
                     </div>
-                    <button class="view-more">Xem thêm</button>
                 </section>
                 <section class="contact">
                     <div class="contact-container">
                         <h3>Hãy liên hệ chúng tôi để được tư vấn miễn phí</h3>
-                        <a href="tel:03xx.xxx.xxx" class="contact-button">
-                            <i class="fas fa-phone-alt"></i> 03xx.xxx.xxx
+                        <a href="tel:0345.678.123" class="contact-button">
+                            <i class="ti-mobile"></i> 0345.678.123
                         </a>
                     </div>
                 </section>
@@ -428,7 +401,6 @@ $latestNews = $news->getAllNews(3);
                         <div class="gioi-thieu-image">
                             <figure>
                                 <img src="./images/gioi-thieu.jpg" alt="Giới thiệu">
-                                <figcaption>Giới thiệu</figcaption>
                             </figure>
                         </div>
                     </div>
