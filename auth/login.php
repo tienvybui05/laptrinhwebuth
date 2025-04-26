@@ -1,12 +1,26 @@
 <?php
 session_start();
+
+include '../admin/entities/user.php';
+$user = new user();
+if(isset($_COOKIE['remember_token_customer'])&&!empty($_COOKIE['remember_token_customer']))
+{
+    $token = $_COOKIE['remember_token_customer'];
+    $result = $user->getUserByToken($token);
+    if($result && $result['vaiTro']==="customer")
+    {
+        $_SESSION['idUser'] = $result['idUser'];
+        $_SESSION['hoTen'] = $result['hoTen'];
+        
+        header("location:../public/index.php");
+        exit;
+    }
+}
 if(isset($_SESSION['idUser']))
 {
     header("location: ../public/index.php");
     exit;
 }
-include '../admin/entities/user.php';
-$user = new user();
 $ErrAccount="";
 $username=$password="";
 if(isset($_POST['sub']))
@@ -19,6 +33,13 @@ if(isset($_POST['sub']))
         if($result[1]=="customer")
         {
                 $_SESSION['idUser'] =  $result[0];
+                if(isset($_POST['luudangnhap']))
+                {
+                    $token = bin2hex(random_bytes(32));
+                    $expiry = date("Y-m-d H:i:s", time() + (86400*7));
+                    setcookie('remember_token_customer', $token, time() + (86400*7), "/", "", true, true);
+                    $user->saveRememberToken($result[0], $token, $expiry);
+                }
                 header("location: ../public/index.php");
                 exit;
         }
@@ -125,9 +146,17 @@ function test_input($data)
             font-size: 14px;
             color: black;
         }
-
-
-
+        .luu-dang-nhap{
+            display:flex;
+            justify-content: flex-end;
+        }
+        .luu-dang-nhap input{
+            width: auto;
+           
+        }
+        .luu-dang-nhap label{
+           
+        }
         /* Định dạng icon */
         .input-group i {
             position: absolute;
@@ -176,6 +205,10 @@ function test_input($data)
                         <i class="fas fa-lock"></i>
                         <input name="password" id="password" type="password" required/>
                     </div> 
+                    <div class="luu-dang-nhap">
+                    <input type="checkbox" class="luudangnhap" name="luudangnhap" value="luudangnhap">
+                    <label for="luudangnhap">Lưu đăng nhập</label>
+                    </div>
                     <div>
                         <p><?php echo($ErrAccount);?></p>
                     </div>                   

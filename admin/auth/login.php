@@ -37,7 +37,7 @@ if(isset($_POST['login_admin']))
             {
                 $token = bin2hex(random_bytes(32));
                 $expiry = date("Y-m-d H:i:s", time() + (86400*7));
-                setcookie('remember_token', $token, time() + (7 * 24 * 60 * 60), "/", "", true, true);
+                setcookie('remember_token', $token, time() + (86400*7), "/", "", true, true);
                 $user->saveRememberToken($result[0], $token, $expiry);
             }
                 header("location:../index.php");

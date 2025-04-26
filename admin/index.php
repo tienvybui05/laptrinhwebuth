@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['idUser_admin'])) {
-    header(("location: auth/checkCookie.php"));
+    header(("location: auth/login.php"));
     exit;
 }
 define('ALLOW_INCLUDE', true);
