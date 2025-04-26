@@ -7,10 +7,20 @@ include '../admin/entities/news.php'; // Thêm dòng này để import class new
 $product = new product();
 $news = new news(); // Khởi tạo đối tượng news
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-$result = $product->getProduct($keyword);
+$result = $product->getFilteredProducts($keyword, 0, 19500000, '', '', '', '', 'newest', 1, 8, '');
 
 // Lấy 3 tin tức mới nhất cho phần tin tức ở trang chủ
 $latestNews = $news->getAllNews(3);
+
+// Fetch Yonex products
+$yonexProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '', 'newest', 1, 8, 'Yonex');
+
+// Fetch Lining products
+$liningProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '', 'newest', 1, 8, 'Lining');
+
+// Fetch Victor products
+$victorProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '', 'newest', 1, 8, 'Victor');
+
 ?>
 
 
@@ -24,7 +34,6 @@ $latestNews = $news->getAllNews(3);
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./css/cart.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
@@ -88,22 +97,23 @@ $latestNews = $news->getAllNews(3);
                     <h2>SẢN PHẨM MỚI</h2>
 
                     <div class="san-pham-content">
+                        
                         <!-- Danh sách sản phẩm Vợt Cầu Lông -->
                         <div class="san-pham-list active" id="vot">
                         <?php
-                                    if (!empty($result)) {
-                                        foreach ($result as $row) {
-                                            $listImage = explode(',', $row['hinhAnh']);
-                                            // Ẩn sản phẩm có khuyến mãi 0%
-                                            if ($row['khuyenMai'] == '0%') {
-                                                $discountClass = 'hidden-discount';
-                                            } else {
-                                                $discountClass = '';
-                                            }
-                                    ?>
+                                        if (!empty($result)) {
+                                            foreach ($result as $row) {
+                                                $listImage = explode(',', $row['hinhAnh']);
+                                                // Ẩn sản phẩm có khuyến mãi 0%
+                                                if ($row['khuyenMai'] == '0%') {
+                                                    $discountClass = 'hidden-discount';
+                                                } else {
+                                                    $discountClass = '';
+                                                }
+                                        ?>
                             
                                 <div class="san-pham-item" data-id = "<?php echo($row['idProduct'])?>">
-                                    <div class="discount"><?php echo($row['khuyenMai']); ?></div>
+                                    <div class="discount <?php echo $discountClass; ?>"><?php echo($row['khuyenMai']); ?></div>
                                     <a href="../pages/product-detail.php?id=<?php echo($row['idProduct'])?>">
                                     <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="Vợt cầu lông Yonex">
                                     <h3><?php echo($row['tenSanPham']); ?></h3>
@@ -127,6 +137,7 @@ $latestNews = $news->getAllNews(3);
                          ?>
                         </div>
                         
+                        
         
                     </div>
                 </section>
@@ -148,76 +159,43 @@ $latestNews = $news->getAllNews(3);
                             <div class="san-pham-content">
                                 <!-- Danh sách sản phẩm Vợt Cầu Lông -->
                                 <div class="san-pham-list active" id="vot">
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
+                                
+                            
+                                    <?php foreach ($yonexProducts as $row): ?>
+                                        <?php
+                                        if ($row['khuyenMai'] == '0%') {
+                                            $discountClass = 'hidden-discount';
+                                        } else {
+                                            $discountClass = '';
+                                        }
+                                        ?>
+                                        <div class="san-pham-item" data-id="<?php echo($row['idProduct'])?>">
+                                            <div class="discount <?php echo $discountClass; ?>"><?php echo($row['khuyenMai']); ?></div>
+                                            <a href="../pages/product-detail.php?id=<?php echo($row['idProduct'])?>">
+                                                <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="<?php echo($row['tenSanPham']); ?>">
+                                                <h3><?php echo($row['tenSanPham']); ?></h3>
+                                                <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                            </a>
+                                            <div class="san-pham-buttons">
+                                                <button class="btn-add-cart">
+                                                    <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                                                </button>
+                                                <button class="btn-buy-now" data-id="<?php echo($row['idProduct'])?>" data-price="<?php echo($row['gia']); ?>">
+                                                    <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
+                                    <?php endforeach; ?>
 
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-
-
-
-                                    <!-- Danh sách sản phẩm Quả Cầu Lông -->
-                                    <button class="slider-prev">&#10094;</button>
-                                    <button class="slider-next">&#10095;</button>
+                          
                                 </div>
                             </div>
+                            
                         </div>
+                        
+                    </div>
                 </section>
+
                 <section class="vot vot-lining">
                     <div class="header-row">
                         <h2>VỢT LINING</h2>
@@ -228,76 +206,37 @@ $latestNews = $news->getAllNews(3);
                             <div class="san-pham-content">
                                 <!-- Danh sách sản phẩm Vợt Cầu Lông -->
                                 <div class="san-pham-list active" id="vot">
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
+                                    <?php foreach ($liningProducts as $row): ?>
+                                        <?php
+                                        if ($row['khuyenMai'] == '0%') {
+                                            $discountClass = 'hidden-discount';
+                                        } else {
+                                            $discountClass = '';
+                                        }
+                                        ?>
+                                        <div class="san-pham-item" data-id="<?php echo($row['idProduct'])?>">
+                                            <div class="discount <?php echo $discountClass; ?>"><?php echo($row['khuyenMai']); ?></div>
+                                            <a href="../pages/product-detail.php?id=<?php echo($row['idProduct'])?>">
+                                                <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="<?php echo($row['tenSanPham']); ?>">
+                                                <h3><?php echo($row['tenSanPham']); ?></h3>
+                                                <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                            </a>
+                                            <div class="san-pham-buttons">
+                                                <button class="btn-add-cart">
+                                                    <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                                                </button>
+                                                <button class="btn-buy-now" data-id="<?php echo($row['idProduct'])?>" data-price="<?php echo($row['gia']); ?>">
+                                                    <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-
-
-
-                                    <!-- Danh sách sản phẩm Quả Cầu Lông -->
-                                    <button class="slider-prev">&#10094;</button>
-                                    <button class="slider-next">&#10095;</button>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
+
                 <section class="vot vot-victor">
                     <div class="header-row">
                         <h2>VỢT VICTOR</h2>
@@ -308,78 +247,36 @@ $latestNews = $news->getAllNews(3);
                             <div class="san-pham-content">
                                 <!-- Danh sách sản phẩm Vợt Cầu Lông -->
                                 <div class="san-pham-list active" id="vot">
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
+                                    <?php foreach ($victorProducts as $row): ?>
+                                        <?php
+                                        if ($row['khuyenMai'] == '0%') {
+                                            $discountClass = 'hidden-discount';
+                                        } else {
+                                            $discountClass = '';
+                                        }
+                                        ?>
+                                        <div class="san-pham-item" data-id="<?php echo($row['idProduct'])?>">
+                                            <div class="discount <?php echo $discountClass; ?>"><?php echo($row['khuyenMai']); ?></div>
+                                            <a href="../pages/product-detail.php?id=<?php echo($row['idProduct'])?>">
+                                                <img src="../public/images/product/<?php echo ($listImage[0]."/".$listImage[1]);?>" alt="<?php echo($row['tenSanPham']); ?>">
+                                                <h3><?php echo($row['tenSanPham']); ?></h3>
+                                                <p class="price"><?php echo number_format($row['gia'], 0, ',', '.'); ?> đ</p>
+                                            </a>
+                                            <div class="san-pham-buttons">
+                                                <button class="btn-add-cart">
+                                                    <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                                                </button>
+                                                <button class="btn-buy-now" data-id="<?php echo($row['idProduct'])?>" data-price="<?php echo($row['gia']); ?>">
+                                                    <i class="ti-credit-card"></i> Mua ngay <!-- Icon mua ngay -->
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="san-pham-item">
-                                        <div class="discount">-6%</div>
-
-                                        <img src="./images/san-pham.jpg" alt="Vợt cầu lông Yonex">
-                                        <h3>Vợt cầu lông Mizuno JPX</h3>
-                                        <p class="price">2.500.000 đ</p>
-                                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="fas fa-cart-plus"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now">
-                                                <i class="fas fa-shopping-bag"></i> Mua ngay <!-- Icon mua ngay -->
-                                            </button>
-                                        </div>
-                                    </div>
-
-
-
-                                    <!-- Danh sách sản phẩm Quả Cầu Lông -->
-                                    <button class="slider-prev">&#10094;</button>
-                                    <button class="slider-next">&#10095;</button>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
-
-
                 <section class="gioi-thieu">
                     <div class="gioi-thieu-container">
                         <div class="gioi-thieu-text">
@@ -507,6 +404,6 @@ $latestNews = $news->getAllNews(3);
     <script src="../public/js/main.js"></script>
     <script src="../public/js/cart.js"></script>
     <script src="../public/js/jquery-3.7.1.min.js"></script>
-    <!-- <script src="../public/js/side-cart.js"></script> -->
+    
 </body>
 </html>
