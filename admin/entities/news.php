@@ -123,5 +123,15 @@ class news {
         $sql = "SELECT * FROM news ORDER BY idTinTuc DESC LIMIT $limit";
         return $this->data->select($sql);
     }
+    public function getNumberNews()
+    {
+         $sql = "SELECT COUNT(*) AS total FROM news";
+         $result = $this->data->select($sql);
+         if ($result && $row = $result->fetch_assoc()) 
+         {
+             return $row['total'];
+         }
+         return 0;
+    }
 }
 ?>

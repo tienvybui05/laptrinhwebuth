@@ -6,6 +6,11 @@ if (!isset($_SESSION['idUser_admin'])) {
 }
 define('ALLOW_INCLUDE', true);
 $hoTenAdmin = $_SESSION['hoTen_admin'];
+include 'entities/user.php';
+include 'entities/product.php';
+include 'entities/orders.php';
+include_once 'entities/cart.php';
+include 'entities/news.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,11 +35,6 @@ $hoTenAdmin = $_SESSION['hoTen_admin'];
             <div id="content">
                 <!-- content -->
                 <?php
-                include 'entities/user.php';
-                include 'entities/product.php';
-                include_once 'entities/orders.php';
-                include_once 'entities/cart.php';
-                include 'entities/news.php';
                 if (isset($_GET['pageAd']) && isset($_GET['crud'])) 
                 {
                     $page = $_GET['pageAd'];

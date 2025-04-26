@@ -127,5 +127,15 @@ class user{
      
      return $this->data->delete($sql);
    }
+   public function getNumberCustomer()
+   {
+        $sql = "SELECT COUNT(*) AS total FROM user WHERE vaiTro = 'customer' ";
+        $result = $this->data->select($sql);
+        if ($result && $row = $result->fetch_assoc()) 
+        {
+            return $row['total'];
+        }
+        return 0;
+   }
 }
 ?>

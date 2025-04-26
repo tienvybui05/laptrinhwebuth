@@ -156,7 +156,26 @@ class orders {
         return [$orders, $totalPages];
     } 
    
-
+    public function getNumberOrders()
+    {
+         $sql = "SELECT COUNT(*) AS total FROM orders";
+         $result = $this->data->select($sql);
+         if ($result && $row = $result->fetch_assoc()) 
+         {
+             return $row['total'];
+         }
+         return 0;
+    }
+    public function getRevenue()
+    {
+        $sql = "SELECT SUM(thanhTien) AS total FROM orders";
+        $result = $this->data->select($sql);
+        if ($result && $row = $result->fetch_assoc()) 
+        {
+            return $row['total'];
+        }
+        return 0;
+    }
 
     /**
      * Tạo mã đơn hàng duy nhất theo phương pháp 2

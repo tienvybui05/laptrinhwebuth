@@ -370,5 +370,15 @@ class product{
         
         return $ranges;
     }
+    public function getNumberProduct()
+   {
+        $sql = "SELECT COUNT(*) AS total FROM product";
+        $result = $this->data->select($sql);
+        if ($result && $row = $result->fetch_assoc()) 
+        {
+            return $row['total'];
+        }
+        return 0;
+   }
 }
 ?>
