@@ -350,6 +350,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: block;
         }
     </style>
+    <script>
+        const idUser = <?php echo isset($_SESSION['idUser']) ? json_encode($_SESSION['idUser']) : 'null'; ?>;
+    </script>
 </head>
 
 <body>
