@@ -79,10 +79,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // Buy now button
     const buyNowBtn = document.querySelector(".btn-buy-now")
   
-    buyNowBtn.addEventListener("click", () => {
-      // Redirect to checkout page (in a real implementation)
-      alert("Chuyển đến trang thanh toán")
-      // window.location.href = 'checkout.html';
-    })
-  })
+    if (buyNowBtn) {
+      buyNowBtn.addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
   
+        // Lấy thông tin sản phẩm
+        const productId = this.getAttribute("data-id")
+        if (!productId) return
+  
+        // Lấy số lượng sản phẩm
+        let quantity = "1" // Mặc định là 1 nếu không có input số lượng
+        const quantityInput = document.querySelector(".quantity-input")
+        if (quantityInput) {
+          quantity = quantityInput.value
+        }
+  
+        // Chuyển hướng đến trang payment.php với thông tin sản phẩm
+        const paymentUrl = `../pages/payment.php?product_id=${productId}&quantity=${quantity}`
+        window.location.href = paymentUrl
+      })
+    }
+  })

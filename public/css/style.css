@@ -703,6 +703,17 @@ html {
     margin: 10px 0;
 }
 
+.san-pham-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.san-pham-item a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 /* Nút thêm vào giỏ hàng và mua ngay */
 .san-pham-buttons {
     display: flex;
@@ -1469,7 +1480,7 @@ html {
 
 /* Nội dung chính */
 .main-account {
-    width: 60%;
+    width: 40%;
     border: 10px solid #bdc0c1;
     border-radius: 5px;
     padding: 20px;
@@ -1491,16 +1502,14 @@ html {
     /* Khoảng cách giữa hai cột */
 }
 
-.main-account-body-col {
-    flex: 1;
-    /* Chia đều không gian */
-    min-width: 300px;
-    /* Đảm bảo không bị quá nhỏ trên màn hình nhỏ */
+.main-account {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 /* Form */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .form-group label {
@@ -1530,10 +1539,32 @@ html {
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
 }
 
 #save-password:hover,
 #save-info-user:hover {
     background-color: #d9534f;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    font-size: 16px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    height: 20px;
+    /* Cố định chiều cao */
+    display: block;
+    /* Đảm bảo hiển thị dưới dạng khối */
+    margin-top: 5px;
+    /* Khoảng cách giữa thông báo lỗi và ô nhập liệu */
 }

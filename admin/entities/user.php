@@ -63,6 +63,18 @@ class user{
             VALUES ('$hoTen','$soDienThoai','$username','$password','$diaChi','$vaiTro')";
       return $this->data->insert($sql);
    }
+   public function checkUsernameEdit($id,$username)
+   {
+      $sql = "SELECT * FROM User WHERE username = '$username' AND idUser != '$id'";
+      $result = $this->data->select($sql);
+      $row = $this->data->fetch();
+      if ($row != null) 
+      {
+          return false;
+      }
+      return true;
+    
+   }
    public function isUsernameNotExist($username)
    {
     $sql = "SELECT username FROM User WHERE username = '$username'";
@@ -137,5 +149,21 @@ class user{
         }
         return 0;
    }
+   public function updateInfoUser($id, $hoTen, $soDienThoai, $diaChi)
+{
+    $sql = "UPDATE user SET hoTen = '$hoTen', soDienThoai = '$soDienThoai', diaChi = '$diaChi'
+            WHERE idUser = '$id'";
+    return $this->data->update($sql);
 }
+public function updatePasswordUser($id, $password)
+{
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "UPDATE user SET password = '$password' WHERE idUser = '$id'";
+    return $this->data->update($sql);
+}
+
+}
+
+// updateUser 
+
 ?>

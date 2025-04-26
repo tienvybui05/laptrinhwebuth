@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded',function(){
 const create = document.querySelector('.form-create-user');
 create.addEventListener('submit',function(e){
     let isValid = true;
-    let message = document.querySelector(".message-product");
+    let message = document.querySelector(".message-user");
     message.innerText = "";
     const hoten = create.querySelector('input[name="hoten"]').value.trim();
     const sodienthoai = create.querySelector('input[name="sodienthoai"]').value.trim();
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const create = document.querySelector('.form-edit-user');
     create.addEventListener('submit',function(e){
         let isValid = true;
-        let message = document.querySelector(".message-product");
+        let message = document.querySelector(".message-user");
         message.innerText = "";
         const sodienthoai = create.querySelector('input[name="sodienthoai"]').value.trim();
         const username = create.querySelector('input[name="username"]').value.trim();
@@ -313,6 +313,17 @@ document.addEventListener('DOMContentLoaded',function(){
         });
     });
 //xóa user
+// document.addEventListener('DOMContentLoaded', function () {
+//     const msgBox = document.querySelector('.toast-alert');
+//     if (msgBox) {
+//         setTimeout(function () {
+//             msgBox.classList.add('fade-out');
+//             setTimeout(function () {
+//                 msgBox.style.display = 'none';
+//             }, 500);
+//         }, 1000);
+//     }
+// });
 document.addEventListener('DOMContentLoaded', function () {
     const msgBox = document.querySelector('.toast-alert');
     if (msgBox) {
@@ -320,6 +331,10 @@ document.addEventListener('DOMContentLoaded', function () {
             msgBox.classList.add('fade-out');
             setTimeout(function () {
                 msgBox.style.display = 'none';
+                // Xóa param msg khỏi URL sau khi thông báo biến mất
+                const url = new URL(window.location.href);
+                url.searchParams.delete('msg');
+                window.history.replaceState({}, document.title, url);
             }, 500);
         }, 1000);
     }

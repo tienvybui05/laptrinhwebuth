@@ -486,23 +486,6 @@
   gap: 8px;
 }
 
-.btn-add-cart {
-  background-color: #1e88e5;
-  color: white;
-}
-
-.btn-add-cart:hover {
-  background-color: #1976d2;
-}
-
-.btn-buy-now {
-  background-color: #f44336;
-  color: white;
-}
-
-.btn-buy-now:hover {
-  background-color: #e53935;
-}
 
 
 
