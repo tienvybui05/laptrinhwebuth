@@ -18,6 +18,8 @@ $result = $cart->getPaginatedCartOfAdmin($currentPage,$soGioHang,$keyword,$thuon
             <input name="keyword" placeholder="Nhập tên sản phẩm" type="text"
                 value="<?php echo (isset($_GET['keyword']) ? $_GET['keyword'] : ''); ?>">
                 <input type="hidden" name="sort" value="<?php echo htmlspecialchars($thuongHieu); ?>">
+                <input type="hidden" name="pageAd" value="cart">
+                <input type="hidden" name="crud" value="index">
             <button type="submit"><p>Tìm kiếm</p></button>
         </form>
         <select name="thuonghieu" class="loc-thuong-hieu-product" onchange="applySort(this.value)">

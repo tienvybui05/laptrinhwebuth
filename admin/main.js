@@ -313,6 +313,17 @@ document.addEventListener('DOMContentLoaded',function(){
         });
     });
 //xóa user
+// document.addEventListener('DOMContentLoaded', function () {
+//     const msgBox = document.querySelector('.toast-alert');
+//     if (msgBox) {
+//         setTimeout(function () {
+//             msgBox.classList.add('fade-out');
+//             setTimeout(function () {
+//                 msgBox.style.display = 'none';
+//             }, 500);
+//         }, 1000);
+//     }
+// });
 document.addEventListener('DOMContentLoaded', function () {
     const msgBox = document.querySelector('.toast-alert');
     if (msgBox) {
@@ -320,6 +331,10 @@ document.addEventListener('DOMContentLoaded', function () {
             msgBox.classList.add('fade-out');
             setTimeout(function () {
                 msgBox.style.display = 'none';
+                // Xóa param msg khỏi URL sau khi thông báo biến mất
+                const url = new URL(window.location.href);
+                url.searchParams.delete('msg');
+                window.history.replaceState({}, document.title, url);
             }, 500);
         }, 1000);
     }
