@@ -544,6 +544,7 @@ align-items: center;
     box-shadow: none;
     height: 40px;
 }
+.loc-loai-tin-news,
 .loc-thuong-hieu-product{
     padding: 10px;
     background-color: rgb(169, 223, 216);
@@ -625,6 +626,7 @@ align-items: center;
     
         color: white;
     }
+
     .detail-product .detail-product-quay-ve{
         text-align: center;
         margin: 10px;
@@ -637,6 +639,40 @@ align-items: center;
         outline: none;
         box-shadow: none;
     }
+    /*Chi tiết tin tức*/
+    .detail-news .tieu-de h2{
+        margin: 30px 0;
+    }
+    .detail-news .mo-ta p{
+        color: #fff;
+        margin: 30px 0;
+    }
+    .detail-news .hinh-anh-detail-news img{
+        width: 50%;
+        margin: 20px 0;
+        min-height: 300px;
+        border-radius: 15px;
+    }
+    .detail-news .noi-dung .noi-dung-news{
+        margin: 20px 0;
+    }
+    .detail-news .tac-gia{
+        color: #f6f089;
+        margin: 20px 0;
+    }
+    .detail-news .detail-news-quay-ve{
+        text-align: center;
+        margin: 10px;
+    }
+    .detail-news .detail-news-quay-ve button{
+        padding: 6px;
+        border-radius: 5px;
+        background-color: rgb(53, 230, 168);
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+    
 /*Form xóa*/
 .modal {
     display: none; /* Ẩn mặc định */
@@ -800,7 +836,9 @@ margin: 10px 0;
     border-radius: 10px;
 }
 .detail-orders-quay-ve{
-    margin: 10px 0;
+
+    text-align: center;
+        margin: 10px;
 }
 .detail-orders-quay-ve button{
     padding: 6px;

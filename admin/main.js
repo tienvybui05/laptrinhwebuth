@@ -154,6 +154,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteLinks = document.querySelectorAll('.xoa-tin-tuc');
+
+    deleteLinks.forEach(function(link) {
+        const parentTd = link.closest('.hanh-dong');
+        const modal = parentTd.querySelector('.xoa-confirmModal');
+        const cancelBtn = modal.querySelector('.xoa-cancelBtn');
+        const confirmBtn = modal.querySelector('.xoa-confirmBtn');
+        const deleteUrl = link.dataset.url;// lấy đường link từ thẻ a
+
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+        });
+
+        cancelBtn.addEventListener('click', function () { // bấm nút hủy thì xóa class active
+            modal.classList.remove('active');
+        });
+
+        confirmBtn.addEventListener('click', function () {// bấm nút xóa thì dẫn sang trang mới
+            window.location.href = deleteUrl;
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector('.form-edit-product');
+    form.addEventListener('submit', function (e) {
+        const hinhAnhInput = document.querySelector('input[name="hinhAnh"]');
+        const messageBox = document.querySelector('.message-tin-tuc');
+        messageBox.textContent = ''; // Reset thông báo
+
+        const file = hinhAnhInput.files[0];
+
+        // Nếu người dùng đã chọn file
+        if (file) {
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+            if (!allowedTypes.includes(file.type)) {
+                e.preventDefault();
+                messageBox.textContent = 'Chỉ chấp nhận các định dạng ảnh: JPG, PNG, GIF, hoặc WEBP.';
+                return;
+            }
+        }
+    });
+});
 // Quản lý User
 //Tạo user
 document.addEventListener('DOMContentLoaded',function(){
@@ -228,6 +279,38 @@ document.addEventListener('DOMContentLoaded',function(){
             e.preventDefault(); 
         }
     });
+    });
+    // form create tintuc
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('.form-create-tin-tuc');
+        form.addEventListener('submit', function (e) {
+            const tieuDe = document.querySelector('input[name="tieuDe"]').value.trim();
+            const moTa = document.querySelector('textarea[name="moTa"]').value.trim();
+            const hinhAnhInput = document.querySelector('input[name="hinhAnh"]');
+            const noiDung = document.querySelector('textarea[name="noiDung"]').value.trim();
+            const tacGia = document.querySelector('input[name="tacGia"]').value.trim();
+            const messageBox = document.querySelector('.message-tin-tuc');
+        
+            messageBox.textContent = '';
+            if (!tieuDe || !moTa || !noiDung || !tacGia) {
+                e.preventDefault(); // Sửa lại từ event.preventDefault()
+                messageBox.textContent = 'Vui lòng điền đầy đủ các trường bắt buộc.';
+                return;
+            }
+    
+            const file = hinhAnhInput.files[0];
+            if (!file) {
+                e.preventDefault();
+                messageBox.textContent = 'Vui lòng chọn một hình ảnh.';
+                return;
+            }
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!allowedTypes.includes(file.type)) {
+                e.preventDefault();
+                messageBox.textContent = 'Chỉ chấp nhận các định dạng ảnh: JPG, PNG, GIF, hoặc WEBP.';
+                return;
+            }
+        });
     });
 //xóa user
 document.addEventListener('DOMContentLoaded', function () {

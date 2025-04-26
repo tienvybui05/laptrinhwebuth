@@ -30,7 +30,7 @@ class news {
       }
       else
       {
-         $sql = "SELECT * FROM news WHERE tieuDe = '$loaiTinTuc' and hoTen LIKE '%$keyword%' ORDER BY idTinTuc ASC LIMIT $offset, $soTinTuc";
+         $sql = "SELECT * FROM news WHERE tieuDe = '$loaiTinTuc' and moTa LIKE '%$keyword%' ORDER BY idTinTuc ASC LIMIT $offset, $soTinTuc";
       }
       $result = $this->data->select($sql);
       $news = [];
@@ -40,6 +40,14 @@ class news {
       }
       return [$news, $totalPages];
     }
+
+    public function addNew($tieuDe,$moTa,$hinhAnh,$noiDung,$tacGia)
+    {
+        $sql = "INSERT INTO news(tieuDe,moTa,noiDung,hinhAnh,TacGia)
+                VALUES('$tieuDe','$moTa','$noiDung','$hinhAnh','$tacGia')";
+        return $this->data->insert($sql);
+    }
+ 
     // Lấy tất cả tin tức
     public function getAllNews($limit = null) {
         $sql = "SELECT * FROM news ORDER BY idTinTuc DESC";
