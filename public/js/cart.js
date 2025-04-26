@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let iconcart = document.querySelector(".cart-icon");
     let closesidecart = document.querySelector(".close_cart-side");
     let body = document.querySelector('body');
-    console.log(iconcart);
     iconcart.addEventListener("click",()=>{
         body.classList.add("showCart");
     });
@@ -76,6 +75,56 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         loadCart();             
     }
+    const btnn = document.querySelectorAll(".btn-buy-now");
+    btnn.forEach(function(button, index) {
+        button.addEventListener("click", function(event) {
+            var btnItem = event.target
+            var product = btnItem.closest(".san-pham-item")
+            console.log(product);
+            
+            var idProduct = product.getAttribute('data-id')
+            var price = product.getAttribute('data-price')
+            var productQuality = 1
+            console.log(productQuality)
+        
+            console.log(product)
+            console.log(price)
+            
+            
+            const cartData = {
+                cart: [
+                    {
+                        id: idProduct,
+                        quantity: productQuality,
+                        price: price,
+                    }
+                ]
+            };
+
+            fetch('../includes/cart/save_cartphu.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Mua ngay thành công! Đang chuyển đến trang xác nhận đơn hàng...');
+                    window.location.href = `../pages/order-success.php`;
+                } else {
+                    alert('Có lỗi: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi Fetch:', error);
+                alert('Không thể kết nối tới server.');
+            });
+        })
+    })
+
+
 });
 
 

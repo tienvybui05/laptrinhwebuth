@@ -52,5 +52,5 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             alert("Vui lòng điền đầy đủ thông tin giao hàng.");
         }
-    });
+    });     
 });
