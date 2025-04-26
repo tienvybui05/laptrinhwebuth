@@ -51,6 +51,10 @@ if(isset($_POST['savePassword'])) {
 }
 ?>
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,30 +62,39 @@ if(isset($_POST['savePassword'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đổi mật khẩu</title>
     <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../public/css/cart.css">
+
+
+
+  
 </head>
 <body>
     <div class="wrapper">
         <?php include '../includes/header.php'; ?>
         <main class="main">
             <div class="main-account">
-                <h3>Đổi mật khẩu</h3>
-                <form action="" method="post" class="info-user">
-                    <div class="form-group">
-                        <label for="passwordOld" class="form-label">Mật khẩu hiện tại</label>
-                        <input class="form-control" type="password" name="passwordOld" id="passwordOld" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordNew" class="form-label">Mật khẩu mới</label>
-                        <input class="form-control" type="password" name="passwordNew" id="passwordNew" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
-                        <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" required>
-                    </div>
-                    <button id="save-password" name="savePassword">
-                        <i class="fa-regular fa-floppy-disk"></i> Lưu thay đổi
-                    </button>
-                </form>
+                <h2>Đổi mật khẩu</h2>
+                <form action="" class="change-password" method="post">
+    <div class="form-group">
+        <label for="" class="form-label w60">Mật khẩu hiện tại</label>
+        <input class="form-control" type="password" name="passwordOld" id="password-cur-info" placeholder="Nhập mật khẩu hiện tại">
+    </div>
+    <div class="form-group">
+        <label for="" class="form-label w60">Mật khẩu mới</label>
+        <input class="form-control" type="password" name="passwordNew" id="password-after-info" placeholder="Nhập mật khẩu mới">
+    </div>
+    <div class="form-group">
+        <label for="" class="form-label w60">Xác nhận mật khẩu mới</label>
+        <input class="form-control" type="password" name="confirmPassword" id="password-comfirm-info" placeholder="Nhập lại mật khẩu mới">
+    </div>
+    <div class="password-message" style="color: red; margin-bottom: 10px;"></div>
+    <div>
+        <button id="save-password" name="savePassword">
+            <i class="fa-regular fa-key"></i> Đổi mật khẩu
+        </button>
+    </div>
+</form>
 
                 <?php if ($msgPassword): ?>
                     <p style="color: red;"><?php echo $msgPassword; ?></p>
@@ -91,5 +104,7 @@ if(isset($_POST['savePassword'])) {
         </main>
         <?php include '../includes/footer.php'; ?>
     </div>
+    <script src="../public/js/info.js"> </script>
+
 </body>
 </html>
