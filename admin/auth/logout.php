@@ -10,9 +10,12 @@ if(isset($_SESSION['idUser_admin']))
     unset( $_SESSION['idUser_admin']);
     unset( $_SESSION['hoTen_admin']);
 }
+if(isset($_COOKIE['remember_token'])&&!empty($_COOKIE['remember_token']))
+{
 $cookie = $_COOKIE['remember_token'];
 setcookie('remember_token', '', time() - 3600, "/", "", true, true);
 $result = $user->deleteToken($cookie);
+}
 header("Location: login.php"); 
 exit();
 ?>
