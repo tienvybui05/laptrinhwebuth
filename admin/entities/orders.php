@@ -335,7 +335,7 @@ class orders {
     
         // Nếu update thành công hoặc không có gì để update, vẫn trả về true
         if ($result !== false) {
-            return true;
+            return $orderCode;
         } else {
             return false;
         }

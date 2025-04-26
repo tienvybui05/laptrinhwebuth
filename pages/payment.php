@@ -24,7 +24,7 @@ if ($buyNowProduct) {
     $totalAmount = $buyNowProduct['thanhTien'];
 } else {
     // Nếu không có sản phẩm "Mua ngay", hiển thị giỏ hàng như bình thường
-    $result = $cart->getCartByUser($idUser);
+    $result = $orders->getOdersByUser($idUser);
 
     $totalAmount = 0;
     $cartItems = [];
@@ -66,8 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
             
             // Tạo đơn hàng
-            $orderCode = $orders->updateOrder($idUser, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
-            
+            $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
             if ($orderCode) {
                 // Chuyển hướng đến trang đặt hàng thành công
                 header("Location: order-success.php?code=$orderCode");
