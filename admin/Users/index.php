@@ -4,7 +4,7 @@ if (!isset($_GET['pageAd']) || $_GET['pageAd'] !== 'user') {
     exit();
 }
 $user = new user();
-$soUser = 20;
+$soUser = 12;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 $role = isset($_GET['sort']) ? $_GET['sort'] : 'tatca';
 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
