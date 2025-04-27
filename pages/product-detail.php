@@ -21,6 +21,22 @@ if (!$productInfo) {
     exit;
 }
 
+// Ensure product data structure matches `products.php`
+$productInfo = [
+    'idProduct' => $productInfo['idProduct'],
+    'tenSanPham' => $productInfo['tenSanPham'],
+    'gia' => $productInfo['gia'],
+    'khuyenMai' => $productInfo['khuyenMai'],
+    'hinhAnh' => $productInfo['hinhAnh'],
+    'thuongHieu' => $productInfo['thuongHieu'],
+    'tonKho' => $productInfo['tonKho'],
+    'trongLuong' => $productInfo['trongLuong'],
+    'doCung' => $productInfo['doCung'],
+    'diemCanBang' => $productInfo['diemCanBang'],
+    'trinhDo' => $productInfo['trinhDo'],
+    'moTa' => $productInfo['moTa']
+];
+
 // Xử lý hình ảnh sản phẩm
 $listImage = explode(',', $productInfo['hinhAnh']);
 $mainImage = "../public/images/product/{$listImage[0]}/{$listImage[1]}";
@@ -43,12 +59,20 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
     <title><?php echo $productInfo['tenSanPham']; ?></title>
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/product.css">
     <link rel="stylesheet" href="../public/css/product-detail.css">
     <link rel="stylesheet" href="../public/css/cart.css">
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
         let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
     </script>
+    <style>
+        .product-info-detail img,
+        .product-info-detail h3,
+        .product-info-detail .price {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -159,12 +183,21 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                             </div>
                         </div>
 
-                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now" data-id="<?php echo $row['idProduct']; ?>">Mua ngay</button>
-                                        </div>
+                        <div class="san-pham-item" data-id="<?php echo $productInfo['idProduct']; ?>">
+                            <img src="<?php echo $mainImage; ?>" alt="<?php echo $productInfo['tenSanPham']; ?>">
+                            <h3><?php echo $productInfo['tenSanPham']; ?></h3>
+                            <p class="price" data-price="<?php echo $productInfo['gia']; ?>">
+                                <?php echo number_format($productInfo['gia'], 0, ',', '.'); ?> đ
+                            </p>
+                            <div class="san-pham-buttons">
+                                <button class="btn-add-cart" data-id="<?php echo $productInfo['idProduct']; ?>" data-price="<?php echo $productInfo['gia']; ?>">
+                                    <i class="ti-shopping-cart"></i> Giỏ hàng
+                                </button>
+                                <button class="btn-buy-now" data-id="<?php echo $productInfo['idProduct']; ?>" data-price="<?php echo $productInfo['gia']; ?>">
+                                    <i class="ti-credit-card"></i> Mua ngay
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
