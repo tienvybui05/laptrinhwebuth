@@ -402,6 +402,6 @@ $victorProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '',
     ?>
     <script src="../public/js/main.js"></script>
     <script src="../public/js/cart.js"></script>
-    <script src="../public/js/jquery-3.7.1.min.js"></script>
+    <script src="../public/js/jquery-3.7.1.min.js"></script>      
 </body>
 </html>

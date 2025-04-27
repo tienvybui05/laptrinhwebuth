@@ -74,8 +74,8 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
     
     <script>
         var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
-        let userId = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
-    </script>
+        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+    </script></body>
 </head>
 
 <body>

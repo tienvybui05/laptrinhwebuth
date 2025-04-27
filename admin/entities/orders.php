@@ -223,7 +223,7 @@ class orders {
         
         return false;
     }
-    // Lấy sản phẩm từ order xuống hóa đơn
+    // Lấy sản phẩm từ cart xuống order lấy dựa trên người chưa điền họ tên
     public function getOdersByUser($idUser){
         $sql = "SELECT orders.*, product.tenSanPham, product.gia 
         FROM orders
@@ -231,6 +231,8 @@ class orders {
         WHERE orders.idUser = '$idUser' AND orders.hoTen IS NULL";
         return $this->data->select($sql);
     }
+
+    
     
     public function dellOrders($idUser) {
         $sql = "DELETE orders
