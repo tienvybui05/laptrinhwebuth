@@ -44,10 +44,11 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/product-detail.css">
+    <link rel="stylesheet" href="../public/css/cart.css">
     <script>
-        var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
-        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
-    </script>
+    var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
+    let userId = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+</script>
 </head>
 
 <body>
@@ -90,7 +91,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                         </div>
                     </div>
 
-                    <div class="product-info">
+                    <div class="product-info-detail">
                         <h1 class="product-title"><?php echo $productInfo['tenSanPham']; ?></h1>
                         
                         <div class="product-meta">
@@ -108,7 +109,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                             </div>
                         </div>
 
-                        <div class="product-price">
+                        <div class="product-price-detail">
                             <div class="current-price"><?php echo number_format($currentPrice, 0, ',', '.'); ?> đ</div>
                             <?php if ($discountPercent > 0): ?>
                             <div class="original-price"><?php echo number_format($originalPrice, 0, ',', '.'); ?> đ</div>
@@ -157,6 +158,14 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                                 <button class="quantity-btn increase"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
+
+                        <div class="san-pham-buttons">
+                                            <button class="btn-add-cart">
+                                                <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
+                                            </button>
+                                            <button class="btn-buy-now" data-id="<?php echo $row['idProduct']; ?>">Mua ngay</button>
+                                        </div>
+                    </div>
                 </div>
 
                 <!-- Product Description -->
@@ -248,10 +257,32 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                 </div>
             </div>
         </main>
-
+        
         <?php
     include '../includes/footer.php';
     ?>
+    </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
+                </div>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
+                </div>
+            </div>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
     </div>
 
     <script src="../public/js/product-detail.js"></script>
