@@ -12,9 +12,13 @@ if(isset($_COOKIE['remember_token_customer']))
 {
 include '../admin/entities/user.php';
 $user = new user();
-$cookie = $_COOKIE['remember_token_customer'];
-setcookie('remember_token_customer', '', time() - 3600, "/", "", true, true);
-$result = $user->deleteToken($cookie);
+if(isset( $_COOKIE['remember_token_customer']))
+{
+    $cookie = $_COOKIE['remember_token_customer'];
+    setcookie('remember_token_customer', '', time() - 3600, "/", "", true, true);
+    $result = $user->deleteToken($cookie);
+}
+
 }
 ?>
 <!DOCTYPE html>

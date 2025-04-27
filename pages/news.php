@@ -22,12 +22,17 @@ if (!empty($keyword)) {
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/news.css">
+    <link rel="stylesheet" href="../public/css/products.css">
 </head>
 <body>
     <div class="wrapper">
         <?php include '../includes/header.php'; ?>
         
         <main class="main">
+        <div class="breadcrumbs">
+            <a href="../public/index.php">Trang chủ</a> &gt; <a href="./news.php">Tin tức</a>
+                               
+        </div>
             <div class="container">
                 <div class="news-header">
                     <h1>Tin tức</h1>

@@ -19,7 +19,7 @@ $latestNews = $news->getAllNews(3);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
-
+    <link rel="stylesheet" href="../public/css/products.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/cart.css">
@@ -35,6 +35,10 @@ $latestNews = $news->getAllNews(3);
     include '../includes/header.php';
 ?>
         <main class="main">
+        <div class="breadcrumbs">
+            <a href="../public/index.php">Trang chủ</a> &gt; <a href="./about.php">Giới thiệu</a>
+                               
+        </div>
             <div class="container">
                 <div class="gioi-thieu-about">
                     <div class="noi-dung-gioi-thieu-about">

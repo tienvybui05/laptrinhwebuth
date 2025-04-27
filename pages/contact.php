@@ -14,7 +14,7 @@ session_start();
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/cart.css">   
-
+    <link rel="stylesheet" href="../public/css/products.css">
 </head>
 
 <body>
@@ -23,8 +23,10 @@ session_start();
     <?php
     include '../includes/header.php';
 ?>
-        <main class="main-lienhe">
-            
+<div class="breadcrumbs">
+            <a href="../public/index.php">Trang chủ</a> &gt; <a href="./contact.php">Liên hệ</a>                 
+        </div>
+        <main class="main-lienhe">    
     <div class="khung">
     <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
         <div class="nd1">

@@ -1,13 +1,26 @@
 <?php
 session_start(); // Bắt đầu session
-
+include '../admin/entities/user.php';
+$user0 = new user();
+if(isset($_COOKIE['remember_token_customer'])&&!empty($_COOKIE['remember_token_customer']))
+{
+    $token = $_COOKIE['remember_token_customer'];
+    $result0 = $user0->getUserByToken($token);
+    if($result0 && $result0['vaiTro']==="customer")
+    {
+        $_SESSION['idUser'] = $result0['idUser'];
+        $_SESSION['hoTen'] = $result0['hoTen'];
+        
+        header("location:../public/index.php");
+        exit;
+    }
+}
 // Kiểm tra nếu đã đăng nhập
 if (isset($_SESSION['idUser'])) {
     header("Location: ../public/index.php"); // Chuyển hướng đến trang index
     exit;
 }
 
-include '../admin/entities/user.php';
 $user = new user();
 $hoTen = $soDienThoai = $username = $password = $diaChi = "";
 
@@ -21,7 +34,7 @@ if (isset($_POST['submit'])) {
 
     if ($user->isUsernameNotExist($username)) {
         $result = $user->addUser($hoTen, $soDienThoai, $username, $password, $diaChi, "customer");
-        header("Location: ../public/index.php");
+        header("Location: login.php");
         exit;
     } else {
         $_SESSION['error'] = "Username của bạn đã tồn tại";
