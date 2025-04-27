@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['idUser'])) {
+    header('Location: ../auth/login.php');
+    exit();
+}
 include_once '../admin/entities/cart-customer.php';
 $cart = new cart_customer();
 $idUser = @$_SESSION['idUser'];

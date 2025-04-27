@@ -1,5 +1,18 @@
 <?php
 session_start();
+include '../admin/entities/user.php';
+$user0 = new user();
+if(isset($_COOKIE['remember_token_customer'])&&!empty($_COOKIE['remember_token_customer']))
+{
+    $token = $_COOKIE['remember_token_customer'];
+    $result0 = $user0->getUserByToken($token);
+    if($result0 && $result0['vaiTro']==="customer")
+    {
+        $_SESSION['idUser'] = $result0['idUser'];
+        $_SESSION['hoTen'] = $result0['hoTen'];
+        
+    }
+}
 include '../admin/entities/product.php';
 include '../admin/entities/news.php'; // Thêm dòng này để import class news
 
