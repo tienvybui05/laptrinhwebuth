@@ -1,29 +1,21 @@
 <?php
-session_start();
-include_once '../admin/entities/cart-customer.php';
-include_once '../admin/entities/product.php';
-include_once '../admin/entities/orders.php';
+    session_start();
+    include_once '../admin/entities/cart-customer.php';
+    include_once '../admin/entities/product.php';
+    include_once '../admin/entities/orders.php';
 
-// Kiểm tra đăng nhập
-if (!isset($_SESSION['idUser'])) {
-    header('Location: ../auth/login.php');
-    exit();
-}
+    // Kiểm tra đăng nhập
+    if (!isset($_SESSION['idUser'])) {
+        header('Location: ../auth/login.php');
+        exit();
+    }
 
-$idUser = $_SESSION['idUser'];
-$cart = new cart_customer();
-$product = new product();
-$orders = new orders();
+    $idUser = $_SESSION['idUser'];
+    $cart = new cart_customer();
+    $product = new product();
+    $orders = new orders();
 
-// Kiểm tra xem có sản phẩm "Mua ngay" trong session không
-$buyNowProduct = isset($_SESSION['buy_now']) ? $_SESSION['buy_now'] : null;
-
-if ($buyNowProduct) {
-    // Hiển thị sản phẩm "Mua ngay"
-    $cartItems = [$buyNowProduct];
-    $totalAmount = $buyNowProduct['thanhTien'];
-} else {
-    // Nếu không có sản phẩm "Mua ngay", hiển thị giỏ hàng như bình thường
+    // Lấy giỏ hàng của người dùng
     $result = $orders->getOdersByUser($idUser);
 
     $totalAmount = 0;
@@ -35,45 +27,15 @@ if ($buyNowProduct) {
             $cartItems[] = $row;
         }
     }
-}
 
-// Xử lý khi form được gửi đi
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $hoTen = $_POST['ten'];
-    $soDienThoai = $_POST['dienthoai'];
-    $diaChi = $_POST['diachi'];
-    $ghiChu = $_POST['noidung'];
-    $phuongThuc = $_POST['payment'];
-    
-    // Kiểm tra xem có phải là mua ngay không
-    if (isset($_POST['buy_now_product_id']) && isset($_POST['buy_now_product_qty'])) {
-        $productId = $_POST['buy_now_product_id'];
-        $quantity = $_POST['buy_now_product_qty'];
-        
-        // Lấy thông tin sản phẩm
-        $productInfo = $product->getProductbyId($productId);
-        
-        if ($productInfo) {
-            $thanhTien = $productInfo['gia'] * $quantity;
-            
-            // Chuẩn bị dữ liệu sản phẩm
-            $products = [
-                [
-                    'idProduct' => $productId,
-                    'soLuong' => $quantity,
-                    'thanhTien' => $thanhTien
-                ]
-            ];
-            
-            // Tạo đơn hàng
-            $orderCode = $orders->createOrder($idUser, $products, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
-            if ($orderCode) {
-                // Chuyển hướng đến trang đặt hàng thành công
-                header("Location: order-success.php?code=$orderCode");
-                exit();
-            }
-        }
-    } else {
+    // Xử lý khi form được gửi đi
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $hoTen = $_POST['ten'];
+        $soDienThoai = $_POST['dienthoai'];
+        $diaChi = $_POST['diachi'];
+        $ghiChu = $_POST['noidung'];
+        $phuongThuc = $_POST['payment'];
+
         // Chuẩn bị dữ liệu sản phẩm từ giỏ hàng
         $products = [];
         foreach ($cartItems as $item) {
@@ -83,23 +45,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'thanhTien' => $item['thanhTien']
             ];
         }
-        
-        // Tạo đơn hàng
+
+        // Tạo đơn hàng (theo kiểu updateOrder bạn yêu cầu)
         $orderCode = $orders->updateOrder($idUser, $hoTen, $soDienThoai, $diaChi, $phuongThuc, $ghiChu);
-        
+
         if ($orderCode) {
-            //Xóa giỏ hàng sau khi đặt hàng thành công
+            // Xóa giỏ hàng sau khi đặt hàng thành công
             $cart->clearCart($idUser, $orderCode);
-            $cart->decreaseStock($idUser, $orderCode );
+            $cart->decreaseStock($idUser, $orderCode);
+            
             // Chuyển hướng đến trang đặt hàng thành công
             header("Location: order-success.php?code=$orderCode");
             exit();
         }
     }
-}
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="vi">

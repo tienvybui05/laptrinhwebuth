@@ -80,28 +80,34 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function(event) {
             var btnItem = event.target
             var product = btnItem.closest(".san-pham-item")
-            console.log(product);
+            var productImg = product.querySelector("img").src
+            var productName = product.querySelector("h3").innerText
             
             var idProduct = product.getAttribute('data-id')
-            var price = product.getAttribute('data-price')
+            var productPrice = product.querySelector("p").innerText
+            //var productPrice = product.getAttribute('data-price')
             var productQuality = 1
-            console.log(productQuality)
-        
-            console.log(product)
-            console.log(price)
             
             
-            const cartData = {
-                cart: [
+            
+            const orderData = {
+                order: [
                     {
                         id: idProduct,
-                        quantity: productQuality,
-                        price: price,
+                        image: productImg,
+                        name: productName,
+                        price: productPrice,
+                        quantity: productQuality
                     }
                 ]
             };
+            console.log("orderData chi tiết:", orderData);
+            console.log("idProduct:", idProduct);
+            console.log("productPrice:", productPrice);
+            console.log("productQuality:", productQuality);
+            
 
-            fetch('../includes/cart/save_cartphu.php', {
+            fetch('../includes/cart/load_buynow-order.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 if (data.success) {
                     alert('Mua ngay thành công! Đang chuyển đến trang xác nhận đơn hàng...');
-                    window.location.href = `../pages/order-success.php`;
+                    window.location.href = `../pages/payment.php`;
                 } else {
                     alert('Có lỗi: ' + data.message);
                 }

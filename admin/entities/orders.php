@@ -9,13 +9,13 @@ class orders {
         $this->data = new database();
     }
     
- // Thêm sản phẩm vào giỏ hàng
- public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) 
- {
-    $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien, ngayDatHang) 
-            VALUES ('$idUser', '$idProduct', '$soLuong', '$thanhTien', NOW())";
-    return $this->data->insert($sql);
-}
+    // Thêm sản phẩm vào giỏ hàng
+    public function addToOrder($idUser, $idProduct, $soLuong, $thanhTien) 
+    {
+        $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien, ngayDatHang) 
+                VALUES ('$idUser', '$idProduct', '$soLuong', '$thanhTien', NOW())";
+        return $this->data->insert($sql);
+    }
     public function getOrdersOfAdmin()
     {
          $sql = "SELECT user.idUser AS idUser, 
