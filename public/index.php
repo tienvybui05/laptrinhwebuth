@@ -151,7 +151,7 @@ $victorProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '',
                 <section class="vot vot-yonex">
                     <div class="header-row">
                         <h2>VỢT YONEX</h2>
-                        <a href="#" class="view-more-link">Xem thêm</a>
+                        <a href="../pages/products.php?category=Yonex" class="view-more-link">Xem thêm</a>
                     </div>
                     <div class="carousel-container">
                         <div class="carousel-track">
@@ -198,7 +198,7 @@ $victorProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '',
                 <section class="vot vot-lining">
                     <div class="header-row">
                         <h2>VỢT LINING</h2>
-                        <a href="#" class="view-more-link">Xem thêm</a>
+                        <a href="../pages/products.php?category=Lining" class="view-more-link">Xem thêm</a>
                     </div>
                     <div class="carousel-container">
                         <div class="carousel-track">
@@ -239,7 +239,7 @@ $victorProducts = $product->getFilteredProducts('', 0, 19500000, '', '', '', '',
                 <section class="vot vot-victor">
                     <div class="header-row">
                         <h2>VỢT VICTOR</h2>
-                        <a href="#" class="view-more-link">Xem thêm</a>
+                        <a href="../pages/products.php?category=Victor" class="view-more-link">Xem thêm</a>
                     </div>
                     <div class="carousel-container">
                         <div class="carousel-track">

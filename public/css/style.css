@@ -807,6 +807,26 @@ html {
     /* Thêm bóng khi hover */
 }
 
+.view-more-link {
+    display: inline-block;
+    padding: 1px 20px;
+    background-color: #1e88e5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    position: relative; /* Đảm bảo nút không bị ảnh hưởng bởi các phần tử khác */
+    z-index: 10; /* Đưa nút lên trên các phần tử khác */
+}
+
+.view-more-link:hover {
+    background-color: #1565c0;
+}
+
 /* Phần dịch vụ */
 .services {
     background-color: #000;
