@@ -59,6 +59,19 @@
             exit();
         }
     }
+
+    // Kiểm tra yêu cầu xóa đơn hàng
+    if (isset($_GET['action']) && $_GET['action'] === 'remove_order') {
+        // Gọi phương thức xóa đơn hàng liên quan đến người dùng
+        $result = $orders->dellOrders($idUser);
+
+        if ($result) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+        exit();
+    }
 ?>
 
 
@@ -389,7 +402,6 @@
                                 </label>
                             </div>
                         </div>
-                    
                 </div>
             </div>
             <div class="slidebarpayment">
@@ -431,9 +443,10 @@
                     </div>
                 </div>
                 <div class="submit_remove">
-                    <div><button class="remove-btn">Hủy đặt hàng</button></div>
+                    <div><button type="button" class="remove-btn">Hủy đặt hàng</button></div>
                     <div><button type="submit" class="checkout-btn">Đặt hàng</button></div>
                 </div>
+
 
                 </form>
             </div>

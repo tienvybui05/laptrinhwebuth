@@ -232,6 +232,15 @@ class orders {
         return $this->data->select($sql);
     }
     
+    public function dellOrders($idUser) {
+        $sql = "DELETE orders
+                FROM orders
+                JOIN product ON orders.idProduct = product.idProduct
+                WHERE orders.idUser = '$idUser' AND orders.hoTen IS NULL";
+        
+        return $this->data->delete($sql);
+    }
+    
     
     
     

@@ -52,5 +52,36 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             alert("Vui lòng điền đầy đủ thông tin giao hàng.");
         }
-    });     
+    }); 
+    document.querySelector('.remove-btn').addEventListener('click', function(e) {
+        e.preventDefault(); // Chặn load trang
+        // Kiểm tra xem có sản phẩm trong giỏ hàng không
+        const productSummaries = document.querySelectorAll(".product-summary");
+        if (
+            productSummaries.length === 0 ||
+            (productSummaries.length === 1 && productSummaries[0].querySelector(".product-qty").textContent === "x 0")
+        ) {
+            e.preventDefault();
+            alert("Giỏ hàng của bạn đang trống. Không xóa được!.");
+            document.querySelector('.remove-btn').innerText = "Không còn đơn";
+            return;
+        }
+        if (confirm("Bạn có chắc chắn muốn hủy tất cả sản phẩm trong đơn hàng không?")) {
+            fetch('payment.php?action=remove_order')
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === 'success') {
+                        alert("Đã hủy tất cả sản phẩm trong đơn hàng!");
+                        document.querySelector('.remove-btn').style.display = 'none'; // Ẩn nút
+                        window.location.reload(); // Reload lại trang cho chắc
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert("Có lỗi xảy ra, vui lòng thử lại.");
+                });
+        }
+    });
+    
+     
 });
