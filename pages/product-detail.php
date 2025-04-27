@@ -46,9 +46,9 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
     <link rel="stylesheet" href="../public/css/product-detail.css">
     <link rel="stylesheet" href="../public/css/cart.css">
     <script>
-    var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
-    let userId = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
-</script>
+        var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
+        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+    </script>
 </head>
 
 <body>

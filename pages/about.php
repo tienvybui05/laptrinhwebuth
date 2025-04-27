@@ -23,7 +23,10 @@ $latestNews = $news->getAllNews(3);
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/cart.css">
-
+    <script>
+        var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
+        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+    </script>
     
 
 </head>

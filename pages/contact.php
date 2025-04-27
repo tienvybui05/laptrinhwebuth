@@ -15,6 +15,10 @@ session_start();
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/cart.css">   
     <link rel="stylesheet" href="../public/css/products.css">
+    <script>
+        var isLoggedIn = <?php echo isset($_SESSION['idUser']) ? 'true' : 'false'; ?>;
+        let idUser = <?php echo isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 'null'; ?>;
+    </script>
 </head>
 
 <body>
