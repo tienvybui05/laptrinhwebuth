@@ -47,7 +47,7 @@
                     <ul class="dropdown-menu" style="display: none;">
                         <li><a href="../auth/info.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
                         <li><a href="../auth/changePassword.php"><i class="ti-key"></i> Đổi mật khẩu</a></li>
-                        <li><a href="../pages/orderHistory.php"><i class="ti-receipt"></i> Lịch sử đơn hàng</a></li>
+                        <li><a href="../pages/order-history.php"><i class="ti-receipt"></i> Lịch sử đơn hàng</a></li>
                         <li><a href="../auth/logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
                     </ul>
                 </div>
@@ -73,7 +73,7 @@
                     <?php } else { ?>
                     <!-- Hiển thị liên kết "Đăng nhập" nếu chưa đăng nhập -->
                     <a href="../auth/login.php" class="user-icon"><i class="ti-user"></i><span
-                            style="font-size: 16px;">Đăng nhập</span></a>
+                            style="font-size: 16px;margin-left: 10px;">Đăng nhập</span></a>
                     <?php } ?>
 
                 </div>

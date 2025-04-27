@@ -1,12 +1,10 @@
 <?php
 session_start();
-echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
-
-?>
-<?php
 
 include '../admin/entities/product.php';
 $product = new product();
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+$result = $product->getFilteredProducts($keyword, 0, 19500000, '', '', '', '', 'newest', 1, 8, '');
 
 // Lấy dữ liệu phân trang từ class product
 $productsPerPage = 16;
@@ -108,7 +106,7 @@ $hasFilters = !empty($keyword) || $priceMin > 0 || $priceMax < $priceRange['max'
                     <div class="product-area">
                         <div class="product-controls">
                             <div class="breadcrumbs">
-                                <a href="../public/index.html">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
+                                <a href="../public/index.php">Trang chủ</a> &gt; <a href="./products.php">Sản phẩm</a>
                                 <?php if (!empty($category)): ?>
                                 &gt; <span><?php echo $category; ?></span>
                                 <?php endif; ?>

@@ -1,9 +1,5 @@
 <?php
 session_start();
-echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
-
-?>
-<?php
 include '../admin/entities/product.php';
 $product = new product();
 
@@ -64,7 +60,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
             <div class="container">
                 <!-- Breadcrumbs -->
                 <div class="breadcrumbs">
-                    <a href="../public/index.html">Trang chủ</a> &gt; 
+                    <a href="../public/index.php">Trang chủ</a> &gt; 
                     <a href="products.php">Sản phẩm</a> &gt; 
                     <a href="products.php?keyword=<?php echo urlencode($productInfo['thuongHieu']); ?>"><?php echo $productInfo['thuongHieu']; ?></a> &gt; 
                     <span><?php echo $productInfo['tenSanPham']; ?></span>
