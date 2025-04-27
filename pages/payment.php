@@ -434,7 +434,6 @@
                     <div><button class="remove-btn">Hủy đặt hàng</button></div>
                     <div><button type="submit" class="checkout-btn">Đặt hàng</button></div>
                 </div>
-                <button type="submit" class="checkout-btn">Đặt hàng</button>
 
                 </form>
             </div>
