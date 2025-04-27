@@ -5,7 +5,7 @@ include_once '../admin/entities/product.php';
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['idUser'])) {
-    header('Location: login.php');
+    header('Location: ../auth/login.php');
     exit();
 }
 
