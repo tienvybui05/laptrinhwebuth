@@ -25,7 +25,7 @@ foreach($result as $ojb)
     $groupOrders[$orderCode]['totalAmount'] += $ojb['thanhTien'];
 }
 ?>
-                <h2>Quản lý giỏ hàng</h2>
+                <h2>Quản lý đơn hàng</h2>
                 <!-- <div class="search-and-create">
                    
                     <div class="tim-kiem">
