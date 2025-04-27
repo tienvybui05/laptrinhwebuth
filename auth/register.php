@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 
     if ($user->isUsernameNotExist($username)) {
         $result = $user->addUser($hoTen, $soDienThoai, $username, $password, $diaChi, "customer");
-        header("Location: ../public/index.html");
+        header("Location: ../public/index.php");
         exit;
     } else {
         $_SESSION['error'] = "Username của bạn đã tồn tại";

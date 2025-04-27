@@ -2,11 +2,11 @@
     <div class="container">
         <div class="footer-left">
             <a href="#" id="logo">
-                <img src="../public/images/logo.png" alt="logo">
+                <img src="../public/images/logo.png" alt="logo" style="width: 150px;margin-bottom: -30px;">
             </a>
             <h3>Thông tin liên hệ</h3>
             <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-            <p>Email:
+            <p style="color: white;">Mail: <a href="mailto:abc123@gmail.com" style="color: white;">abc123@gmail.com</a></p>
         </div>
         <div class="footer-center">
             <h3>Liên kết nhanh</h3>
@@ -14,7 +14,7 @@
                 <li><a href="../public/index.php">Trang chủ</a></li>
                 <li><a href="../pages/about.php">Giới thiệu</a></li>
                 <li><a href="../pages/products.php">Sản phẩm</a></li>
-                <li><a href="../pages/contact.php">Tin tức</a></li>
+                <li><a href="../pages/news.php">Tin tức</a></li>
                 <li><a href="../pages/contact.php">Liên hệ</a></li>
             </ul>
         </div>

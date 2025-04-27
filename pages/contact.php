@@ -11,50 +11,9 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
 
-
-
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="../public/css/cart.css">
-
-    <style>
-        .main-lienhe{
-            display:flex;
-            background-color: #f9f9f9;
-            padding: 40px;
-        }
-        .main-lienhe .khung{
-            width: 50%;
-            height: 450px;
-            background: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 25px;
-            
-           
-        }
-        .main-lienhe h3{
-            color:rgb(188, 97, 0);
-        }
-        .main-lienhe h4{
-            color:rgb(13, 14, 13);
-        }
-        .main-lienhe .bando{
-            width: 50%;
-            height:auto;
-           
-            margin-bottom: 40px;
-            
-        
-        }
-        .bando .map-frame{
-            width:100%;
-            height:500px;
-            border-radius: 15px;
-        }
-      
-    </style>
-    
+    <link rel="stylesheet" href="../public/css/cart.css">   
 
 </head>
 
@@ -74,11 +33,11 @@ session_start();
             <div class="thongtin">
                 <div>
                     <h4>Hotline</h4>
-                    <p><span>0704 638 037</span> | <span>0903 735 248</span></p>
+                    <p><span><a href="tel:0704638037" style="color: black;">0704 638 037</a></span> | <span><a href="tel:0903735248" style="color: black;">0903 735 248</a></span></p>
                 </div>
                 <div >
                     <h4>Email</h4>
-                    <p><span>abc@shopvot.com</span></p>
+                    <p><span><a href="mailto:abc123@gmail.com" style="color: black;">abc123@gmail.com</a></span></p>
                 </div>
                 <div >
                     <h4>Địa chỉ</h4>

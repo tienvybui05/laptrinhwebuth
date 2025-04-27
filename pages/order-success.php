@@ -69,225 +69,14 @@ while ($row = $orders->getOrdersFetch()) {
     <title>Đặt hàng thành công</title>
     <link rel="stylesheet" href="../public/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../public/css/style.css">
-    <style>
-        .success-container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .success-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .success-header i {
-            font-size: 60px;
-            color: #4CAF50;
-            display: block;
-            margin-bottom: 20px;
-        }
-        
-        .success-header h1 {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .success-header p {
-            font-size: 16px;
-            color: #666;
-        }
-        
-        .order-details {
-            margin-top: 30px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            padding: 20px;
-        }
-        
-        .order-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .order-info-column {
-            flex: 1;
-        }
-        
-        .order-info-column h3 {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .order-info-column p {
-            margin: 5px 0;
-            color: #666;
-        }
-        
-        .product-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .product-table th {
-            text-align: left;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .product-table td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .product-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .product-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            margin-right: 15px;
-            border-radius: 4px;
-        }
-        
-        .product-name {
-            font-weight: 500;
-        }
-        
-        .order-summary {
-            margin-top: 20px;
-            text-align: right;
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-        }
-        
-        .summary-label {
-            width: 150px;
-            text-align: left;
-            color: #666;
-        }
-        
-        .summary-value {
-            width: 120px;
-            text-align: right;
-            font-weight: 500;
-        }
-        
-        .total-row {
-            font-size: 18px;
-            font-weight: 600;
-            color: #e74c3c;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
-        }
-        
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            gap: 15px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background-color: #000;
-            color: #fff;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            background-color: #333;
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: #333;
-            border: 1px solid #333;
-        }
-        
-        .btn-outline:hover {
-            background-color: #f5f5f5;
-        }
-        
-        @media print {
-            .action-buttons, header, footer {
-                display: none;
-            }
-            
-            body {
-                background-color: #fff;
-            }
-            
-            .success-container {
-                box-shadow: none;
-                margin: 0;
-                padding: 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../public/css/cart.css">
+    
 </head>
 <body>
     <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <!--Thanh menu  -->
-                <nav class="navbar">
-                    <a href="../public/index.php" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <ul id="main-menu">
-                        <li><a href="../public/index.php">Trang chủ</a></li>
-                        <li><a href="about.php">Giới thiệu</a></li>
-                        <li><a href="products.php">Sản phẩm</a></li>
-                        <li><a href="news.php">Tin tức</a></li>
-                        <li><a href="contact.php">Liên hệ</a></li>
-                    </ul>
-                    <!--Thanh tìm kiếm  -->
-                    <div class="search-bar">
-                        <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="submit"><i class="ti-search"></i></button>
-                    </div>
-                    <div class="right-icons">
-                        <a href="cart.php" class="cart-icon"><i class="ti-shopping-cart"></i></a>
-                        <div class="user-menu">
-                            <a href="#" class="user-icon"><i class="ti-user"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="profile.php"><i class="ti-user"></i> Thông tin người dùng</a></li>
-                                <li><a href="order-history.php"><i class="ti-package"></i> Đơn hàng của tôi</a></li>
-                                <li><a href="logout.php"><i class="ti-power-off"></i> Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
+    <?php
+    include '../includes/header.php';
+?>
         
         <main class="main">
             <div class="success-container">
@@ -364,37 +153,34 @@ while ($row = $orders->getOrdersFetch()) {
             </div>
         </main>
         
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-left">
-                    <a href="#" id="logo">
-                        <img src="../public/images/logo.png" alt="logo">
-                    </a>
-                    <h3>Thông tin liên hệ</h3>
-                    <p>Địa chỉ: 123 đường ABC, TP.HCM</p>
-                    <p>Email: info@example.com</p>
+        <?php
+    include '../includes/footer.php';
+    ?>
+    </div>
+    <div class="cart-side">
+        <div class="container-cart">
+            <div class="header_cart-side">
+                <div class="header_cart">
+                    <h1>Giỏ hàng</h1>
                 </div>
-                <div class="footer-center">
-                    <h3>Liên kết nhanh</h3>
-                    <ul>
-                        <li><a href="../public/index.php">Trang chủ</a></li>
-                        <li><a href="about.php">Giới thiệu</a></li>
-                        <li><a href="products.php">Sản phẩm</a></li>
-                        <li><a href="news.php">Tin tức</a></li>
-                        <li><a href="contact.php">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-right">
-                    <h3>Theo dõi chúng tôi</h3>
-                    <ul>
-                        <li><a href="#"><i class="ti-facebook"></i>Facebook</a></li>
-                        <li><a href="#"><i class="ti-twitter"></i>Twitter</a></li>
-                        <li><a href="#"><i class="ti-instagram"></i>Instagram</a></li>
-                        <li><a href="#"><i class="ti-linkedin"></i>Linkedin</a></li>
-                    </ul>
+                <div class="close_cart-side">
+                    <p>Đóng<img src="../public/themify-icons/SVG/close.svg"></p>
                 </div>
             </div>
-        </footer>
+            <div class="detail-side">
+            </div>
+            <div class="total-cart-side">
+                <div>TỔNG TIỀN:</div>
+                <div class="productTotal"><span class="total-amount">0</span><span>đ</span></div>
+            </div>
+            <div class="cart-buttons">
+                <button class="view-cart-btn">XEM GIỎ HÀNG</button>
+                <button class="checkout-cart-btn">THANH TOÁN</button>
+            </div>
+        </div>
+    </div>
+    <script src="../public/js/main.js"></script>
+    <script src="../public/js/cart.js"></script>
     </div>
 </body>
 </html>

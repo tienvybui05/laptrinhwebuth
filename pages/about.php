@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo 'User ID: ' . ($_SESSION['idUser'] ?? 'Chưa có');
 include '../admin/entities/product.php';
 include '../admin/entities/news.php'; // Thêm dòng này để import class news
 
