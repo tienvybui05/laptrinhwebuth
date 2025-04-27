@@ -75,6 +75,41 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         loadCart();             
     }
+
+    const btnBuyNow = document.querySelectorAll(".checkout-cart-btn");
+
+    btnBuyNow.forEach(function(button) {
+        button.addEventListener("click", function() {
+            if (!isLoggedIn) {
+                alert('Bạn chưa đăng nhập!');
+                return;
+            }
+
+            fetch('../includes/cart/addCartToOrder.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idUser: idUser })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Chỉ chuyển trang khi server đã thêm đơn hàng thành công
+                    window.location.href = '../pages/payment.php';
+                } else {
+                    alert(data.message || "Có lỗi xảy ra khi thêm đơn hàng.");
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi Fetch:', error);
+                alert('Có lỗi khi gửi yêu cầu. Vui lòng thử lại.');
+            });
+        });
+    });
+
+
+
+    
+
     const btnn = document.querySelectorAll(".btn-buy-now");
     btnn.forEach(function(button, index) {
         button.addEventListener("click", function(event) {
@@ -117,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Mua ngay thành công! Đang chuyển đến trang xác nhận đơn hàng...');
                     window.location.href = `../pages/payment.php`;
                 } else {
                     alert('Có lỗi: ' + data.message);
@@ -129,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         })
     })
-
 
 });
 

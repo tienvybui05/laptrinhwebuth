@@ -232,7 +232,14 @@ class orders {
         return $this->data->select($sql);
     }
 
-    
+    //lấy tất cả sản phẩm từ cart đẩy qua order
+    public function addCarttoOrder($idUser){
+        $sql = "INSERT INTO orders (idUser, idProduct, soLuong, thanhTien)
+                SELECT idUser, idProduct, soLuong, thanhTien
+                FROM cart
+                WHERE idUser = $idUser";
+        return $this->data->insert($sql);
+    }
     
     public function dellOrders($idUser) {
         $sql = "DELETE orders

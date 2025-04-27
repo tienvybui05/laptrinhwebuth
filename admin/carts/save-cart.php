@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../entities/cart-customer.php';
+include '../entities/orders.php';
 
 header('Content-Type: application/json');
 
@@ -60,4 +61,6 @@ if (empty($errors)) {
 } else {
     echo json_encode(['success' => false, 'message' => 'Có lỗi xảy ra', 'errors' => $errors]);
 }
+
+
 ?>

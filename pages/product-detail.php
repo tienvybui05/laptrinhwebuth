@@ -90,7 +90,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                         </div>
                     </div>
 
-                    <div class="product-info-detail">
+                    <div class="product-info">
                         <h1 class="product-title"><?php echo $productInfo['tenSanPham']; ?></h1>
                         
                         <div class="product-meta">
@@ -108,7 +108,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                             </div>
                         </div>
 
-                        <div class="product-price-detail">
+                        <div class="product-price">
                             <div class="current-price"><?php echo number_format($currentPrice, 0, ',', '.'); ?> đ</div>
                             <?php if ($discountPercent > 0): ?>
                             <div class="original-price"><?php echo number_format($originalPrice, 0, ',', '.'); ?> đ</div>
@@ -157,14 +157,6 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                                 <button class="quantity-btn increase"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
-
-                        <div class="san-pham-buttons">
-                                            <button class="btn-add-cart">
-                                                <i class="ti-shopping-cart"></i> Giỏ hàng <!-- Icon giỏ hàng -->
-                                            </button>
-                                            <button class="btn-buy-now" data-id="<?php echo $row['idProduct']; ?>">Mua ngay</button>
-                                        </div>
-                    </div>
                 </div>
 
                 <!-- Product Description -->
