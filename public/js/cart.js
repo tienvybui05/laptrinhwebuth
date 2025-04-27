@@ -236,7 +236,7 @@ function addToCart(id, img, name, price, quantity) {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert("Đã thêm vào giỏ hàng (server)!");
+                    alert("Đã thêm vào giỏ hàng!");
                     fetchCartFromDB(idUser); // Gọi lại giỏ hàng từ DB và render
                 } else {
                     alert("Thêm vào giỏ hàng thất bại!");

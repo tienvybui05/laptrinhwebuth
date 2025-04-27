@@ -227,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Đặt hàng thành công!");
                 localStorage.removeItem('cartphu');
                 window.location.href = "../pages/payment.php";
             } else {
