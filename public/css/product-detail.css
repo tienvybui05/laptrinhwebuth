@@ -32,7 +32,7 @@
   flex: 0 0 40%;
 }
 
-.product-info {
+.product-info-detail {
   flex: 0 0 60%;
 }
 
@@ -120,7 +120,7 @@
 }
 
 /* Product Price */
-.product-price {
+.product-price-detail {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -461,7 +461,7 @@
   }
 
   .product-gallery,
-  .product-info {
+  .product-info-detail {
     flex: 0 0 100%;
   }
 

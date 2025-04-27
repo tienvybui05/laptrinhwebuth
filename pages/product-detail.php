@@ -90,7 +90,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                         </div>
                     </div>
 
-                    <div class="product-info">
+                    <div class="product-info-detail">
                         <h1 class="product-title"><?php echo $productInfo['tenSanPham']; ?></h1>
                         
                         <div class="product-meta">
@@ -108,7 +108,7 @@ $relatedProducts = $product->getRelatedProducts($productId, $productInfo['thuong
                             </div>
                         </div>
 
-                        <div class="product-price">
+                        <div class="product-price-detail">
                             <div class="current-price"><?php echo number_format($currentPrice, 0, ',', '.'); ?> đ</div>
                             <?php if ($discountPercent > 0): ?>
                             <div class="original-price"><?php echo number_format($originalPrice, 0, ',', '.'); ?> đ</div>
