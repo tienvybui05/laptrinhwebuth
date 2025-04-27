@@ -182,17 +182,8 @@
             font-size: 1.2rem;
         }
 
-        /* Nút thanh toán */
-        .checkout-btn {
-            width: 100%;
-            padding: 12px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+
+        
 
         .slidebarpayment h2 {
             font-size: 20px;
@@ -230,7 +221,7 @@
 
         .checkout-btn {
             width: 100%;
-            padding: 14px;
+            padding: 14px 80px;
             background: #000000;
             color: white;
             border: none;
@@ -239,11 +230,26 @@
             font-size: 16px;
             cursor: pointer;
             transition: background 0.3s;
+            white-space: nowrap;
         }
 
         .checkout-btn:hover {
             background: #242424;
             color: rgb(255, 255, 255);
+        }
+        .remove-btn {
+            width: 100%;
+            padding: 14px 80px;
+            background:rgb(199, 199, 199);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+            white-space: nowrap;
         }
 
         /* Header đơn hàng */
@@ -309,6 +315,12 @@
         
         .payment-info.active {
             display: block;
+        }
+        .submit_remove{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
     </style>
     <script>
@@ -417,8 +429,10 @@
                         <strong class="total-amount"><?php echo number_format($totalAmount ); ?>đ</strong>
                     </div>
                 </div>
-                
-                <button type="submit" class="checkout-btn">Đặt hàng</button>
+                <div class="submit_remove">
+                    <div><button class="remove-btn">Hủy đặt hàng</button></div>
+                    <div><button type="submit" class="checkout-btn">Đặt hàng</button></div>
+                </div>
                 </form>
             </div>
         </main>
